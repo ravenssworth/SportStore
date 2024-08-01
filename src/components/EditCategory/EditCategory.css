@@ -1,0 +1,22 @@
+.edit-category-button {
+	display: flex;
+	flex-wrap: nowrap;
+	padding: 15px 20px;
+	background-color: rgb(42, 42, 43);
+	color: white;
+	border: none;
+	border-radius: 12px;
+	cursor: pointer;
+	margin-left: 15px;
+}
+
+.form-container {
+	margin-left: 15px;
+}
+.form-container button {
+	padding: 10px 20px;
+	border: none;
+	margin-top: 10px;
+	border-radius: 5px;
+	cursor: pointer;
+}
