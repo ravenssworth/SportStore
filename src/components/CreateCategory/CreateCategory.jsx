@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import axios from 'axios'
 import './CreateCategory.css'
+import Input from '../Input/Input'
 
 function CreateCategory({ onCategoryAdded }) {
 	const [name, setName] = useState('')
@@ -39,23 +40,19 @@ function CreateCategory({ onCategoryAdded }) {
 				<div className='form-container'>
 					<form onSubmit={handleSubmit}>
 						<div className='form-group'>
-							<label htmlFor='name'>Название</label>
-							<input
-								type='text'
+							<Input
 								id='name'
 								value={name}
 								onChange={e => setName(e.target.value)}
-								required
+								placeholder='Название'
 							/>
 						</div>
 						<div className='form-group'>
-							<label htmlFor='description'>Описание</label>
-							<input
-								type='text'
+							<Input
 								id='description'
 								value={description}
 								onChange={e => setDescription(e.target.value)}
-								required
+								placeholder='Описание'
 							/>
 						</div>
 						<div className='button-container'>
@@ -67,8 +64,26 @@ function CreateCategory({ onCategoryAdded }) {
 					</form>
 				</div>
 			) : (
-				<button onClick={handleAddCategory} className='add-category-button'>
-					Добавить категорию
+				<button onClick={handleAddCategory} class='edit-button'>
+					<svg
+						width='25px'
+						height='25px'
+						viewBox='0 0 24 24'
+						fill='none'
+						xmlns='http://www.w3.org/2000/svg'
+						className='edit-svgIcon'
+					>
+						<g id='Edit / Add_Plus'>
+							<path
+								id='Vector'
+								d='M6 12H12M12 12H18M12 12V18M12 12V6'
+								stroke='white'
+								stroke-width='2'
+								stroke-linecap='round'
+								stroke-linejoin='round'
+							/>
+						</g>
+					</svg>
 				</button>
 			)}
 		</div>

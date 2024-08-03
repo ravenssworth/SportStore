@@ -1,6 +1,5 @@
-.createProduct {
-	max-width: 1600px;
-	margin: auto;
+.create-product {
+	width: 50%;
 	margin-bottom: 20px;
 }
 .form-group-image {
@@ -31,4 +30,33 @@ label[for='image'] {
 }
 .form-group-label-product {
 	margin-bottom: 5px;
+}
+
+.edit-button::before {
+	display: none;
+	content: 'Добавить';
+	color: white;
+	transition-duration: 0.3s;
+	font-size: 2px;
+}
+
+.create-product .edit-svgIcon {
+	width: 25px;
+	height: 25px;
+	transition-duration: 0.3s;
+}
+
+.create-product .button-container {
+	display: flex;
+	justify-content: space-between;
+}
+
+.create-product .button-container button {
+	background-color: #faf9f8;
+	color: black;
+	border-radius: 5px;
+	font-size: 17px;
+	padding: 1em 2em;
+	cursor: pointer;
+	border: 1px solid black;
 }

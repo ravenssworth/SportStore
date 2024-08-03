@@ -1,24 +1,33 @@
 html,
 body {
-	background-color: rgb(255, 255, 255);
+	background-color: #faf9f8;
 	margin: 0;
 	padding: 0;
 }
 
 .content {
 	display: flex;
-	flex-direction: row;
+	flex-direction: column;
 	max-width: 100%;
 }
 
 .tabs {
-	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-	border-radius: 12px;
+	/* box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+	border-radius: 12px; */
 	margin: 0 auto;
 	margin-top: 20px;
 	width: 1400px;
 }
+.add-page-header {
+	display: flex;
+	width: 100%;
 
+	height: 80px;
+}
+.add-page-header__menu-container {
+	margin-right: 15px;
+	margin-left: auto;
+}
 .tabs__items {
 	display: flex;
 	flex-wrap: wrap;
@@ -63,7 +72,14 @@ body {
 
 .tabs__category-actions {
 	display: flex;
-
 	flex-direction: row;
+	justify-content: space-between;
+	margin-bottom: 15px;
+}
+
+.tabs__product-actions {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
 	margin-bottom: 15px;
 }

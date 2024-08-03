@@ -1,7 +1,8 @@
 import React from 'react'
 import './CategoriesList.css'
+import DeleteButton from '../DeleteButton/DeleteButton.jsx'
 
-function CategoriesList({ categories }) {
+function CategoriesList({ categories, onDeleteCategory }) {
 	if (categories.length === 0) {
 		return <p>No categories found</p>
 	}
@@ -14,6 +15,7 @@ function CategoriesList({ categories }) {
 						<th>ID</th>
 						<th>Название Категории</th>
 						<th>Описание категории</th>
+						<th>Действия</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -22,6 +24,9 @@ function CategoriesList({ categories }) {
 							<td>{category.id}</td>
 							<td>{category.categoryName}</td>
 							<td>{category.categoryDescription}</td>
+							<td>
+								<DeleteButton onClick={() => onDeleteCategory(category.id)} />
+							</td>
 						</tr>
 					))}
 				</tbody>

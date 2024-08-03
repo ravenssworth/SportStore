@@ -1,8 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import axios from 'axios'
 import './CreateProduct.css'
+import Input from '../Input/Input'
 
 function CreateProduct({ categories, onProductAdded }) {
+	const [name, setName] = useState('')
+	const [description, setDescription] = useState('')
+	const [price, setPrice] = useState('')
+	const [stock, setStock] = useState('')
 	const [selectedCategory, setSelectedCategory] = useState('')
 	const [file, setFile] = useState(null)
 	const [showForm, setShowForm] = useState(false)
@@ -20,10 +25,10 @@ function CreateProduct({ categories, onProductAdded }) {
 			new Blob(
 				[
 					JSON.stringify({
-						productName: event.target.name.value,
-						productDescription: event.target.description.value,
-						price: event.target.price.value,
-						stock: event.target.stock.value,
+						productName: name,
+						productDescription: description,
+						price: price,
+						stock: stock,
 						categoryId: selectedCategory,
 					}),
 				],
@@ -34,12 +39,7 @@ function CreateProduct({ categories, onProductAdded }) {
 		try {
 			const response = await axios.post(
 				'http://localhost:8080/api/products',
-				formData,
-				{
-					headers: {
-						'Content-Type': 'multipart/form-data',
-					},
-				}
+				formData
 			)
 			console.log('Product created successfully:', response.data)
 			if (onProductAdded) {
@@ -56,30 +56,41 @@ function CreateProduct({ categories, onProductAdded }) {
 			}
 		}
 	}
+
 	const handleAddProduct = () => {
 		setShowForm(true)
 	}
 
 	return (
-		<div className='createProduct'>
+		<div className='create-product'>
 			{showForm ? (
 				<div className='product-container'>
 					<form onSubmit={handleSubmit}>
 						<div className='form-group'>
-							<label htmlFor='name'>Название</label>
-							<input type='text' id='name' name='name' required />
-						</div>
-						<div className='form-group'>
-							<label htmlFor='description'>Описание</label>
-							<input type='text' id='description' name='description' required />
-						</div>
-						<div className='form-group'>
-							<label htmlFor='price'>Цена</label>
-							<input type='text' id='price' name='price' required />
-						</div>
-						<div className='form-group'>
-							<label htmlFor='stock'>Количество</label>
-							<input type='text' id='stock' name='stock' required />
+							<Input
+								id='name'
+								value={name}
+								placeholder='Название'
+								onChange={e => setName(e.target.value)}
+							/>
+							<Input
+								id='description'
+								value={description}
+								placeholder='Описание'
+								onChange={e => setDescription(e.target.value)}
+							/>
+							<Input
+								id='price'
+								value={price}
+								placeholder='Цена'
+								onChange={e => setPrice(e.target.value)}
+							/>
+							<Input
+								id='stock'
+								value={stock}
+								placeholder='Количество'
+								onChange={e => setStock(e.target.value)}
+							/>
 						</div>
 						<div className='form-group'>
 							<label htmlFor='category'>Категория</label>
@@ -121,8 +132,26 @@ function CreateProduct({ categories, onProductAdded }) {
 					</form>
 				</div>
 			) : (
-				<button onClick={handleAddProduct} className='add-category-button'>
-					Добавить продукт
+				<button onClick={handleAddProduct} class='edit-button'>
+					<svg
+						width='25px'
+						height='25px'
+						viewBox='0 0 24 24'
+						fill='none'
+						xmlns='http://www.w3.org/2000/svg'
+						className='edit-svgIcon'
+					>
+						<g id='Edit / Add_Plus'>
+							<path
+								id='Vector'
+								d='M6 12H12M12 12H18M12 12V18M12 12V6'
+								stroke='white'
+								stroke-width='2'
+								stroke-linecap='round'
+								stroke-linejoin='round'
+							/>
+						</g>
+					</svg>
 				</button>
 			)}
 		</div>

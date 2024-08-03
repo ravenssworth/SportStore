@@ -1,16 +1,11 @@
 .create-category-container {
-	/* max-width: 1600px;
-	margin: auto;
-	margin-bottom: 20px; */
+	width: 50%;
 }
 
 .form-group {
 	margin-bottom: 15px;
 }
-.form-group label {
-	display: block;
-	margin-bottom: 5px;
-}
+
 .add-category-button {
 	width: 190px;
 	padding: 15px 20px;
@@ -25,35 +20,24 @@
 	background-color: black;
 }
 
-.form-group input {
-	width: 100%;
-	padding: 0px;
-	height: 50px;
-	border-radius: 5px;
-	border: 1px solid #ccc;
-}
-
-.button-container {
+.create-category-container .button-container {
 	display: flex;
 	justify-content: space-between;
 }
 
-.button-container button {
-	padding: 10px 20px;
-	border: none;
+.create-category-container .button-container button {
+	background-color: #faf9f8;
+	color: black;
 	border-radius: 5px;
+	font-size: 17px;
+	width: 150px;
+	padding: 1em 2em;
 	cursor: pointer;
+	border: 1px solid black;
 }
 
-.button-container button[type='submit'] {
-	background-color: rgb(42, 42, 43);
-	color: white;
-}
-
-.button-container button[type='button'] {
-	background-color: rgb(221, 80, 80);
-}
-
-.button-container button:hover {
-	opacity: 0.8;
+.create-category-container .edit-svgIcon {
+	width: 25px;
+	height: 25px;
+	transition-duration: 0.3s;
 }

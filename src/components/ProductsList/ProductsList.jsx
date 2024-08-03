@@ -1,7 +1,8 @@
 import React from 'react'
 import './ProductsList.css'
+import DeleteButton from '../DeleteButton/DeleteButton.jsx'
 
-function ProductsList({ products }) {
+function ProductsList({ products, onDeleteProduct }) {
 	if (products.length === 0) {
 		return <p>No products found</p>
 	}
@@ -18,6 +19,7 @@ function ProductsList({ products }) {
 						<th>Количество</th>
 						<th>Категория</th>
 						<th>Изображение</th>
+						<th>Действия</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -36,6 +38,9 @@ function ProductsList({ products }) {
 										alt={product.productName}
 									/>
 								)}
+							</td>
+							<td>
+								<DeleteButton onClick={() => onDeleteProduct(product.id)} />
 							</td>
 						</tr>
 					))}
