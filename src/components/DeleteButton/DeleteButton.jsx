@@ -8,7 +8,7 @@ function DeleteButton({ onClick }) {
 				xmlns='http://www.w3.org/2000/svg'
 				fill='none'
 				viewBox='0 0 50 59'
-				class='bin'
+				className='bin'
 			>
 				<path
 					fill='#B5BAC1'

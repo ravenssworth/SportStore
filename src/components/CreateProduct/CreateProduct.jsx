@@ -9,51 +9,33 @@ function CreateProduct({ categories, onProductAdded }) {
 	const [price, setPrice] = useState('')
 	const [stock, setStock] = useState('')
 	const [selectedCategory, setSelectedCategory] = useState('')
-	const [file, setFile] = useState(null)
 	const [showForm, setShowForm] = useState(false)
-
-	const handleFileChange = event => {
-		setFile(event.target.files[0])
-	}
 
 	const handleSubmit = async event => {
 		event.preventDefault()
-		const formData = new FormData()
-		formData.append('image', file)
-		formData.append(
-			'entity',
-			new Blob(
-				[
-					JSON.stringify({
-						productName: name,
-						productDescription: description,
-						price: price,
-						stock: stock,
-						categoryId: selectedCategory,
-					}),
-				],
-				{ type: 'application/json' }
-			)
-		)
 
 		try {
+			const newProduct = {
+				productName: name,
+				productDescription: description,
+				price: price,
+				stock: stock,
+				categoryId: selectedCategory,
+			}
+
 			const response = await axios.post(
 				'http://localhost:8080/api/products',
-				formData
+				newProduct
 			)
 			console.log('Product created successfully:', response.data)
+
 			if (onProductAdded) {
 				onProductAdded(response.data)
 			}
+
 			setShowForm(false)
 		} catch (error) {
-			if (error.response && error.response.status === 400) {
-				alert(
-					'Product with the same name already exists. Please choose a different name.'
-				)
-			} else {
-				console.error('Failed to create product:', error)
-			}
+			console.error('Failed to create product:', error)
 		}
 	}
 
@@ -113,15 +95,6 @@ function CreateProduct({ categories, onProductAdded }) {
 						</div>
 						<div className='form-group-image'>
 							<label className='form-group-label-product'>Изображение</label>
-							<label htmlFor='image'>Выберите изображение</label>
-							<input
-								type='file'
-								id='image'
-								name='image'
-								accept='image/*'
-								onChange={handleFileChange}
-								required
-							/>
 						</div>
 						<div className='button-container'>
 							<button type='submit'>Добавить</button>
@@ -132,7 +105,7 @@ function CreateProduct({ categories, onProductAdded }) {
 					</form>
 				</div>
 			) : (
-				<button onClick={handleAddProduct} class='edit-button'>
+				<button onClick={handleAddProduct} className='edit-button'>
 					<svg
 						width='25px'
 						height='25px'
@@ -146,9 +119,9 @@ function CreateProduct({ categories, onProductAdded }) {
 								id='Vector'
 								d='M6 12H12M12 12H18M12 12V18M12 12V6'
 								stroke='white'
-								stroke-width='2'
-								stroke-linecap='round'
-								stroke-linejoin='round'
+								strokeWidth='2'
+								strokeLinecap='round'
+								strokeLinejoin='round'
 							/>
 						</g>
 					</svg>

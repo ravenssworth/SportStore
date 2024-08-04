@@ -12,19 +12,7 @@ select {
 	font-size: 15px;
 	border-radius: 5px;
 }
-input[type='file'] {
-	display: none;
-}
 
-label[for='image'] {
-	display: flex;
-	align-items: center;
-	width: 100%;
-	height: 50px;
-	border-radius: 5px;
-	border: 1px solid #ccc;
-	cursor: pointer;
-}
 .form-group-image {
 	margin-bottom: 15px;
 }

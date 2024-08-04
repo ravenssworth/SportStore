@@ -45,3 +45,44 @@
 	max-height: 50px;
 	border-radius: 5px;
 }
+
+.actions-container {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	gap: 10px;
+}
+
+.products-list-container input[type='file'] {
+	display: none;
+}
+
+.products-list-container label {
+	width: 50px;
+	height: 50px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 3px;
+	background-color: transparent;
+	border: none;
+	border-radius: 8px;
+	cursor: pointer;
+	transition: all 0.2s;
+	position: relative;
+	overflow: hidden;
+}
+
+.products-list-container label:hover {
+	background-color: rgb(237, 56, 56);
+	overflow: visible;
+}
+.bin path {
+	transition: all 0.2s;
+}
+.products-list-container label:hover .bin path {
+	stroke: #fff;
+}
+.products-list-container label:active {
+	transform: scale(0.98);
+}
