@@ -1,4 +1,3 @@
-// src/components/Goods/Goods.jsx
 import React from 'react'
 import './Goods.css'
 

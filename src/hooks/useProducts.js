@@ -30,8 +30,8 @@ const useProducts = () => {
 			const images = imageResponses.reduce((acc, curr, index) => {
 				const productId = response.data.content[index].id
 				const imageArray = curr.data.content || []
-				const formattedImages = imageArray.map(image => ({
-					src: `data:image/jpeg;base64,${image}`,
+				const formattedImages = imageArray.map(imageObj => ({
+					src: `data:image/jpeg;base64,${imageObj.image}`,
 				}))
 				acc[productId] = formattedImages
 				return acc

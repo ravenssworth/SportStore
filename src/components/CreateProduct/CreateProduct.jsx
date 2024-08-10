@@ -32,6 +32,11 @@ function CreateProduct({ categories, onProductAdded }) {
 			if (onProductAdded) {
 				onProductAdded(response.data)
 			}
+			setName('')
+			setDescription('')
+			setPrice('')
+			setStock('')
+			setSelectedCategory('')
 
 			setShowForm(false)
 		} catch (error) {

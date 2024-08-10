@@ -60,7 +60,9 @@ function AddPage() {
 
 	const handleDeleteProduct = async productId => {
 		try {
-			await axios.delete(`http://localhost:8080/api/products/${productId}`)
+			await axios.delete(
+				`http://localhost:8080/api/products/{id}?id=${productId}`
+			)
 			setProducts(prevProducts =>
 				prevProducts.filter(prod => prod.id !== productId)
 			)

@@ -1,8 +1,11 @@
 .menu {
-	width: 300px;
-	height: 40px;
+	display: flex;
+	width: 400px;
+	height: 80px;
 	border-radius: 12px;
 	background-color: #faf9f8;
+	justify-content: center;
+	align-items: center;
 }
 
 .menu .list {
@@ -11,14 +14,52 @@
 
 .menu .list li {
 	display: inline-block;
-	margin: auto;
 }
 
 .menu .list li a {
 	display: flex;
 	text-decoration: none;
-	opacity: 0.7;
 	color: black;
+}
+
+.login-button {
+	display: flex;
+	background-color: #faf9f8;
+	border: none;
+	width: 90px;
+	cursor: pointer;
+}
+.menu .username {
+	margin-left: 10px;
+	cursor: pointer;
+}
+
+.logout-modal {
+	position: absolute;
+	top: 100%;
+	left: 50%;
+	transform: translateX(-50%);
+	background-color: #faf9f8;
+	box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+	padding: 10px;
+	border-radius: 4px;
+	z-index: 1000;
+}
+
+.logout-button {
+	background-color: #faf9f8;
+	font-size: 16px;
+	color: #a0a0a0;
+	border: none;
+	padding: 10px 20px;
+	cursor: pointer;
+	border-radius: 4px;
+	width: 100%;
+	text-align: center;
+}
+
+.logout-button:hover {
+	color: #666565;
 }
 
 /* .menu .list li a:hover {

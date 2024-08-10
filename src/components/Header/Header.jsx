@@ -3,11 +3,11 @@ import Input from '../Input/Input'
 import Menu from '../Menu/Menu'
 import './Header.css'
 
-function Header({ searchTerm, onSearchChange }) {
+function Header({ searchTerm, onSearchChange, onLoginClick }) {
 	return (
 		<header>
 			<div className='header__menu'>
-				<Menu />
+				<Menu onLoginClick={onLoginClick} />
 			</div>
 			<div className='input-container'>
 				<Input

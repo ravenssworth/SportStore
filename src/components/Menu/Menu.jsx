@@ -1,10 +1,62 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './Menu.css'
 
-function Menu(props) {
+function Menu({ onLoginClick }) {
+	let username = localStorage.getItem('username')
+	const [isLogoutModalVisible, setIsLogoutModalVisible] = useState(false)
+
+	const handleLogout = () => {
+		localStorage.removeItem('token') // Удаляем токен из localStorage
+		localStorage.removeItem('username') // Удаляем имя пользователя из localStorage
+		window.location.reload() // Перезагружаем страницу, чтобы обновить состояние приложения
+	}
+	const handleMouseEnter = () => {
+		setIsLogoutModalVisible(true)
+	}
+
+	const handleMouseLeave = () => {
+		setIsLogoutModalVisible(false)
+	}
 	return (
 		<div className='menu'>
 			<ul className='list'>
+				<li
+					onMouseEnter={handleMouseEnter}
+					onMouseLeave={handleMouseLeave}
+					style={{ position: 'relative' }}
+				>
+					{username ? (
+						<>
+							<span className='username'>{username}</span>
+							{/* Модальное окно выхода */}
+							{isLogoutModalVisible && (
+								<div className='logout-modal'>
+									<button onClick={handleLogout} className='logout-button'>
+										Выйти
+									</button>
+								</div>
+							)}
+						</>
+					) : (
+						<button onClick={onLoginClick} className='login-button'>
+							<svg
+								width='40px'
+								height='25px'
+								viewBox='0 0 24 24'
+								fill='none'
+								xmlns='http://www.w3.org/2000/svg'
+							>
+								<path
+									fillRule='evenodd'
+									clipRule='evenodd'
+									d='M7 3C6.44772 3 6 3.44772 6 4C6 4.55228 6.44772 5 7 5H18C18.5523 5 19 5.44772 19 6V18C19 18.5523 18.5523 19 18 19H7C6.44772 19 6 19.4477 6 20C6 20.5523 6.44772 21 7 21H18C19.6569 21 21 19.6569 21 18V6C21 4.34315 19.6569 3 18 3H7ZM12.7071 7.29289C12.3166 6.90237 11.6834 6.90237 11.2929 7.29289C10.9024 7.68342 10.9024 8.31658 11.2929 8.70711L13.5858 11H4C3.44772 11 3 11.4477 3 12C3 12.5523 3.44772 13 4 13H13.5858L11.2929 15.2929C10.9024 15.6834 10.9024 16.3166 11.2929 16.7071C11.6834 17.0976 12.3166 17.0976 12.7071 16.7071L16.7071 12.7071C17.0976 12.3166 17.0976 11.6834 16.7071 11.2929L12.7071 7.29289Z'
+									fill='#000000'
+								/>
+							</svg>
+							<span>Войти</span>
+						</button>
+					)}
+				</li>
 				<li>
 					<a href='/'>
 						<svg
@@ -24,65 +76,67 @@ function Menu(props) {
 						<span>Главная</span>
 					</a>
 				</li>
-				<li>
-					<a href='/add'>
-						<svg
-							width='40px'
-							height='25px'
-							viewBox='0 0 24 24'
-							xmlns='http://www.w3.org/2000/svg'
-						>
-							<title />
+				{username && (
+					<li>
+						<a href='/add'>
+							<svg
+								width='40px'
+								height='25px'
+								viewBox='0 0 24 24'
+								xmlns='http://www.w3.org/2000/svg'
+							>
+								<title />
 
-							<g id='Complete'>
-								<g id='add-square'>
-									<g>
-										<rect
-											data-name='--Rectangle'
-											fill='none'
-											height='20'
-											id='_--Rectangle'
-											rx='2'
-											ry='2'
-											stroke='#000000'
-											stroke-linecap='round'
-											stroke-linejoin='round'
-											stroke-width='2'
-											width='20'
-											x='2'
-											y='2'
-										/>
+								<g id='Complete'>
+									<g id='add-square'>
+										<g>
+											<rect
+												data-name='--Rectangle'
+												fill='none'
+												height='20'
+												id='_--Rectangle'
+												rx='2'
+												ry='2'
+												stroke='#000000'
+												stroke-linecap='round'
+												stroke-linejoin='round'
+												stroke-width='2'
+												width='20'
+												x='2'
+												y='2'
+											/>
 
-										<line
-											fill='none'
-											stroke='#000000'
-											stroke-linecap='round'
-											stroke-linejoin='round'
-											stroke-width='2'
-											x1='15.5'
-											x2='8.5'
-											y1='12'
-											y2='12'
-										/>
+											<line
+												fill='none'
+												stroke='#000000'
+												stroke-linecap='round'
+												stroke-linejoin='round'
+												stroke-width='2'
+												x1='15.5'
+												x2='8.5'
+												y1='12'
+												y2='12'
+											/>
 
-										<line
-											fill='none'
-											stroke='#000000'
-											stroke-linecap='round'
-											stroke-linejoin='round'
-											stroke-width='2'
-											x1='12'
-											x2='12'
-											y1='15.5'
-											y2='8.5'
-										/>
+											<line
+												fill='none'
+												stroke='#000000'
+												stroke-linecap='round'
+												stroke-linejoin='round'
+												stroke-width='2'
+												x1='12'
+												x2='12'
+												y1='15.5'
+												y2='8.5'
+											/>
+										</g>
 									</g>
 								</g>
-							</g>
-						</svg>
-						<span>Добавить</span>
-					</a>
-				</li>
+							</svg>
+							<span>Добавить</span>
+						</a>
+					</li>
+				)}
 			</ul>
 		</div>
 	)
