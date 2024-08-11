@@ -140,9 +140,9 @@ function ProductsList({ products, onDeleteProduct }) {
 								<input
 									type='file'
 									onChange={event => handleFileChange(product.id, event)}
-									id='file-input'
+									id={`file-input-${product.id}`}
 								/>
-								<label htmlFor='file-input'>
+								<label htmlFor={`file-input-${product.id}`}>
 									<svg
 										width='40px'
 										height='25px'

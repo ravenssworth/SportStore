@@ -1,0 +1,32 @@
+.pagination button#pagination--previous {
+	display: none;
+}
+
+.pagination button#pagination--next {
+	display: none;
+}
+
+.pagination {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: 15px;
+}
+.pagination--switch {
+	margin: auto;
+	display: flex;
+	width: 100%;
+	justify-content: center;
+}
+
+.pagination--switch label {
+	height: 25px;
+	cursor: pointer;
+}
+.pagination select {
+	width: 50px;
+	margin-left: auto;
+	border: none;
+	background-color: #faf9f8;
+	cursor: pointer;
+}
