@@ -78,3 +78,13 @@
 	font-size: 17px;
 	padding: 1em 2em;
 }
+
+.edit-product-container__loading-button {
+	background-color: #faf9f8;
+	color: black;
+	border-radius: 5px;
+	font-size: 17px;
+	padding: 1em 2em !important;
+	cursor: pointer;
+	border: 1px solid black !important;
+}

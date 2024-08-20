@@ -12,13 +12,11 @@ function EditProduct({ categories, onProductUpdated }) {
 		price: '',
 		stock: '',
 		categoryDTO: {},
-		image: '',
 	}) // Данные продукта
 	const [isLoaded, setIsLoaded] = useState(false) // Флаг загрузки данных
 	const [loading, setLoading] = useState(false) // Флаг загрузки при отправке
 	const [error, setError] = useState(null) // Ошибка
 	const [showForm, setShowForm] = useState(false) // Управление отображением формы
-	const [file, setFile] = useState(null) // Состояние для файла изображения
 
 	// Функция для загрузки данных продукта
 	const loadProductData = async () => {
@@ -31,7 +29,7 @@ function EditProduct({ categories, onProductUpdated }) {
 			setIsLoaded(true)
 			setError(null) // Сброс ошибки
 		} catch (error) {
-			console.error('Error loading product data:', error)
+			console.error('Ошибка при загрузке данных о продукте:', error)
 			setError('Не удалось загрузить данные продукта.')
 			setIsLoaded(false)
 		} finally {
@@ -59,44 +57,23 @@ function EditProduct({ categories, onProductUpdated }) {
 		}))
 	}
 
-	// Функция для обработки изменения файла
-	const handleFileChange = event => {
-		setFile(event.target.files[0]) // Обновление состояния при выборе файла
-	}
-
-	// Функция для отправки измененных данных
-	// Функция для отправки измененных данных
 	const handleSubmit = async event => {
 		event.preventDefault()
-		const formData = new FormData()
-		formData.append('image', file)
-		formData.append(
-			'entity',
-			new Blob(
-				[
-					JSON.stringify({
-						productName: productData.productName, // Использование productData.productName
-						productDescription: productData.productDescription, // Использование productData.productDescription
-						price: productData.price, // Использование productData.price
-						stock: productData.stock, // Использование productData.stock
-						categoryId: productData.categoryDTO.id, // Использование productData.categoryDTO.id
-					}),
-				],
-				{ type: 'application/json' }
-			)
-		)
 
 		try {
+			const editProduct = {
+				productName: productData.productName, // Использование productData.productName
+				productDescription: productData.productDescription, // Использование productData.productDescription
+				price: productData.price, // Использование productData.price
+				stock: productData.stock, // Использование productData.stock
+				categoryId: productData.categoryDTO.id, // Использование productData.categoryDTO.id
+			}
+
 			const response = await axios.put(
-				`http://localhost:8080/api/products/${productData.id}`, // Обратите внимание, это PUT-запрос, а не GET
-				formData,
-				{
-					headers: {
-						'Content-Type': 'multipart/form-data',
-					},
-				}
+				`http://localhost:8080/api/products/${productData.id}`,
+				editProduct
 			)
-			console.log('Product updated successfully:', response.data)
+			console.log('Продукт успешно обновлен', response.data)
 			if (onProductUpdated) {
 				onProductUpdated(response.data)
 			}
@@ -104,10 +81,10 @@ function EditProduct({ categories, onProductUpdated }) {
 		} catch (error) {
 			if (error.response && error.response.status === 400) {
 				alert(
-					'Product with the same name already exists. Please choose a different name.'
+					'Продукт с таким названием уже существует. Пожалуйста, выберите другое название.'
 				)
 			} else {
-				console.error('Failed to update product:', error)
+				console.error('Не удалось обновить продукт:', error)
 			}
 		}
 	}
@@ -129,11 +106,12 @@ function EditProduct({ categories, onProductUpdated }) {
 								onChange={e => setProductId(e.target.value)}
 							/>
 							<button
+								className='edit-product-container__loading-button'
 								type='button'
 								onClick={loadProductData}
 								disabled={loading || !productId}
 							>
-								{loading ? 'Загрузка...' : 'Загрузить данные продукта'}
+								Загрузить данные продукта
 							</button>
 						</div>
 						{error && <p className='error'>{error}</p>}
@@ -198,16 +176,7 @@ function EditProduct({ categories, onProductUpdated }) {
 										))}
 									</select>
 								</div>
-								<div className='form-group'>
-									<label htmlFor='image'>Изображение:</label>
-									<input
-										type='file'
-										id='image'
-										name='image'
-										onChange={handleFileChange}
-										disabled={loading}
-									/>
-								</div>
+
 								<div className='button-container'>
 									<button type='submit' disabled={loading}>
 										{loading ? 'Сохранение...' : 'Сохранить изменения'}

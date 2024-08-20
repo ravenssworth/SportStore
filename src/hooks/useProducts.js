@@ -1,7 +1,11 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 
-const useProducts = (initialPage = 0, initialSize = 10) => {
+const useProducts = (
+	initialPage = 0,
+	initialSize = 10,
+	initialCategory = null
+) => {
 	const [products, setProducts] = useState([])
 	const [loading, setLoading] = useState(true)
 	const [error, setError] = useState(null)
@@ -9,13 +13,15 @@ const useProducts = (initialPage = 0, initialSize = 10) => {
 	const [page, setPage] = useState(initialPage)
 	const [size, setSize] = useState(initialSize)
 	const [totalPages, setTotalPages] = useState(1) // Количество страниц
+	const [category, setCategory] = useState(initialCategory) // Текущая категория
 
-	const fetchProducts = async (page, size) => {
+	const fetchProducts = async (page, size, category) => {
 		setLoading(true)
 		try {
+			const requestData = category ? { categoryId: category } : {}
 			const response = await axios.post(
 				`http://localhost:8080/api/products/all?page=${page}&size=${size}&sort=productName`,
-				{},
+				requestData,
 				{
 					headers: {
 						'Content-Type': 'application/json',
@@ -51,8 +57,8 @@ const useProducts = (initialPage = 0, initialSize = 10) => {
 	}
 
 	useEffect(() => {
-		fetchProducts(page, size)
-	}, [page, size])
+		fetchProducts(page, size, category)
+	}, [page, size, category]) // Запрос обновляется при изменении категории, страницы или размера
 
 	return {
 		products,
@@ -64,6 +70,7 @@ const useProducts = (initialPage = 0, initialSize = 10) => {
 		size,
 		setSize,
 		totalPages,
+		setCategory, // Возвращаем setter для категории
 		setProducts,
 	}
 }

@@ -2,3 +2,8 @@ html,
 body {
 	background-color: #faf9f8;
 }
+
+.main--container {
+	display: flex;
+	flex-direction: row;
+}

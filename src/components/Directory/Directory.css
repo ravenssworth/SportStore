@@ -1,0 +1,9 @@
+.directory ul,
+li {
+	list-style: none;
+}
+
+.directory a {
+	text-decoration: none;
+	color: black;
+}

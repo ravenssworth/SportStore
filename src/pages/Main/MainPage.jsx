@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
+import './MainPage.css'
 import Goods from '../../components/Goods/Goods.jsx'
 import Header from '../../components/Header/Header.jsx'
 import useProducts from '../../hooks/useProducts'
 import LoginModal from '../../components/LoginModal/LoginModal.jsx'
 import Pagination from '../../components/Pagination/Pagination.jsx'
+import Directory from '../../components/Directory/Directory.jsx'
 
 function MainPage() {
 	const {
@@ -16,21 +18,22 @@ function MainPage() {
 		size,
 		setSize,
 		totalPages,
-		setProducts,
+		setCategory, // Получаем функцию для установки категории
 	} = useProducts()
+
 	const [searchTerm, setSearchTerm] = useState('')
 	const [isLoginModalOpen, setIsLoginModalOpen] = useState(false)
+	const [selectedCategory, setSelectedCategory] = useState(null)
 
-	// Фильтрация продуктов по названию
 	const filteredProducts = products.filter(product =>
 		product.productName.toLowerCase().includes(searchTerm.toLowerCase())
 	)
 	const handleOpenLoginModal = () => {
-		console.log('Открытие модального окна')
 		setIsLoginModalOpen(true)
 	}
 
 	const handleCloseLoginModal = () => setIsLoginModalOpen(false)
+
 	const handleNextPage = () => {
 		if (page < totalPages - 1) {
 			setPage(page + 1)
@@ -48,30 +51,43 @@ function MainPage() {
 		setPage(0) // Сбрасываем на первую страницу при изменении размера страницы
 	}
 
+	const handleCategorySelect = categoryId => {
+		if (selectedCategory === categoryId) {
+			setSelectedCategory(null) // Сбрасываем категорию
+			setCategory(null) // Обновляем в хук useProducts
+		} else {
+			setSelectedCategory(categoryId) // Устанавливаем новую категорию
+			setCategory(categoryId)
+		}
+		setPage(0) // Сбрасываем на первую страницу при выборе новой категории
+	}
+
 	return (
-		<div>
+		<div className='main'>
 			<Header
 				searchTerm={searchTerm}
 				onSearchChange={setSearchTerm}
 				onLoginClick={handleOpenLoginModal}
 			/>
+
 			{loading ? (
 				<p>Загрузка...</p>
 			) : error ? (
 				<p>{error}</p>
 			) : (
-				<>
+				<div className='main--container'>
+					<Directory onCategorySelect={handleCategorySelect} />
 					<Goods products={filteredProducts} productImages={productImages} />
-					<Pagination
-						page={page}
-						totalPages={totalPages}
-						onPreviousPage={handlePreviousPage}
-						onNextPage={handleNextPage}
-						pageSize={size}
-						onPageSizeChange={handlePageSizeChange}
-					/>
-				</>
+				</div>
 			)}
+			<Pagination
+				page={page}
+				totalPages={totalPages}
+				onPreviousPage={handlePreviousPage}
+				onNextPage={handleNextPage}
+				pageSize={size}
+				onPageSizeChange={handlePageSizeChange}
+			/>
 			<LoginModal isOpen={isLoginModalOpen} onClose={handleCloseLoginModal} />
 		</div>
 	)

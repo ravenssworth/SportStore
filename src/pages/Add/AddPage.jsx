@@ -36,7 +36,7 @@ function AddPage() {
 							onChange={() => handleTabChange('products')}
 						/>
 						<label htmlFor='tab1' className='tabs__label'>
-							Добавить продукт
+							Продукты
 						</label>
 						<div id='content-tab1' className='tabs__block'>
 							{activeTab === 'products' && <ProductsSection />}
@@ -49,7 +49,7 @@ function AddPage() {
 							onChange={() => handleTabChange('categories')}
 						/>
 						<label htmlFor='tab2' className='tabs__label'>
-							Добавить категорию
+							Категории
 						</label>
 						<div id='content-tab2' className='tabs__block'>
 							{activeTab === 'categories' && <CategoriesSection />}

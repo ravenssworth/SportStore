@@ -1,7 +1,7 @@
-.edit-category-button {
+.edit-category-container .edit-category-button {
 	display: flex;
 	flex-wrap: nowrap;
-	padding: 15px 20px;
+	padding: 15px 25px;
 	background-color: rgb(42, 42, 43);
 	color: white;
 	border: none;
@@ -36,4 +36,22 @@
 	border: 1px solid black;
 	font-size: 17px;
 	padding: 1em 2em;
+}
+
+.edit-category-container .edit-button::before {
+	display: none;
+	content: 'Редактировать';
+	color: white;
+	transition-duration: 0.3s;
+	font-size: 5px;
+}
+
+.edit-category-container__loading-button {
+	background-color: #faf9f8;
+	color: black;
+	border-radius: 5px;
+	font-size: 17px;
+	padding: 1em 2em !important;
+	cursor: pointer;
+	border: 1px solid black !important;
 }

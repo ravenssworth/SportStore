@@ -81,6 +81,7 @@ function EditCategory({ onCategoryUpdated }) {
 								onChange={e => setCategoryId(e.target.value)}
 							/>
 							<button
+								className='edit-category-container__loading-button'
 								type='button'
 								onClick={loadCategoryData}
 								disabled={loading || !categoryId}
