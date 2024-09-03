@@ -47,11 +47,12 @@ function LoginModal({ isOpen, onClose }) {
 
 			// Второй запрос: Получение имени пользователя
 			const userResponse = await fetch(
-				`http://localhost:8080/api/users/username?token=${token}`, // Передача токена в URL
+				`http://localhost:8080/api/users/username`, // Передача токена в URL
 				{
-					method: 'POST',
+					method: 'GET',
 					headers: {
 						'Content-Type': 'application/json',
+						'Authorization': `Bearer ${token}`
 					},
 				}
 			)
