@@ -1,4 +1,5 @@
-import { Routes, Route } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
+import './App.css'
 import AddPage from './pages/Add/AddPage.jsx'
 import MainPage from './pages/Main/MainPage.jsx'
 import ProductInfo from './pages/ProductInfoPage/ProductInfoPage.jsx'
