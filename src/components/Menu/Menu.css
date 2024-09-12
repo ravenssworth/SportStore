@@ -1,19 +1,22 @@
 .menu {
 	display: flex;
-	width: 400px;
-	height: 80px;
-	border-radius: 12px;
-	background-color: #faf9f8;
-	justify-content: center;
+	width: 300px;
+	justify-content: end;
 	align-items: center;
+	height: 80px;
+	background-color: #faf9f8;
 }
 
 .menu .list {
 	display: flex;
+	justify-content: center;
+	margin: 0;
+	padding: 0;
 }
 
 .menu .list li {
 	display: inline-block;
+	margin-left: 15px;
 }
 
 .menu .list li a {
@@ -30,7 +33,6 @@
 	cursor: pointer;
 }
 .menu .username {
-	margin-left: 10px;
 	cursor: pointer;
 }
 
@@ -56,6 +58,13 @@
 	border-radius: 4px;
 	width: 100%;
 	text-align: center;
+}
+
+.list button {
+	background-color: #faf9f8;
+	border: none;
+	padding: 0;
+	cursor: pointer;
 }
 
 .logout-button:hover {

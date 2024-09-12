@@ -1,0 +1,47 @@
+.sidebar-cart {
+	width: 500px;
+	height: 100%;
+	background-color: #faf9f8;
+	position: absolute;
+	right: 0;
+	z-index: 1;
+	display: none;
+	top: 0;
+	border-left: 1px solid #ccc;
+}
+.close-button-cart {
+	background: none;
+	border: none;
+	cursor: pointer;
+	top: 15px;
+	right: 2px;
+	position: absolute;
+}
+.sidebar-cart.active {
+	display: block;
+}
+
+.sidebar-cart__item {
+	display: flex;
+	flex-direction: row;
+}
+
+.sidebar-cart__image {
+	max-width: 150px;
+	max-height: 150px;
+	border-radius: 8px;
+}
+
+.sidebar-cart__empty {
+	top: 15px;
+	left: 5px;
+	position: absolute;
+}
+
+.sidebar-cart__item {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-top: 10px;
+	margin-right: 5px;
+}

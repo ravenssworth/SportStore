@@ -1,14 +1,57 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './Menu.css'
+import Cart from '../Cart/Cart'
 
 function Menu({ onLoginClick }) {
-	let username = localStorage.getItem('username')
 	const [isLogoutModalVisible, setIsLogoutModalVisible] = useState(false)
+	const [isAdmin, setIsAdmin] = useState(false)
+	const [username, setUsername] = useState(localStorage.getItem('username'))
+	const [showCart, setShowCart] = useState(false)
+	const [cartProducts, setCartProducts] = useState([])
+
+	useEffect(() => {
+		const storedProducts =
+			JSON.parse(localStorage.getItem('cartProducts')) || []
+		setCartProducts(storedProducts)
+	}, [showCart]) // Перерисуем корзину, когда она открывается
+
+	useEffect(() => {
+		// Функция для проверки роли пользователя
+		const checkUserRole = async () => {
+			const token = localStorage.getItem('token')
+			if (token) {
+				try {
+					const response = await fetch('http://localhost:8080/api/users/role', {
+						method: 'GET',
+						headers: {
+							'Content-Type': 'application/json',
+							Authorization: `Bearer ${token}`, // Используем токен в заголовке Authorization
+						},
+					})
+
+					if (response.ok) {
+						const roles = await response.json()
+						// Проверяем, есть ли роль ADMIN
+						if (roles.includes('ROLE_ADMIN')) {
+							setIsAdmin(true)
+						}
+					} else {
+						console.error('Не удалось получить роли пользователя')
+					}
+				} catch (error) {
+					console.error('Ошибка при проверке роли:', error)
+				}
+			}
+		}
+
+		checkUserRole()
+	}, [])
 
 	const handleLogout = () => {
-		localStorage.removeItem('token') // Удаляем токен из localStorage
-		localStorage.removeItem('username') // Удаляем имя пользователя из localStorage
-		window.location.reload() // Перезагружаем страницу, чтобы обновить состояние приложения
+		localStorage.removeItem('token')
+		localStorage.removeItem('username')
+		setUsername(null) // Обновляем состояние
+		window.location.reload()
 	}
 	const handleMouseEnter = () => {
 		setIsLogoutModalVisible(true)
@@ -19,6 +62,7 @@ function Menu({ onLoginClick }) {
 	}
 	return (
 		<div className='menu'>
+			<Cart show={showCart} closeCart={() => setShowCart(false)} />
 			<ul className='list'>
 				<li
 					onMouseEnter={handleMouseEnter}
@@ -60,83 +104,58 @@ function Menu({ onLoginClick }) {
 				<li>
 					<a href='/'>
 						<svg
-							width='40px'
-							height='25px'
-							viewBox='0 0 24 24'
-							fill='none'
 							xmlns='http://www.w3.org/2000/svg'
+							width='1em'
+							height='1em'
+							viewBox='0 0 1024 1024'
+							strokeWidth='0'
+							fill='currentColor'
+							stroke='currentColor'
+							className='icon'
 						>
-							<path
-								fill-rule='evenodd'
-								clip-rule='evenodd'
-								d='M11.3103 1.77586C11.6966 1.40805 12.3034 1.40805 12.6897 1.77586L20.6897 9.39491L23.1897 11.7759C23.5896 12.1567 23.605 12.7897 23.2241 13.1897C22.8433 13.5896 22.2103 13.605 21.8103 13.2241L21 12.4524V20C21 21.1046 20.1046 22 19 22H14H10H5C3.89543 22 3 21.1046 3 20V12.4524L2.18966 13.2241C1.78972 13.605 1.15675 13.5896 0.775862 13.1897C0.394976 12.7897 0.410414 12.1567 0.810345 11.7759L3.31034 9.39491L11.3103 1.77586ZM5 10.5476V20H9V15C9 13.3431 10.3431 12 12 12C13.6569 12 15 13.3431 15 15V20H19V10.5476L12 3.88095L5 10.5476ZM13 20V15C13 14.4477 12.5523 14 12 14C11.4477 14 11 14.4477 11 15V20H13Z'
-								fill='#000000'
-							/>
+							<path d='M946.5 505L560.1 118.8l-25.9-25.9a31.5 31.5 0 0 0-44.4 0L77.5 505a63.9 63.9 0 0 0-18.8 46c.4 35.2 29.7 63.3 64.9 63.3h42.5V940h691.8V614.3h43.4c17.1 0 33.2-6.7 45.3-18.8a63.6 63.6 0 0 0 18.7-45.3c0-17-6.7-33.1-18.8-45.2zM568 868H456V664h112v204zm217.9-325.7V868H632V640c0-22.1-17.9-40-40-40H432c-22.1 0-40 17.9-40 40v228H238.1V542.3h-96l370-369.7 23.1 23.1L882 542.3h-96.1z'></path>
 						</svg>
-						<span>Главная</span>
 					</a>
 				</li>
-				{username && (
+
+				{username && isAdmin && (
 					<li>
 						<a href='/add'>
 							<svg
-								width='40px'
-								height='25px'
-								viewBox='0 0 24 24'
 								xmlns='http://www.w3.org/2000/svg'
+								width='1em'
+								height='1em'
+								viewBox='0 0 24 24'
+								stroke-width='0'
+								fill='currentColor'
+								stroke='currentColor'
+								class='icon'
 							>
-								<title />
-
-								<g id='Complete'>
-									<g id='add-square'>
-										<g>
-											<rect
-												data-name='--Rectangle'
-												fill='none'
-												height='20'
-												id='_--Rectangle'
-												rx='2'
-												ry='2'
-												stroke='#000000'
-												stroke-linecap='round'
-												stroke-linejoin='round'
-												stroke-width='2'
-												width='20'
-												x='2'
-												y='2'
-											/>
-
-											<line
-												fill='none'
-												stroke='#000000'
-												stroke-linecap='round'
-												stroke-linejoin='round'
-												stroke-width='2'
-												x1='15.5'
-												x2='8.5'
-												y1='12'
-												y2='12'
-											/>
-
-											<line
-												fill='none'
-												stroke='#000000'
-												stroke-linecap='round'
-												stroke-linejoin='round'
-												stroke-width='2'
-												x1='12'
-												x2='12'
-												y1='15.5'
-												y2='8.5'
-											/>
-										</g>
-									</g>
-								</g>
+								<path d='M12 2.5a5.5 5.5 0 0 1 3.096 10.047 9.005 9.005 0 0 1 5.9 8.181.75.75 0 1 1-1.499.044 7.5 7.5 0 0 0-14.993 0 .75.75 0 0 1-1.5-.045 9.005 9.005 0 0 1 5.9-8.18A5.5 5.5 0 0 1 12 2.5ZM8 8a4 4 0 1 0 8 0 4 4 0 0 0-8 0Z'></path>
 							</svg>
-							<span>Добавить</span>
 						</a>
 					</li>
 				)}
+				<li>
+					<button onClick={() => setShowCart(!showCart)}>
+						<svg
+							xmlns='http://www.w3.org/2000/svg'
+							width='1em'
+							height='1em'
+							strokeLinejoin='round'
+							strokeLinecap='round'
+							viewBox='0 0 24 24'
+							strokeWidth='2'
+							fill='none'
+							stroke='currentColor'
+							className='icon'
+						>
+							<circle r='1' cy='21' cx='9'></circle>
+							<circle r='1' cy='21' cx='20'></circle>
+							<path d='M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6'></path>
+						</svg>
+					</button>
+				</li>
 			</ul>
 		</div>
 	)

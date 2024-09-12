@@ -47,11 +47,12 @@ function LoginModal({ isOpen, onClose }) {
 
 			// Второй запрос: Получение имени пользователя
 			const userResponse = await fetch(
-				`http://localhost:8080/api/users/username?token=${token}`, // Передача токена в URL
+				`http://localhost:8080/api/users/username`, // Передача токена в URL
 				{
-					method: 'POST',
+					method: 'GET',
 					headers: {
 						'Content-Type': 'application/json',
+						Authorization: `Bearer ${token}`,
 					},
 				}
 			)
@@ -66,6 +67,7 @@ function LoginModal({ isOpen, onClose }) {
 			localStorage.setItem('username', user) // Сохранение имени пользователя в локальном хранилище
 
 			onClose() // Закрываем модальное окно
+			location.reload()
 		} catch (err) {
 			setError(
 				err.message ||

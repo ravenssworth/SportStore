@@ -39,6 +39,7 @@ function RegisterModal({ isOpen, onClose }) {
 			if (response.status === 201) {
 				console.log('Пользователь успешно создан:', response.data)
 				onClose() // Закрытие модального окна после успешной регистрации
+				alert('Подтвердите свой аккаунт')
 			}
 		} catch (error) {
 			// Обработка ошибок

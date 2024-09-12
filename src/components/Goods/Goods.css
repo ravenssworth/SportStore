@@ -10,6 +10,7 @@
 	margin: 15px 0 0 15px;
 	height: 730px;
 	background-color: #faf9f8;
+	text-decoration: none;
 }
 .goods-item__image {
 	width: 420px;
@@ -24,4 +25,8 @@
 
 .goods-item__name {
 	margin: 15px 0 0 0;
+	color: black;
+}
+.goods-item__price {
+	color: black;
 }

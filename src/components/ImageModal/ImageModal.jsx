@@ -9,7 +9,7 @@ function ImageModal({ images, onClose, onDeleteImage }) {
 			<div className='modal-content-image'>
 				<div className='form-image-top'>
 					<h2>Изображения продукта</h2>
-					<button className='close-button' onClick={onClose}>
+					<button className='close-button-image' onClick={onClose}>
 						<svg
 							width='40px'
 							height='25px'

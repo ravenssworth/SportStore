@@ -69,7 +69,6 @@ function MainPage() {
 				onSearchChange={setSearchTerm}
 				onLoginClick={handleOpenLoginModal}
 			/>
-
 			{loading ? (
 				<p>Загрузка...</p>
 			) : error ? (
@@ -80,14 +79,17 @@ function MainPage() {
 					<Goods products={filteredProducts} productImages={productImages} />
 				</div>
 			)}
-			<Pagination
-				page={page}
-				totalPages={totalPages}
-				onPreviousPage={handlePreviousPage}
-				onNextPage={handleNextPage}
-				pageSize={size}
-				onPageSizeChange={handlePageSizeChange}
-			/>
+			<div className='main--pagination'>
+				<Pagination
+					page={page}
+					totalPages={totalPages}
+					onPreviousPage={handlePreviousPage}
+					onNextPage={handleNextPage}
+					pageSize={size}
+					onPageSizeChange={handlePageSizeChange}
+				/>
+			</div>
+
 			<LoginModal isOpen={isLoginModalOpen} onClose={handleCloseLoginModal} />
 		</div>
 	)

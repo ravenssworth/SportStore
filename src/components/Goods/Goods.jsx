@@ -5,7 +5,11 @@ function Goods({ products, productImages }) {
 	return (
 		<div className='goods-container'>
 			{products.map(product => (
-				<div key={product.id} className='goods-item'>
+				<a
+					href={`/product/${product.id}`}
+					key={product.id}
+					className='goods-item'
+				>
 					<div className='goods-item__image'>
 						{productImages[product.id] &&
 						productImages[product.id].length > 0 ? (
@@ -23,7 +27,7 @@ function Goods({ products, productImages }) {
 					<div className='goods-item__price'>
 						<span>{product.price}Р</span>
 					</div>
-				</div>
+				</a>
 			))}
 		</div>
 	)
