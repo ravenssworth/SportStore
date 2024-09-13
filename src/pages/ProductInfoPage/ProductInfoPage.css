@@ -1,44 +1,77 @@
-.product-info {
-	padding: 20px;
-	max-width: 800px;
-	margin: 0 auto;
+.product-info__header {
+	display: flex;
+	width: 100%;
+	height: 80px;
 }
-
-.product-info__name {
-	font-size: 2em;
-	margin-bottom: 20px;
-	text-align: center;
-}
-
 .product-info__details {
 	display: flex;
-	flex-direction: column;
-	align-items: center;
+	margin: 0 auto;
+	max-width: 1500px;
 }
 
 .product-info__images {
 	display: flex;
+	flex-wrap: wrap;
+	max-width: 640px;
 	gap: 10px;
-	margin-bottom: 20px;
 }
 
-.product-info__image {
-	width: 100%;
-	max-width: 200px;
-	border: 1px solid #ccc;
-	border-radius: 4px;
-}
-
-.product-info__description {
-	font-size: 1.2em;
+.product-info__info {
+	margin: 0 0 0 15px;
 	text-align: center;
 }
 
-.product-info__description p {
-	margin: 10px 0;
+.product-info__largeImg {
+	max-width: 620px;
+	border-radius: 4px;
+}
+.product-info__image {
+	max-width: 200px;
+	border-radius: 4px;
+	cursor: pointer;
 }
 
-.product-info__description strong {
-	display: inline-block;
-	width: 100px;
+.product-info__image.selected {
+	border: 2px solid red;
+}
+
+.product-info__info__container {
+	display: flex;
+	flex-direction: column;
+	align-items: start;
+}
+.product-info__info__name {
+	margin: 0px;
+	font-size: 2em;
+	font-weight: bold;
+	text-align: center;
+}
+.product-info__menu {
+	margin-right: 15px;
+	margin-left: auto;
+}
+
+.product-info__info__button-cart {
+	width: 100%;
+	background-color: #faf9f8;
+	color: black;
+	border-radius: 5px;
+	font-size: 17px;
+	padding: 1em 2em;
+	cursor: pointer;
+	border: 1px solid black;
+}
+
+.product-info__info__button-cart.added {
+	content: 'Открыть корзину';
+	background-color: black;
+	color: white;
+}
+
+.product-info__info__container__description {
+	margin: 5px 0 5px 0;
+}
+
+.product-info__info__container__price {
+	margin: 5px 0 5px 0;
 }

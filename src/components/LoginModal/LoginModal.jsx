@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import './LoginModal.css'
 import Input from '../Input/Input'
 import RegisterModal from '../RegisterModal/RegisterModal'
+import axios from 'axios'
 
 function LoginModal({ isOpen, onClose }) {
 	const [username, setUsername] = useState('')
@@ -63,8 +64,16 @@ function LoginModal({ isOpen, onClose }) {
 			}
 
 			const user = await userResponse.text() // Получаем имя пользователя как строку
-
 			localStorage.setItem('username', user) // Сохранение имени пользователя в локальном хранилище
+
+			const userData = await axios.post('http://localhost:8080/api/users/all', {
+				username: user,
+			})
+
+			const userId =
+				userData.data.content.length > 0 ? userData.data.content[0].id : null
+
+			localStorage.setItem('userId', userId)
 
 			onClose() // Закрываем модальное окно
 			location.reload()

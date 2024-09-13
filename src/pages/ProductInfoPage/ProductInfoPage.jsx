@@ -1,66 +1,95 @@
 import { React, useState } from 'react'
+import axios from 'axios'
 import { useParams } from 'react-router-dom'
-import useProducts from '../../hooks/useProducts'
 import './ProductInfoPage.css'
 import Menu from '../../components/Menu/Menu.jsx'
+import useProducts from '../../hooks/useProducts'
 
 function ProductInfoPage() {
 	const { id } = useParams()
 	const { products, productImages } = useProducts()
-	const [cartProduct, setCartProduct] = useState(null)
+	const [largeImage, setLargeImage] = useState(null)
 
 	const product = products.find(prod => prod.id === parseInt(id))
 
-	if (!product) {
-		return <div className='product-info'>Product not found.</div>
+	const images = productImages[product?.id] || []
+
+	// Установить большое изображение на первое, если оно ещё не установлено
+	if (!largeImage && images.length > 0) {
+		setLargeImage(images[0]?.src)
 	}
 
-	const images = productImages[product.id] || []
+	const handleAddProductToCart = async event => {
+		const userId = localStorage.getItem('userId')
 
-	const handleClick = () => {
-		const productInCart = {
-			productName: product.productName,
-			image: images[0]?.src,
-			price: product.price,
-		}
+		const cartData = await axios.get(
+			`http://localhost:8080/api/cart/user/${userId}`
+		)
 
-		const currentCart = JSON.parse(localStorage.getItem('cartProducts')) || []
-		currentCart.push(productInCart)
-		localStorage.setItem('cartProducts', JSON.stringify(currentCart))
-		setCartProduct(productInCart)
+		const cartId = cartData.data.id
+
+		const response = await axios.post(
+			`http://localhost:8080/api/cart/addProduct?cartId=${cartId}&productId=${product?.id}`
+		)
 	}
 
 	return (
 		<div className='product-info'>
-			<Menu />
-			<h1 className='product-info__name'>{product.productName}</h1>
-			<div className='product-info__details'>
-				<div className='product-info__images'>
-					{images.length > 0 ? (
-						images.map((image, index) => (
-							<img
-								key={index}
-								src={image.src}
-								alt={product.productName}
-								className='product-info__image'
-							/>
-						))
-					) : (
-						<span>No image available</span>
-					)}
-				</div>
-				<div className='product-info__description'>
-					<p>
-						<strong>Цена:</strong> {product.price}Р
-					</p>
-					<p>
-						<strong>Описание:</strong> {product.productDescription}
-					</p>
+			<div className='product-info__header'>
+				<div className='product-info__menu'>
+					<Menu />
 				</div>
 			</div>
-			<button className='product-info__cart' onClick={handleClick}>
-				В корзину
-			</button>
+			<div className='product-info__details'>
+				<div className='product-info__images-container'>
+					<div className='product-info__largeImg-container'>
+						<img
+							src={largeImage}
+							alt={product?.productName}
+							className='product-info__largeImg'
+						/>
+					</div>
+					<div className='product-info__images'>
+						{images.length > 0 ? (
+							images.map((image, index) => (
+								<img
+									key={index}
+									src={image.src}
+									alt={product?.productName}
+									className={
+										largeImage === image.src
+											? 'product-info__image selected'
+											: 'product-info__image'
+									}
+									onClick={() => {
+										setLargeImage(image.src)
+									}}
+								/>
+							))
+						) : (
+							<span>Нет изображений</span>
+						)}
+					</div>
+				</div>
+				<div className='product-info__info'>
+					<p className='product-info__info__name'>{product?.productName}</p>
+					<div className='product-info__info__container'>
+						<p className='product-info__info__container__description'>
+							{product?.productDescription}
+						</p>
+						<p className='product-info__info__container__price'>
+							{product?.price}Р
+						</p>
+					</div>
+
+					<button
+						className='product-info__info__button-cart'
+						onClick={handleAddProductToCart}
+					>
+						В корзину
+					</button>
+				</div>
+			</div>
 		</div>
 	)
 }

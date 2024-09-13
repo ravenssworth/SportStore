@@ -1,19 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import './Menu.css'
 import Cart from '../Cart/Cart'
+import axios from 'axios'
 
 function Menu({ onLoginClick }) {
 	const [isLogoutModalVisible, setIsLogoutModalVisible] = useState(false)
 	const [isAdmin, setIsAdmin] = useState(false)
 	const [username, setUsername] = useState(localStorage.getItem('username'))
 	const [showCart, setShowCart] = useState(false)
-	const [cartProducts, setCartProducts] = useState([])
-
-	useEffect(() => {
-		const storedProducts =
-			JSON.parse(localStorage.getItem('cartProducts')) || []
-		setCartProducts(storedProducts)
-	}, [showCart]) // Перерисуем корзину, когда она открывается
+	const [cart, setCart] = useState({ cartItems: [] })
 
 	useEffect(() => {
 		// Функция для проверки роли пользователя
@@ -46,6 +41,15 @@ function Menu({ onLoginClick }) {
 
 		checkUserRole()
 	}, [])
+	const storedId = localStorage.getItem('userId') // Получаем имя пользователя из localStorage
+
+	const handleGetCart = async event => {
+		const response = await axios.get(
+			`http://localhost:8080/api/cart/${storedId}`
+		)
+
+		setCart(response.data)
+	}
 
 	const handleLogout = () => {
 		localStorage.removeItem('token')
@@ -62,7 +66,7 @@ function Menu({ onLoginClick }) {
 	}
 	return (
 		<div className='menu'>
-			<Cart show={showCart} closeCart={() => setShowCart(false)} />
+			<Cart show={showCart} closeCart={() => setShowCart(false)} cart={cart} />
 			<ul className='list'>
 				<li
 					onMouseEnter={handleMouseEnter}
@@ -126,10 +130,10 @@ function Menu({ onLoginClick }) {
 								width='1em'
 								height='1em'
 								viewBox='0 0 24 24'
-								stroke-width='0'
+								strokeWidth='0'
 								fill='currentColor'
 								stroke='currentColor'
-								class='icon'
+								className='icon'
 							>
 								<path d='M12 2.5a5.5 5.5 0 0 1 3.096 10.047 9.005 9.005 0 0 1 5.9 8.181.75.75 0 1 1-1.499.044 7.5 7.5 0 0 0-14.993 0 .75.75 0 0 1-1.5-.045 9.005 9.005 0 0 1 5.9-8.18A5.5 5.5 0 0 1 12 2.5ZM8 8a4 4 0 1 0 8 0 4 4 0 0 0-8 0Z'></path>
 							</svg>
@@ -137,7 +141,12 @@ function Menu({ onLoginClick }) {
 					</li>
 				)}
 				<li>
-					<button onClick={() => setShowCart(!showCart)}>
+					<button
+						onClick={() => {
+							setShowCart(!showCart)
+							handleGetCart()
+						}}
+					>
 						<svg
 							xmlns='http://www.w3.org/2000/svg'
 							width='1em'
