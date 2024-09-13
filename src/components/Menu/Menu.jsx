@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react'
-import './Menu.css'
-import Cart from '../Cart/Cart'
 import axios from 'axios'
+import React, { useEffect, useState } from 'react'
+import Cart from '../Cart/Cart'
+import './Menu.css'
 
 function Menu({ onLoginClick }) {
 	const [isLogoutModalVisible, setIsLogoutModalVisible] = useState(false)
@@ -45,7 +45,7 @@ function Menu({ onLoginClick }) {
 
 	const handleGetCart = async event => {
 		const response = await axios.get(
-			`http://localhost:8080/api/cart/${storedId}`
+			`http://localhost:8080/api/cart/user/${storedId}`
 		)
 
 		setCart(response.data)
