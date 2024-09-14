@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react'
-import './Menu.css'
-import Cart from '../Cart/Cart'
 import axios from 'axios'
+import React, { useEffect, useState } from 'react'
+import Cart from '../Cart/Cart'
+import './Menu.css'
 
 function Menu({ onLoginClick }) {
 	const [isLogoutModalVisible, setIsLogoutModalVisible] = useState(false)
