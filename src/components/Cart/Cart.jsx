@@ -13,12 +13,17 @@ function Cart({ show, closeCart, cart }) {
 
 	// Инициализируем локальные количества при первом рендере
 	useEffect(() => {
-		const initialQuantities = {}
-		cart.cartItems.forEach(item => {
-			initialQuantities[item.product.id] = item.quantity
-		})
-		setQuantities(initialQuantities)
-		setLocalCartItems(cart.cartItems)
+		const token = localStorage.getItem('token')
+		if (token === null) {
+			setLocalCartItems([])
+		} else {
+			const initialQuantities = {}
+			cart.cartItems.forEach(item => {
+				initialQuantities[item.product.id] = item.quantity
+			})
+			setQuantities(initialQuantities)
+			setLocalCartItems(cart.cartItems)
+		}
 	}, [cart.cartItems])
 
 	const handleReduce = async (event, productId) => {

@@ -1,15 +1,17 @@
 .menu {
 	display: flex;
-	width: 300px;
-	justify-content: end;
+	width: 100%;
+	height: 100%;
+	justify-content: center;
 	align-items: center;
-	height: 80px;
-	background-color: #faf9f8;
 }
 
 .menu .list {
 	display: flex;
-	justify-content: center;
+	justify-content: end;
+	align-items: center;
+	width: 100%;
+	height: 50%;
 	margin: 0;
 	padding: 0;
 }
@@ -17,68 +19,106 @@
 .menu .list li {
 	display: inline-block;
 	margin-left: 15px;
+	height: 22px;
+	width: 22px;
 }
 
 .menu .list li a {
-	display: flex;
+	display: block;
 	text-decoration: none;
 	color: black;
+	width: 22px;
+	height: 22px;
 }
 
-.login-button {
-	display: flex;
-	background-color: #faf9f8;
-	border: none;
-	width: 90px;
-	cursor: pointer;
-}
-.menu .username {
-	cursor: pointer;
-}
-
-.logout-modal {
-	position: absolute;
-	top: 100%;
-	left: 50%;
-	transform: translateX(-50%);
-	background-color: #faf9f8;
-	box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-	padding: 10px;
-	border-radius: 4px;
-	z-index: 1000;
-}
-
-.logout-button {
-	background-color: #faf9f8;
-	font-size: 16px;
-	color: #a0a0a0;
-	border: none;
-	padding: 10px 20px;
-	cursor: pointer;
-	border-radius: 4px;
-	width: 100%;
-	text-align: center;
-}
-
-.list button {
+.menu__list__button {
 	background-color: #faf9f8;
 	border: none;
 	padding: 0;
 	cursor: pointer;
+	height: 22px;
+	width: 22px;
 }
 
-.logout-button:hover {
+.menu__list__modal {
+	position: absolute;
+	top: 100%;
+	left: 50%;
+	background-color: #faf9f8;
+	box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+	border-radius: 8px;
+	z-index: 1000;
+	margin-top: 5px;
+	transform: translateX(-95%);
+	height: 300px;
+	width: 200px;
+	cursor: default;
+}
+
+.menu__list__modal__username {
+	position: relative;
+	top: 10px;
+	color: #494646;
+	font-size: 20px;
+	cursor: default;
+}
+.menu__list__modal a span {
+	position: relative;
+	top: 10px;
+	left: 12px;
+	color: #494646;
+	font-size: 20px;
+}
+
+.menu__list__logout-button {
+	display: block;
+	position: relative;
+	background-color: #faf9f8;
+	font-size: 16px;
+	color: #a0a0a0;
+	border: none;
+	cursor: pointer;
+	left: 12px;
+	top: 60%;
+}
+
+.menu__list__logout-button:hover {
 	color: #666565;
 }
-
-/* .menu .list li a:hover {
-	color: rgb(224, 77, 77);
-	opacity: 1;
+.menu__list__login-modal {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	position: absolute;
+	top: 100%;
+	left: 50%;
+	background-color: #faf9f8;
+	box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+	border-radius: 8px;
+	z-index: 1000;
+	margin-top: 5px;
+	transform: translateX(-95%);
+	height: 110px;
+	width: 400px;
+	cursor: default;
 }
-.menu .list li a svg path {
-	transition: fill 0.3s ease;
+
+.menu__list__login-modal__text {
+	font-size: 20px;
+	color: #494646;
 }
 
-.menu .list li a:hover svg path {
-	fill: rgb(224, 77, 77);
-} */
+.menu__list__login-modal__login-button {
+	display: flex;
+	padding: 12px;
+	border: none;
+	border-radius: 8px;
+	cursor: pointer;
+	background-color: rgb(15, 14, 14);
+	color: white;
+}
+
+.menu__list__login-modal__login-button__text {
+	font-size: 20px;
+}
