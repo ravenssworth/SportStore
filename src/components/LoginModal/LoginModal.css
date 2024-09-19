@@ -34,13 +34,18 @@
 
 .modal-content .enter-button {
 	background-color: #faf9f8;
-	color: black;
+	color: #494646;
 	border-radius: 5px;
 	font-size: 17px;
 	padding: 1em 2em;
 	cursor: pointer;
-	border: 1px solid black;
+	border: 1px solid #494646;
 	margin-bottom: 10px;
+}
+
+.modal-content .enter-button:hover {
+	background-color: #494646;
+	color: #eee;
 }
 
 .modal-overlay-login .close-button {
@@ -55,11 +60,15 @@
 }
 
 .modal-content .register-button {
-	background-color: black;
+	background-color: #494646;
 	color: #faf9f8;
 	border-radius: 5px;
 	font-size: 17px;
 	padding: 1em 2em;
 	cursor: pointer;
-	border: 1px solid black;
+	border: none;
+}
+
+.modal-content .register-button:hover {
+	transform: scale(1.05);
 }

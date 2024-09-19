@@ -1,8 +1,8 @@
 .products-list-container {
-	max-width: 1600px;
+	min-width: 1300px;
 	margin: auto;
-	border: 1px solid rgb(231, 229, 229);
-	border-radius: 5px;
+	border: 2px solid #eee;
+	border-radius: 8px;
 }
 
 .products-list-container table {
@@ -15,23 +15,21 @@
 	text-align: center;
 }
 .products-list-container table th {
-	background-color: rgb(42, 42, 43);
+	background-color: #494646;
 	padding: 15px 0;
-	color: #fff;
+	color: #faf9f8;
+	min-width: 35px;
 }
 .products-list-container table tr {
 	transition: all 0.3s;
 }
 .products-list-container table tr:nth-child(even) {
-	background: rgb(231, 229, 229);
-}
-
-.products-list-container table tr:hover {
-	background-color: #ccc;
+	background: #eee;
 }
 
 .products-list-container table td {
 	padding: 15px 0;
+	color: #494646;
 }
 
 .products-list-container table th:first-child {
@@ -73,10 +71,16 @@
 	overflow: hidden;
 }
 
-.products-list-container label:hover {
-	background-color: rgb(237, 56, 56);
+.products-list-container .actions-container__file-input:hover {
+	background-color: rgb(136, 197, 100);
 	overflow: visible;
 }
+
+.products-list-container .actions-container__delete-label:hover {
+	background-color: rgb(197, 100, 100);
+	overflow: visible;
+}
+
 .bin path {
 	transition: all 0.2s;
 }

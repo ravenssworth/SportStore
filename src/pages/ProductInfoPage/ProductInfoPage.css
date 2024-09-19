@@ -9,6 +9,11 @@
 	max-width: 1500px;
 }
 
+.product-info__menu {
+	margin-right: 40px;
+	margin-left: auto;
+}
+
 .product-info__images {
 	display: flex;
 	flex-wrap: wrap;
@@ -45,10 +50,6 @@
 	font-size: 2em;
 	font-weight: bold;
 	text-align: center;
-}
-.product-info__menu {
-	margin-right: 15px;
-	margin-left: auto;
 }
 
 .product-info__info__button-cart {

@@ -7,13 +7,12 @@ header {
 }
 header .input-container {
 	width: 300px;
-	height: 32px;
-	margin: auto 15px auto auto;
+	margin: auto 40px auto auto;
 	height: 50%;
 }
 
 .header__menu {
-	margin: auto 15px auto auto;
+	margin: auto 40px auto auto;
 	width: 300px;
 	height: 50%;
 }

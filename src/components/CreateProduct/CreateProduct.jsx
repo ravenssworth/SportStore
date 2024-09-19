@@ -49,11 +49,11 @@ function CreateProduct({ categories, onProductAdded }) {
 	}
 
 	return (
-		<div className='create-product'>
+		<div className={showForm ? 'create-product active' : 'create-product'}>
 			{showForm ? (
-				<div className='product-container'>
+				<div>
 					<form onSubmit={handleSubmit}>
-						<div className='form-group'>
+						<div className='create-product__form-group'>
 							<Input
 								id='name'
 								value={name}
@@ -79,8 +79,7 @@ function CreateProduct({ categories, onProductAdded }) {
 								onChange={e => setStock(e.target.value)}
 							/>
 						</div>
-						<div className='form-group'>
-							<label htmlFor='category'>Категория</label>
+						<div className='create-product__form-group'>
 							<select
 								id='category'
 								name='category'
@@ -98,10 +97,7 @@ function CreateProduct({ categories, onProductAdded }) {
 								))}
 							</select>
 						</div>
-						<div className='form-group-image'>
-							<label className='form-group-label-product'>Изображение</label>
-						</div>
-						<div className='button-container'>
+						<div className='create-product__button-container'>
 							<button type='submit'>Добавить</button>
 							<button type='button' onClick={() => setShowForm(false)}>
 								Отмена
@@ -110,7 +106,10 @@ function CreateProduct({ categories, onProductAdded }) {
 					</form>
 				</div>
 			) : (
-				<button onClick={handleAddProduct} className='edit-button'>
+				<button
+					onClick={handleAddProduct}
+					className='create-product__create-button'
+				>
 					<svg
 						width='25px'
 						height='25px'
@@ -123,7 +122,7 @@ function CreateProduct({ categories, onProductAdded }) {
 							<path
 								id='Vector'
 								d='M6 12H12M12 12H18M12 12V18M12 12V6'
-								stroke='white'
+								stroke='#faf9f8'
 								strokeWidth='2'
 								strokeLinecap='round'
 								strokeLinejoin='round'

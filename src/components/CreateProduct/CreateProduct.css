@@ -1,31 +1,35 @@
 .create-product {
-	width: 50%;
-	margin-bottom: 20px;
-}
-.form-group-image {
-	display: flex;
-	flex-direction: column;
-}
-select {
-	width: 100%;
-	height: 50px;
-	font-size: 15px;
-	border-radius: 5px;
+	margin-right: 10px;
 }
 
-.form-group-image {
-	margin-bottom: 15px;
+.create-product.active {
+	width: 50%;
 }
+.create-product select {
+	width: 100%;
+	height: 54px;
+	font-size: 15px;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
 .form-group-label-product {
 	margin-bottom: 5px;
 }
 
-.edit-button::before {
-	display: none;
-	content: 'Добавить';
-	color: white;
-	transition-duration: 0.3s;
-	font-size: 2px;
+.create-product__create-button {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border: none;
+	background-color: #494646;
+	padding: 5px;
+	border-radius: 5px;
+	margin: 0 auto;
+	cursor: pointer;
+}
+
+.create-product__create-button:hover {
 }
 
 .create-product .edit-svgIcon {
@@ -34,17 +38,24 @@ select {
 	transition-duration: 0.3s;
 }
 
-.create-product .button-container {
+.create-product__button-container {
 	display: flex;
 	justify-content: space-between;
+	margin-top: 12px;
 }
 
-.create-product .button-container button {
+.create-product__button-container button {
 	background-color: #faf9f8;
-	color: black;
+	color: #494646;
 	border-radius: 5px;
 	font-size: 17px;
 	padding: 1em 2em;
 	cursor: pointer;
-	border: 1px solid black;
+	border: 1px solid #494646;
+}
+
+.create-product__button-container button:hover {
+	background-color: #494646;
+	color: #faf9f8;
+	transition: all 0.3s;
 }

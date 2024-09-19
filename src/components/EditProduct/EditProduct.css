@@ -1,90 +1,86 @@
-.edit-product-container {
+.edit-product-container.active {
 	width: 50%;
+	margin-left: auto;
+}
+.edit-product-container form {
+	margin-left: 15px;
 }
 
-.edit-button {
-	width: 40px;
-	height: 40px;
+.edit-product__button {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 35px;
+	height: 35px;
 	border-radius: 5px;
-	background-color: rgb(20, 20, 20);
+	background-color: #494646;
 	border: none;
 	font-weight: 600;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.164);
 	cursor: pointer;
-	transition-duration: 0.3s;
-	overflow: hidden;
-	position: relative;
-	text-decoration: none;
 }
 
-.edit-svgIcon {
+.edit-product-svgIcon {
 	width: 17px;
 	height: 17px;
 	transition-duration: 0.3s;
 }
 
-.edit-svgIcon path {
-	fill: white;
+.edit-product-svgIcon path {
+	fill: #faf9f8;
 }
 
-.edit-button:hover {
-	width: 120px;
-	border-radius: 5px;
+.edit-product__button:hover {
 	transition-duration: 0.3s;
-	background-color: rgb(255, 69, 69);
-	align-items: center;
+	background-color: #494646;
 }
 
-.edit-button:hover .edit-svgIcon {
-	width: 20px;
-	transition-duration: 0.3s;
-	transform: translateY(60%);
-	-webkit-transform: rotate(360deg);
-	-moz-transform: rotate(360deg);
-	-o-transform: rotate(360deg);
-	-ms-transform: rotate(360deg);
-	transform: rotate(360deg);
-}
-
-.edit-product-container .edit-button::before {
-	display: none;
-	content: 'Редактировать';
-	color: white;
-	transition-duration: 0.3s;
-	font-size: 2px;
-}
-
-.edit-button:hover::before {
-	display: block;
-	padding-right: 10px;
-	font-size: 13px;
-	opacity: 1;
-	transform: translateY(0px);
-	transition-duration: 0.3s;
-}
-
-.edit-product-container .button-container {
+.edit-product__button-container {
 	display: flex;
 	justify-content: space-between;
 }
 
-.edit-product-container .button-container button {
+.edit-product-container__loading-button {
 	background-color: #faf9f8;
+	color: #494646;
 	border-radius: 5px;
-	border: 1px solid black;
+	font-size: 17px;
+	padding: 1em 2em;
+	cursor: pointer;
+	border: 1px solid #494646;
+}
+
+.edit-product-container__loading-button:hover {
+	background-color: #494646;
+	color: #faf9f8;
+	transition: all 0.3s;
+}
+
+.edit-product__button-container button {
+	background-color: #faf9f8;
+	cursor: pointer;
+	border-radius: 5px;
+	border: 1px solid #494646;
+	color: #494646;
 	font-size: 17px;
 	padding: 1em 2em;
 }
 
-.edit-product-container__loading-button {
-	background-color: #faf9f8;
-	color: black;
+.edit-product__button-container button:hover {
+	background-color: #494646;
+	color: #faf9f8;
+	transition: all 0.3s;
+}
+
+.form-group #price,
+.form-group #stock,
+.form-group #category {
+	width: 100%;
+	height: 50px;
+	font-size: 20px;
+	border: 1px solid #494646;
 	border-radius: 5px;
-	font-size: 17px;
-	padding: 1em 2em !important;
+}
+
+.form-group #category {
 	cursor: pointer;
-	border: 1px solid black !important;
 }

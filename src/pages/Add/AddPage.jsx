@@ -17,6 +17,7 @@ function AddPage() {
 	const handleTabChange = tab => {
 		setActiveTab(tab)
 	}
+
 	return (
 		<div className='wrapper'>
 			<div className='content'>
@@ -26,35 +27,30 @@ function AddPage() {
 					</div>
 				</div>
 				<div className='tabs'>
-					<nav className='tabs__items'>
-						<input
-							type='radio'
-							className='tabs__radio'
-							name='tabs-example'
-							id='tab1'
-							defaultChecked
-							onChange={() => handleTabChange('products')}
-						/>
-						<label htmlFor='tab1' className='tabs__label'>
-							Продукты
+					<div className='tabs-radio-inputs'>
+						<label className='radio'>
+							<input
+								type='radio'
+								name='radio'
+								defaultChecked
+								onChange={() => handleTabChange('products')}
+							/>
+							<span className='name'>Продукты</span>
 						</label>
-						<div id='content-tab1' className='tabs__block'>
-							{activeTab === 'products' && <ProductsSection />}
-						</div>
-						<input
-							type='radio'
-							className='tabs__radio'
-							name='tabs-example'
-							id='tab2'
-							onChange={() => handleTabChange('categories')}
-						/>
-						<label htmlFor='tab2' className='tabs__label'>
-							Категории
+
+						<label className='radio'>
+							<input
+								type='radio'
+								name='radio'
+								onChange={() => handleTabChange('categories')}
+							/>
+							<span className='name'>Категории</span>
 						</label>
-						<div id='content-tab2' className='tabs__block'>
-							{activeTab === 'categories' && <CategoriesSection />}
-						</div>
-					</nav>
+					</div>
+					<div className='tabs__block'>
+						{activeTab === 'products' && <ProductsSection />}
+						{activeTab === 'categories' && <CategoriesSection />}
+					</div>
 				</div>
 			</div>
 		</div>
@@ -93,9 +89,7 @@ function ProductsSection() {
 
 	const handleDeleteProduct = async productId => {
 		try {
-			await axios.delete(
-				`http://localhost:8080/api/products/{id}?id=${productId}`
-			)
+			await axios.delete(`http://localhost:8080/api/products/${productId}`)
 			setProducts(prevProducts =>
 				prevProducts.filter(prod => prod.id !== productId)
 			)
@@ -145,14 +139,16 @@ function ProductsSection() {
 						productImages={productImages}
 						onDeleteProduct={handleDeleteProduct}
 					/>
-					<Pagination
-						page={page}
-						totalPages={totalPages}
-						onPreviousPage={handlePreviousPage}
-						onNextPage={handleNextPage}
-						pageSize={size}
-						onPageSizeChange={handlePageSizeChange}
-					/>
+					{products.length > 0 && (
+						<Pagination
+							page={page}
+							totalPages={totalPages}
+							onPreviousPage={handlePreviousPage}
+							onNextPage={handleNextPage}
+							pageSize={size}
+							onPageSizeChange={handlePageSizeChange}
+						/>
+					)}
 				</>
 			)}
 		</>

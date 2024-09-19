@@ -36,10 +36,15 @@
 
 .register-submit-button {
 	background-color: #faf9f8;
-	color: black;
+	color: #494646;
 	border-radius: 5px;
 	font-size: 17px;
 	padding: 1em 2em;
 	cursor: pointer;
-	border: 1px solid black;
+	border: 1px solid #494646;
+}
+
+.register-submit-button:hover {
+	background-color: #494646;
+	color: #faf9f8;
 }

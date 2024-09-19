@@ -34,7 +34,7 @@ function Pagination({
 					</svg>
 				</label>
 				<span>
-					Страница {page + 1} из {totalPages}
+					Страница {page + 1} из {totalPages || '1'}
 				</span>
 				<button
 					id='pagination--next'

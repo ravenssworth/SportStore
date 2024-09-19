@@ -1,3 +1,6 @@
+.edit-category-container {
+	width: 50%;
+}
 .edit-category-container .edit-category-button {
 	display: flex;
 	flex-wrap: nowrap;

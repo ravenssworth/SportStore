@@ -17,74 +17,177 @@
 }
 
 .menu .list li {
-	display: inline-block;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	margin-left: 15px;
-	height: 22px;
-	width: 22px;
+	height: 32px;
+	width: 34px;
+	border-radius: 5px;
 }
 
-.menu .list li a {
-	display: block;
+.menu .list li:hover {
+	background-color: #494646;
+}
+
+.menu .list li:hover #id-1 svg,
+.menu .list li:hover .icon-1 {
+	fill: #faf9f8;
+	stroke: #faf9f8;
+}
+
+.menu .list li:hover .icon-2 {
+	stroke: #faf9f8;
+}
+
+.menu .list li a#id-1 {
 	text-decoration: none;
 	color: black;
-	width: 22px;
 	height: 22px;
 }
 
-.menu__list__button {
-	background-color: #faf9f8;
-	border: none;
-	padding: 0;
-	cursor: pointer;
-	height: 22px;
-	width: 22px;
+@keyframes slideDown {
+	from {
+		transform: translate(-50%, -10px);
+		opacity: 0;
+	}
+	to {
+		transform: translate(-50%, 0);
+		opacity: 1;
+	}
 }
 
 .menu__list__modal {
+	display: flex;
+	flex-direction: column;
+	justify-content: start;
+	align-items: center;
 	position: absolute;
 	top: 100%;
 	left: 50%;
 	background-color: #faf9f8;
-	box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+	border: 2px solid #eee;
 	border-radius: 8px;
 	z-index: 1000;
 	margin-top: 5px;
-	transform: translateX(-95%);
-	height: 300px;
-	width: 200px;
+	transform: translate(-50%, -10px);
+	height: 125px;
+	width: 60px;
 	cursor: default;
+	opacity: 0;
+	transition: opacity 0.3s ease-out;
 }
 
-.menu__list__modal__username {
-	position: relative;
-	top: 10px;
-	color: #494646;
-	font-size: 20px;
-	cursor: default;
+.menu__list__modal.visible {
+	opacity: 1;
+	transform: translate(-50%, 0);
+	animation: slideDown 0.3s ease-out forwards;
 }
-.menu__list__modal a span {
+
+.menu__list__button {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: #faf9f8;
+	border: none;
+	padding: 0;
+	cursor: pointer;
+	height: 32px;
+	width: 34px;
+	border-radius: 5px;
+}
+
+.menu__list__button:hover {
+	background-color: #494646;
+}
+
+.menu__list__modal__tab__add {
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	position: relative;
-	top: 10px;
-	left: 12px;
-	color: #494646;
-	font-size: 20px;
+	margin-top: 5px;
+	height: 32px;
+	width: 34px;
+	border-radius: 5px;
+}
+
+.menu__list__modal__tab__add:hover {
+	background-color: #494646;
+	transition: 0.3s all;
+}
+
+.menu__list__modal__tabs__tooltip {
+	position: absolute;
+	right: 155%;
+	opacity: 0;
+	font-size: 18px;
+	color: #faf9f8;
+	background-color: #ccc;
+	padding: 6px 10px;
+	border-radius: 5px;
+}
+
+.menu__list__modal__tab__orders {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+	height: 34px;
+	width: 34px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	border-radius: 5px;
+}
+
+.menu__list__modal__tab__orders:hover {
+	background-color: #494646;
+	transition: 0.3s all;
+}
+
+.menu__list__modal__tab__orders:hover svg {
+	fill: #faf9f8;
+}
+
+.menu__list__modal__tab__add:hover svg g g line {
+	stroke: #faf9f8;
+	transition: 0.3s all;
 }
 
 .menu__list__logout-button {
-	display: block;
-	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	background-color: #faf9f8;
-	font-size: 16px;
-	color: #a0a0a0;
+	position: relative;
 	border: none;
 	cursor: pointer;
-	left: 12px;
-	top: 60%;
+	padding: 2px;
+	border-radius: 5px;
+}
+
+.menu__list__logout-button svg {
+	display: block;
+	margin: auto;
 }
 
 .menu__list__logout-button:hover {
-	color: #666565;
+	background-color: rgb(197, 100, 100);
+	transition: 0.3s all;
 }
+
+.menu__list__logout-button:hover svg path {
+	fill: #faf9f8;
+}
+
+.menu__list__modal__tab__add:hover .menu__list__modal__tabs__tooltip,
+.menu__list__modal__tab__orders:hover .menu__list__modal__tabs__tooltip,
+.menu__list__logout-button:hover .menu__list__modal__tabs__tooltip {
+	visibility: visible;
+	opacity: 1;
+	transition: 0.3s all;
+}
+
 .menu__list__login-modal {
 	display: flex;
 	flex-direction: column;
@@ -94,14 +197,14 @@
 	top: 100%;
 	left: 50%;
 	background-color: #faf9f8;
-	box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 	border-radius: 8px;
 	z-index: 1000;
 	margin-top: 5px;
 	transform: translateX(-95%);
-	height: 110px;
+	height: 130px;
 	width: 400px;
 	cursor: default;
+	border: 2px solid #eee;
 }
 
 .menu__list__login-modal__text {
@@ -112,13 +215,28 @@
 .menu__list__login-modal__login-button {
 	display: flex;
 	padding: 12px;
-	border: none;
 	border-radius: 8px;
 	cursor: pointer;
-	background-color: rgb(15, 14, 14);
-	color: white;
+	background-color: #faf9f8;
+	color: #494646;
+	border: 1px solid #494646;
+	margin-top: 5px;
+}
+
+.menu__list__login-modal__login-button:hover {
+	background-color: #494646;
+	color: #eee;
+}
+
+.menu__list__login-modal__login-button:hover svg path {
+	fill: #eee;
 }
 
 .menu__list__login-modal__login-button__text {
 	font-size: 20px;
+}
+
+.menu__list__login-modal__login-button svg {
+	width: 20px;
+	margin-right: 10px;
 }

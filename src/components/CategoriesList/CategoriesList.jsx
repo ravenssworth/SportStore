@@ -4,7 +4,7 @@ import DeleteButton from '../DeleteButton/DeleteButton.jsx'
 
 function CategoriesList({ categories, onDeleteCategory }) {
 	if (categories.length === 0) {
-		return <p>No categories found</p>
+		return <p>Категории не найдены</p>
 	}
 
 	return (

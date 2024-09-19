@@ -1,6 +1,5 @@
 .categories-list-container {
-	max-width: 1600px;
-	margin: auto;
+	min-width: 1000px;
 	border: 1px solid rgb(231, 229, 229);
 	border-radius: 12px;
 }
