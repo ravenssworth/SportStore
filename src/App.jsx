@@ -3,7 +3,6 @@ import './App.css'
 import AddPage from './pages/Add/AddPage.jsx'
 import MainPage from './pages/Main/MainPage.jsx'
 import ProductInfo from './pages/ProductInfoPage/ProductInfoPage.jsx'
-import './App.css'
 
 function App() {
 	return (
