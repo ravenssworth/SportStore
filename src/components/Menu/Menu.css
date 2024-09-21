@@ -24,20 +24,24 @@
 	height: 32px;
 	width: 34px;
 	border-radius: 5px;
+	transition: 0.3s all;
 }
 
 .menu .list li:hover {
 	background-color: #494646;
+	transition: 0.3s all;
 }
 
 .menu .list li:hover #id-1 svg,
 .menu .list li:hover .icon-1 {
 	fill: #faf9f8;
 	stroke: #faf9f8;
+	transition: 0.3s;
 }
 
 .menu .list li:hover .icon-2 {
 	stroke: #faf9f8;
+	transition: 0.3s;
 }
 
 .menu .list li a#id-1 {
@@ -95,10 +99,12 @@
 	height: 32px;
 	width: 34px;
 	border-radius: 5px;
+	transition: 0.3s all;
 }
 
 .menu__list__button:hover {
 	background-color: #494646;
+	transition: 0.3s all;
 }
 
 .menu__list__modal__tab__add {
@@ -221,11 +227,22 @@
 	color: #494646;
 	border: 1px solid #494646;
 	margin-top: 5px;
+	transition: 0.3s all;
+}
+
+.menu__list__login-modal__login-button svg {
+	transition: all 0.3s ease-in;
+}
+
+.menu__list__login-modal__login-button:hover svg {
+	font-size: 1.2em;
+	transform: translateX(5px);
 }
 
 .menu__list__login-modal__login-button:hover {
 	background-color: #494646;
 	color: #eee;
+	transition: 0.3s all;
 }
 
 .menu__list__login-modal__login-button:hover svg path {

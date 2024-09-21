@@ -74,7 +74,12 @@ function Menu({ onLoginClick }) {
 	}
 	return (
 		<div className='menu'>
-			<Cart show={showCart} closeCart={() => setShowCart(false)} cart={cart} />
+			<Cart
+				show={showCart}
+				closeCart={() => setShowCart(false)}
+				cart={cart}
+				onLoginClick={onLoginClick}
+			/>
 			<ul className='list'>
 				<li>
 					<a href='/' id='id-1'>

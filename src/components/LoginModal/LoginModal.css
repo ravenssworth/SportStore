@@ -41,11 +41,13 @@
 	cursor: pointer;
 	border: 1px solid #494646;
 	margin-bottom: 10px;
+	transition: 0.3s all;
 }
 
 .modal-content .enter-button:hover {
 	background-color: #494646;
 	color: #eee;
+	transition: 0.3s all;
 }
 
 .modal-overlay-login .close-button {
@@ -60,15 +62,30 @@
 }
 
 .modal-content .register-button {
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	background-color: #494646;
-	color: #faf9f8;
+	color: white;
 	border-radius: 5px;
 	font-size: 17px;
 	padding: 1em 2em;
 	cursor: pointer;
 	border: none;
+	transition: 0.3s all;
+}
+
+.modal-content .register-button svg {
+	margin-left: 5px;
+	transition: all 0.3s ease-in;
+}
+
+.modal-content .register-button:hover svg {
+	font-size: 1.2em;
+	transform: translateX(5px);
 }
 
 .modal-content .register-button:hover {
-	transform: scale(1.05);
+	box-shadow: 9px 9px 23px #d1d1d1, -9px -9px 23px #ffffff;
+	transition: 0.3s all;
 }

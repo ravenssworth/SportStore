@@ -5,25 +5,27 @@
 	position: fixed;
 	right: 0;
 	z-index: 1;
-	display: none;
+	visibility: hidden;
 	top: 0;
 	opacity: 0;
-	transition: 0.5s;
+	transition: 0.3s all ease-in-out;
 }
 
 .sidebar-cart.active {
+	visibility: visible;
 	opacity: 1;
-	display: block;
+	transition: 0.3s all ease-in-out;
 }
 
 .sidebar-cart__content {
-	width: 600px;
+	display: flex;
+	flex-direction: column;
+	width: 500px;
 	height: 100%;
 	background-color: #faf9f8;
 	position: absolute;
 	right: 0;
 	z-index: 1;
-	transition: 1s;
 }
 .close-button-cart {
 	background: none;
@@ -70,4 +72,73 @@
 	background-color: #e2e0e0;
 	border-radius: 8px;
 	padding: 8px;
+}
+
+.sidebar-cart__content__checkout-button {
+	display: flex;
+	position: relative;
+	justify-content: center;
+	align-items: center;
+	width: 85%;
+	margin: auto auto 8px auto;
+	background-color: #494646;
+	border: none;
+	color: #faf9f8;
+	border-radius: 5px;
+	padding: 1em;
+	cursor: pointer;
+	transition: 0.3s all ease-out;
+}
+
+.sidebar-cart__content__checkout-button__svgIcon {
+	width: 18px;
+	margin-left: 8px;
+	transition: 0.3s all ease-out;
+	fill: #faf9f8;
+}
+
+.sidebar-cart__content__checkout-button:hover {
+	background-color: white;
+	color: #494646;
+	transition: 0.3s all ease-out;
+	box-shadow: rgba(45, 35, 66, 0.2) 0 2px 4px,
+		rgba(45, 35, 66, 0.15) 0 7px 13px -3px, #d6d6e7 0 -3px 0 inset;
+}
+
+.sidebar-cart__content__checkout-button:hover
+	.sidebar-cart__content__checkout-button__svgIcon {
+	fill: #494646;
+	transition: 0.3s all ease-out;
+}
+
+.sidebar-cart__content__login-button {
+	display: flex;
+	align-items: center;
+	margin: auto;
+	padding: 12px;
+	border-radius: 8px;
+	cursor: pointer;
+	background-color: #faf9f8;
+	color: #494646;
+	border: 1px solid #494646;
+	transition: 0.3s all;
+}
+
+.sidebar-cart__content__login-button svg {
+	transition: all 0.3s ease-in;
+}
+
+.sidebar-cart__content__login-button:hover svg {
+	font-size: 1.2em;
+	transform: translateX(5px);
+}
+
+.sidebar-cart__content__login-button:hover {
+	background-color: #494646;
+	color: #eee;
+	transition: 0.3s all;
+}
+
+.sidebar-cart__content__login-button:hover svg path {
+	fill: #eee;
 }

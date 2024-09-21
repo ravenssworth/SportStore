@@ -74,8 +74,11 @@ function MainPage() {
 			) : error ? (
 				<p>{error}</p>
 			) : (
-				<div className='main--container'>
-					<Directory onCategorySelect={handleCategorySelect} />
+				<div className='main__container'>
+					<Directory
+						onCategorySelect={handleCategorySelect}
+						selectedCategory={selectedCategory}
+					/>
 					<Goods products={filteredProducts} productImages={productImages} />
 				</div>
 			)}

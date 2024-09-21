@@ -1,16 +1,27 @@
-.edit-category-container {
+.edit-category.active {
 	width: 50%;
+	margin-left: auto;
 }
-.edit-category-container .edit-category-button {
+.edit-category__button {
 	display: flex;
-	flex-wrap: nowrap;
-	padding: 15px 25px;
-	background-color: rgb(42, 42, 43);
-	color: white;
+	justify-content: center;
+	align-items: center;
+	width: 35px;
+	height: 35px;
+	border-radius: 5px;
+	background-color: #494646;
 	border: none;
-	border-radius: 12px;
+	font-weight: 600;
 	cursor: pointer;
-	margin-left: 15px;
+}
+.edit-category-svgIcon {
+	width: 17px;
+	height: 17px;
+	transition-duration: 0.3s;
+}
+
+.edit-category-svgIcon path {
+	fill: #faf9f8;
 }
 
 .form-container {
@@ -28,33 +39,30 @@
 	width: 50%;
 }
 
-.edit-category-container .button-container {
+.edit-category__button-container {
 	display: flex;
 	justify-content: space-between;
 }
 
-.edit-category-container .button-container button {
+.edit-category__button-container button {
 	background-color: #faf9f8;
 	border-radius: 5px;
-	border: 1px solid black;
+	border: 1px solid #494646;
 	font-size: 17px;
 	padding: 1em 2em;
 }
 
-.edit-category-container .edit-button::before {
-	display: none;
-	content: 'Редактировать';
-	color: white;
-	transition-duration: 0.3s;
-	font-size: 5px;
-}
-
-.edit-category-container__loading-button {
+.edit-category__loading-button {
 	background-color: #faf9f8;
 	color: black;
 	border-radius: 5px;
 	font-size: 17px;
-	padding: 1em 2em !important;
+	padding: 1em 2em;
 	cursor: pointer;
-	border: 1px solid black !important;
+	border: 1px solid black;
+}
+
+.edit-category__button:hover .edit-category-svgIcon {
+	transition-duration: 0.6s;
+	transform: rotate(360deg);
 }

@@ -1,7 +1,8 @@
 .products-list-container {
 	min-width: 1300px;
 	margin: auto;
-	border: 2px solid #eee;
+	border: 2px solid #ccc;
+	border-bottom: none;
 	border-radius: 8px;
 }
 
@@ -21,15 +22,15 @@
 	min-width: 35px;
 }
 .products-list-container table tr {
-	transition: all 0.3s;
+	border-bottom: 2px solid #ccc;
 }
-.products-list-container table tr:nth-child(even) {
-	background: #eee;
+.products-list-container table tr:hover {
+	background-color: #ccc;
+	transition: 0.3s all;
 }
 
 .products-list-container table td {
 	padding: 15px 0;
-	color: #494646;
 }
 
 .products-list-container table th:first-child {

@@ -1,4 +1,8 @@
-.create-category-container {
+.create-category {
+	margin-right: 10px;
+}
+
+.create-category.active {
 	width: 50%;
 }
 
@@ -7,37 +11,39 @@
 }
 
 .add-category-button {
-	width: 190px;
-	padding: 15px 20px;
-	background-color: rgb(42, 42, 43);
-	color: white;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	border: none;
-	border-radius: 12px;
+	background-color: #494646;
+	padding: 5px;
+	border-radius: 5px;
+	margin: 0 auto;
 	cursor: pointer;
 }
 
-.add-category-button:hover {
-	background-color: black;
-}
-
-.create-category-container .button-container {
+.create-category .button-container {
 	display: flex;
 	justify-content: space-between;
 }
 
-.create-category-container .button-container button {
+.create-category .button-container button {
 	background-color: #faf9f8;
-	color: black;
+	color: #494646;
 	border-radius: 5px;
 	font-size: 17px;
-	width: 150px;
 	padding: 1em 2em;
 	cursor: pointer;
-	border: 1px solid black;
+	border: 1px solid #494646;
 }
 
-.create-category-container .edit-svgIcon {
-	width: 25px;
-	height: 25px;
-	transition-duration: 0.3s;
+.create-category .button-container button:hover {
+	background-color: #494646;
+	color: #faf9f8;
+	transition: all 0.3s;
+}
+
+.add-category-button:hover .create-category-svgIcon {
+	transition-duration: 0.6s;
+	transform: rotate(360deg);
 }

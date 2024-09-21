@@ -116,7 +116,7 @@ function CreateProduct({ categories, onProductAdded }) {
 						viewBox='0 0 24 24'
 						fill='none'
 						xmlns='http://www.w3.org/2000/svg'
-						className='edit-svgIcon'
+						className='create-product-svgIcon'
 					>
 						<g id='Edit / Add_Plus'>
 							<path

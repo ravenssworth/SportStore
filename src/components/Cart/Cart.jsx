@@ -3,7 +3,7 @@ import './Cart.css'
 import useProducts from '../../hooks/useProducts'
 import axios from 'axios'
 
-function Cart({ show, closeCart, cart }) {
+function Cart({ show, closeCart, cart, onLoginClick }) {
 	const { productImages } = useProducts()
 
 	const [quantities, setQuantities] = useState({})
@@ -53,6 +53,44 @@ function Cart({ show, closeCart, cart }) {
 			...quantities,
 			[productId]: quantities[productId] + 1,
 		})
+	}
+
+	const handleOrder = async event => {
+		const userId = localStorage.getItem('userId')
+		const orderItemIds = localCartItems.map(item => ({
+			id: item.id,
+			productId: item.product.id,
+			quantity: item.quantity,
+		}))
+
+		const value = localCartItems.reduce(
+			(total, item) => total + item.quantity * item.product.price,
+			0
+		)
+
+		try {
+			// Создаем заказ
+			const orderResponse = await axios.post(
+				`http://localhost:8080/api/orders`,
+				{
+					userId: parseInt(userId),
+					orderItemIds: orderItemIds,
+					status: 'PENDING',
+				}
+			)
+
+			const paymentResponse = await axios.post(
+				`http://localhost:8080/create-payment?value=${value}&currency=RUB&orderId=${orderResponse.data.id}`
+			)
+
+			const { confirmation_url } = paymentResponse.data.confirmation
+
+			window.location.href = confirmation_url
+
+			console.log('Заказ создан', orderResponse.data)
+		} catch (error) {
+			console.error('Ошибка при создании заказа', error)
+		}
 	}
 
 	return (
@@ -132,6 +170,41 @@ function Cart({ show, closeCart, cart }) {
 						</div>
 					</div>
 				))}
+				{localCartItems.length > 0 ? (
+					<button
+						className='sidebar-cart__content__checkout-button'
+						onClick={handleOrder}
+					>
+						Перейти к оплате
+						<svg
+							className='sidebar-cart__content__checkout-button__svgIcon'
+							viewBox='0 0 576 512'
+						>
+							<path d='M512 80c8.8 0 16 7.2 16 16v32H48V96c0-8.8 7.2-16 16-16H512zm16 144V416c0 8.8-7.2 16-16 16H64c-8.8 0-16-7.2-16-16V224H528zM64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H512c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64zm56 304c-13.3 0-24 10.7-24 24s10.7 24 24 24h48c13.3 0 24-10.7 24-24s-10.7-24-24-24H120zm128 0c-13.3 0-24 10.7-24 24s10.7 24 24 24H360c13.3 0 24-10.7 24-24s-10.7-24-24-24H248z'></path>
+						</svg>
+					</button>
+				) : (
+					<button
+						className='sidebar-cart__content__login-button'
+						onClick={onLoginClick}
+					>
+						<svg
+							width='40px'
+							height='25px'
+							viewBox='0 0 24 24'
+							fill='none'
+							xmlns='http://www.w3.org/2000/svg'
+						>
+							<path
+								fillRule='evenodd'
+								clipRule='evenodd'
+								d='M7 3C6.44772 3 6 3.44772 6 4C6 4.55228 6.44772 5 7 5H18C18.5523 5 19 5.44772 19 6V18C19 18.5523 18.5523 19 18 19H7C6.44772 19 6 19.4477 6 20C6 20.5523 6.44772 21 7 21H18C19.6569 21 21 19.6569 21 18V6C21 4.34315 19.6569 3 18 3H7ZM12.7071 7.29289C12.3166 6.90237 11.6834 6.90237 11.2929 7.29289C10.9024 7.68342 10.9024 8.31658 11.2929 8.70711L13.5858 11H4C3.44772 11 3 11.4477 3 12C3 12.5523 3.44772 13 4 13H13.5858L11.2929 15.2929C10.9024 15.6834 10.9024 16.3166 11.2929 16.7071C11.6834 17.0976 12.3166 17.0976 12.7071 16.7071L16.7071 12.7071C17.0976 12.3166 17.0976 11.6834 16.7071 11.2929L12.7071 7.29289Z'
+								fill='#494646'
+							/>
+						</svg>
+						Войти или зарегистрироваться
+					</button>
+				)}
 			</div>
 		</div>
 	)
