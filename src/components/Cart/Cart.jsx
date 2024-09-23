@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react'
-import './Cart.css'
-import useProducts from '../../hooks/useProducts'
 import axios from 'axios'
+import React, { useEffect, useState } from 'react'
+import useProducts from '../../hooks/useProducts'
+import './Cart.css'
 
 function Cart({ show, closeCart, cart, onLoginClick }) {
 	const { productImages } = useProducts()
@@ -79,11 +79,11 @@ function Cart({ show, closeCart, cart, onLoginClick }) {
 				}
 			)
 
-			const paymentResponse = await axios.post(
-				`http://localhost:8080/create-payment?value=${value}&currency=RUB&orderId=${orderResponse.data.id}`
+			const paymentResponse = await axios.get(
+				`http://localhost:8080/get-payment-by-order/${orderResponse.data.id}`
 			)
 
-			const { confirmation_url } = paymentResponse.data.confirmation
+			const confirmation_url = paymentResponse.data.url
 
 			window.location.href = confirmation_url
 
