@@ -50,6 +50,13 @@
 	border: 1px solid #494646;
 	font-size: 17px;
 	padding: 1em 2em;
+	transition: 0.3s all;
+}
+
+.edit-category__button-container button:hover {
+	background-color: #494646;
+	color: #faf9f8;
+	transition: 0.3s all;
 }
 
 .edit-category__loading-button {
@@ -57,9 +64,16 @@
 	color: black;
 	border-radius: 5px;
 	font-size: 17px;
-	padding: 1em 2em;
+	padding: 1em 2em !important;
 	cursor: pointer;
-	border: 1px solid black;
+	border: 1px solid black !important;
+	transition: 0.3s all;
+}
+
+.edit-category__loading-button:hover {
+	background-color: #494646;
+	color: #faf9f8;
+	transition: 0.3s all;
 }
 
 .edit-category__button:hover .edit-category-svgIcon {

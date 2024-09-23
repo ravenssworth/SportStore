@@ -1,4 +1,4 @@
-import { React, useState } from 'react'
+import { React, useState, useEffect } from 'react'
 import axios from 'axios'
 import { useParams } from 'react-router-dom'
 import './ProductInfoPage.css'
@@ -9,6 +9,7 @@ function ProductInfoPage() {
 	const { id } = useParams()
 	const { products, productImages } = useProducts()
 	const [largeImage, setLargeImage] = useState(null)
+	const [isProductInCart, setIsProductInCart] = useState(false)
 
 	const product = products.find(prod => prod.id === parseInt(id))
 
@@ -19,6 +20,24 @@ function ProductInfoPage() {
 		setLargeImage(images[0]?.src)
 	}
 
+	useEffect(() => {
+		const checkProductInCart = async () => {
+			const userId = localStorage.getItem('userId')
+			const cartData = await axios.get(
+				`http://localhost:8080/api/cart/user/${userId}`
+			)
+
+			const cartItems = cartData.data.cartItems || []
+			const productInCart = cartItems.some(
+				item => item.productId === product?.id
+			)
+
+			setIsProductInCart(productInCart)
+		}
+
+		checkProductInCart()
+	}, [product])
+
 	const handleAddProductToCart = async event => {
 		const userId = localStorage.getItem('userId')
 
@@ -28,9 +47,12 @@ function ProductInfoPage() {
 
 		const cartId = cartData.data.id
 
-		const response = await axios.post(
+		console.log(cartData.data.cartItems)
+
+		await axios.post(
 			`http://localhost:8080/api/cart/addProduct?cartId=${cartId}&productId=${product?.id}`
 		)
+		setIsProductInCart(true)
 	}
 
 	return (
@@ -83,8 +105,13 @@ function ProductInfoPage() {
 					</div>
 
 					<button
-						className='product-info__info__button-cart'
+						className={
+							isProductInCart
+								? 'product-info__info__button-cart-added'
+								: 'product-info__info__button-cart'
+						}
 						onClick={handleAddProductToCart}
+						disabled={isProductInCart}
 					>
 						В корзину
 					</button>
