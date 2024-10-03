@@ -110,7 +110,9 @@ function LoginModal({ isOpen, onClose }) {
 					</div>
 
 					{/* Отображение ошибки */}
-					{error && <div className='error-message'>{error}</div>}
+					{error && (
+						<div className='error-message'>Неправильный логин или пароль</div>
+					)}
 
 					<Input
 						id='username'

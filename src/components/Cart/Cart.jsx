@@ -11,6 +11,8 @@ function Cart({ show, closeCart, cart, onLoginClick }) {
 	// Локальная копия корзины для рендеринга
 	const [localCartItems, setLocalCartItems] = useState([])
 
+	const token = localStorage.getItem('token')
+
 	// Инициализируем локальные количества при первом рендере
 	useEffect(() => {
 		const token = localStorage.getItem('token')
@@ -170,7 +172,7 @@ function Cart({ show, closeCart, cart, onLoginClick }) {
 						</div>
 					</div>
 				))}
-				{localCartItems.length > 0 ? (
+				{token ? (
 					<button
 						className='sidebar-cart__content__checkout-button'
 						onClick={handleOrder}

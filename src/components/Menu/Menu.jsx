@@ -1,5 +1,6 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
+import { useNavigate, useLocation } from 'react-router-dom'
 import Cart from '../Cart/Cart'
 import './Menu.css'
 
@@ -10,9 +11,10 @@ function Menu({ onLoginClick }) {
 	const [showCart, setShowCart] = useState(false)
 	const [cart, setCart] = useState({ cartItems: [] })
 	const [timeoutId, setTimeoutId] = useState(null)
+	const navigate = useNavigate()
+	const location = useLocation()
 
 	useEffect(() => {
-		// Функция для проверки роли пользователя
 		const checkUserRole = async () => {
 			const token = localStorage.getItem('token')
 			if (token) {
@@ -27,6 +29,7 @@ function Menu({ onLoginClick }) {
 
 					if (response.ok) {
 						const roles = await response.json()
+						localStorage.setItem('roles', JSON.stringify(roles))
 						// Проверяем, есть ли роль ADMIN
 						if (roles.includes('ROLE_ADMIN')) {
 							setIsAdmin(true)
@@ -55,8 +58,14 @@ function Menu({ onLoginClick }) {
 	const handleLogout = () => {
 		localStorage.removeItem('token')
 		localStorage.removeItem('username')
-		setUsername(null) // Обновляем состояние
-		window.location.reload()
+		localStorage.removeItem('userId')
+		localStorage.removeItem('roles')
+		setUsername(null)
+		if (location.pathname === '/add') {
+			navigate('/')
+		} else {
+			window.location.reload()
+		}
 	}
 	const handleMouseEnter = () => {
 		if (timeoutId) {

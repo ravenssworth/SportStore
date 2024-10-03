@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom'
 import './ProductInfoPage.css'
 import Menu from '../../components/Menu/Menu.jsx'
 import useProducts from '../../hooks/useProducts'
+import LoginModal from '../../components/LoginModal/LoginModal.jsx'
 
 function ProductInfoPage() {
 	const { id } = useParams()
@@ -12,6 +13,14 @@ function ProductInfoPage() {
 	const [isProductInCart, setIsProductInCart] = useState(false)
 
 	const product = products.find(prod => prod.id === parseInt(id))
+
+	const [isLoginModalOpen, setIsLoginModalOpen] = useState(false)
+
+	const handleOpenLoginModal = () => {
+		setIsLoginModalOpen(true)
+	}
+
+	const handleCloseLoginModal = () => setIsLoginModalOpen(false)
 
 	const images = productImages[product?.id] || []
 
@@ -23,14 +32,18 @@ function ProductInfoPage() {
 	useEffect(() => {
 		const checkProductInCart = async () => {
 			const userId = localStorage.getItem('userId')
+			if (!userId) return
 			const cartData = await axios.get(
 				`http://localhost:8080/api/cart/user/${userId}`
 			)
 
 			const cartItems = cartData.data.cartItems || []
 			const productInCart = cartItems.some(
-				item => item.productId === product?.id
+				item => item.product.id === product?.id
 			)
+
+			console.log(cartItems)
+			console.log(productInCart)
 
 			setIsProductInCart(productInCart)
 		}
@@ -59,7 +72,7 @@ function ProductInfoPage() {
 		<div className='product-info'>
 			<div className='product-info__header'>
 				<div className='product-info__menu'>
-					<Menu />
+					<Menu onLoginClick={handleOpenLoginModal} />
 				</div>
 			</div>
 			<div className='product-info__details'>
@@ -102,21 +115,29 @@ function ProductInfoPage() {
 						<p className='product-info__info__container__price'>
 							{product?.price}Р
 						</p>
+						<p className='product-info__info__container__quantity'>
+							{product?.quantity}
+						</p>
 					</div>
-
-					<button
-						className={
-							isProductInCart
-								? 'product-info__info__button-cart-added'
-								: 'product-info__info__button-cart'
-						}
-						onClick={handleAddProductToCart}
-						disabled={isProductInCart}
-					>
-						В корзину
-					</button>
+					{isProductInCart ? (
+						<button
+							className='product-info__info__button-cart-added'
+							disabled={isProductInCart}
+						>
+							В корзине
+						</button>
+					) : (
+						<button
+							className='product-info__info__button-cart'
+							onClick={handleAddProductToCart}
+							disabled={isProductInCart}
+						>
+							В корзину
+						</button>
+					)}
 				</div>
 			</div>
+			<LoginModal isOpen={isLoginModalOpen} onClose={handleCloseLoginModal} />
 		</div>
 	)
 }

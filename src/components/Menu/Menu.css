@@ -27,21 +27,14 @@
 	transition: 0.3s all;
 }
 
-.menu .list li:hover {
-	background-color: #494646;
-	transition: 0.3s all;
-}
-
 .menu .list li:hover #id-1 svg,
 .menu .list li:hover .icon-1 {
-	fill: #faf9f8;
-	stroke: #faf9f8;
-	transition: 0.3s;
+	transform: scale(1.1);
 }
 
 .menu .list li:hover .icon-2 {
-	stroke: #faf9f8;
-	transition: 0.3s;
+	animation: shake 0.3s;
+	animation-iteration-count: 2;
 }
 
 .menu .list li a#id-1 {
@@ -102,11 +95,6 @@
 	transition: 0.3s all;
 }
 
-.menu__list__button:hover {
-	background-color: #494646;
-	transition: 0.3s all;
-}
-
 .menu__list__modal__tab__add {
 	display: flex;
 	justify-content: center;
@@ -118,9 +106,8 @@
 	border-radius: 5px;
 }
 
-.menu__list__modal__tab__add:hover {
-	background-color: #494646;
-	transition: 0.3s all;
+.menu__list__modal__tab__add:hover svg {
+	transform: scale(1.1);
 }
 
 .menu__list__modal__tabs__tooltip {
@@ -128,10 +115,10 @@
 	right: 155%;
 	opacity: 0;
 	font-size: 18px;
-	color: #faf9f8;
-	background-color: #ccc;
+	color: #494646;
 	padding: 6px 10px;
 	border-radius: 5px;
+	pointer-events: none;
 }
 
 .menu__list__modal__tab__orders {
@@ -146,18 +133,21 @@
 	border-radius: 5px;
 }
 
-.menu__list__modal__tab__orders:hover {
-	background-color: #494646;
-	transition: 0.3s all;
-}
-
 .menu__list__modal__tab__orders:hover svg {
-	fill: #faf9f8;
+	transform: scale(1.1);
 }
 
-.menu__list__modal__tab__add:hover svg g g line {
-	stroke: #faf9f8;
-	transition: 0.3s all;
+@keyframes shake {
+	0%,
+	100% {
+		transform: translateX(0);
+	}
+	25% {
+		transform: translateX(-2px);
+	}
+	75% {
+		transform: translateX(2px);
+	}
 }
 
 .menu__list__logout-button {

@@ -5,13 +5,13 @@ body {
 	padding: 0;
 }
 
-.content {
+.add-page {
 	display: flex;
 	flex-direction: column;
 	max-width: 100%;
 }
 
-.tabs {
+.add-page__tabs {
 	display: flex;
 	justify-self: center;
 	align-items: center;
@@ -30,44 +30,50 @@ body {
 	margin-left: auto;
 }
 
-.tabs-radio-inputs {
+.add-page__tabs__radio {
 	display: flex;
-	flex-wrap: wrap;
-	border-radius: 8px;
+}
+
+.add-page__tabs__radio input[type='radio'] {
+	clip: rect(0 0 0 0);
+	clip-path: inset(100%);
+	height: 1px;
+	overflow: hidden;
+	position: absolute;
+	white-space: nowrap;
+	width: 1px;
+}
+
+.add-page__tabs__radio input[type='radio']:checked + span {
+	box-shadow: 0 0 0 0.0625em #494646;
 	background-color: #faf9f8;
-	box-sizing: border-box;
-	border: 2px solid #ccc;
-	padding: 0.25rem;
-	width: 300px;
-	font-size: 14px;
+	z-index: 1;
+	color: #494646;
 }
 
-.tabs-radio-inputs .radio {
-	flex: 1 1 auto;
-	text-align: center;
-}
-
-.tabs-radio-inputs .radio input {
-	display: none;
-}
-
-.tabs-radio-inputs .radio .name {
-	display: flex;
+.add-page__tabs__radio label span {
+	display: block;
 	cursor: pointer;
-	align-items: center;
-	justify-content: center;
-	border-radius: 8px;
-	border: none;
-	padding: 0.5rem 0;
-	color: rgb(59, 58, 58);
-	transition: all 0.15s ease-in-out;
+	background-color: #fff;
+	width: 100px;
+	padding: 0.575em 0.75em;
+	position: relative;
+	margin-left: 0.0625em;
+	box-shadow: 0 0 0 0.0625em #b5bfd9;
+	letter-spacing: 0.05em;
+	color: #3e4963;
+	text-align: center;
+	transition: background-color 0.5s ease;
 }
 
-.tabs-radio-inputs .radio input:checked + .name {
-	background-color: #ccc;
-	font-weight: 600;
-	color: #faf9f8;
+.add-page__tabs__radio label:first-child span {
+	border-radius: 8px 0 0 8px;
 }
+
+.add-page__tabs__radio label:last-child span {
+	border-radius: 0 8px 8px 0;
+}
+
 .tabs__block {
 	display: flex;
 	flex-direction: column;

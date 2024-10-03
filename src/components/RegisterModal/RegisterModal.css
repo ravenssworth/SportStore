@@ -1,4 +1,4 @@
-.modal-overlay-register {
+.register-modal {
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -11,20 +11,21 @@
 	z-index: 1000;
 }
 
-.modal-content {
-	background: faf9f8;
+.register-modal__content {
+	background: #faf9f8;
 	padding: 20px;
 	border-radius: 10px;
 	width: 400px;
+	position: relative;
 }
 
-.form-top {
+.register-modal__content__form-top {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 }
 
-.modal-overlay-register .close-button {
+.register-modal__content__form-top__close-button {
 	background: none;
 	border: none;
 	cursor: pointer;
@@ -34,7 +35,7 @@
 	margin-bottom: 15px;
 }
 
-.register-submit-button {
+.register-modal__content__submit-button {
 	background-color: #faf9f8;
 	color: #494646;
 	border-radius: 5px;
@@ -44,7 +45,35 @@
 	border: 1px solid #494646;
 }
 
-.register-submit-button:hover {
+.register-modal__content__submit-button:hover {
 	background-color: #494646;
 	color: #faf9f8;
+}
+
+.register-modal__content__success-modal {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	background: rgba(0, 0, 0, 0.5);
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 1000;
+	border-radius: 10px;
+}
+
+.register-modal__content__success-modal__content {
+	color: #faf9f8;
+	background: #494646;
+	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15); /* Улучшенный эффект теней */
+	padding: 20px;
+	border-radius: 10px;
+	width: 340px;
+}
+
+.register-modal__content__error-message {
+	color: rgb(238, 42, 42);
+	margin: 0 0 10px 0;
 }

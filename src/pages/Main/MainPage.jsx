@@ -82,7 +82,7 @@ function MainPage() {
 					<Goods products={filteredProducts} productImages={productImages} />
 				</div>
 			)}
-			<div className='main--pagination'>
+			<div className='main__pagination'>
 				<Pagination
 					page={page}
 					totalPages={totalPages}

@@ -18,39 +18,58 @@ function AddPage() {
 		setActiveTab(tab)
 	}
 
-	return (
-		<div className='wrapper'>
-			<div className='content'>
-				<div className='add-page-header'>
-					<div className='add-page-header__menu-container'>
-						<Menu />
-					</div>
-				</div>
-				<div className='tabs'>
-					<div className='tabs-radio-inputs'>
-						<label className='radio'>
-							<input
-								type='radio'
-								name='radio'
-								defaultChecked
-								onChange={() => handleTabChange('products')}
-							/>
-							<span className='name'>Продукты</span>
-						</label>
+	const token = localStorage.getItem('token')
+	const savedRoles = JSON.parse(localStorage.getItem('roles')) || []
 
-						<label className='radio'>
-							<input
-								type='radio'
-								name='radio'
-								onChange={() => handleTabChange('categories')}
-							/>
-							<span className='name'>Категории</span>
-						</label>
-					</div>
-					<div className='tabs__block'>
-						{activeTab === 'products' && <ProductsSection />}
-						{activeTab === 'categories' && <CategoriesSection />}
-					</div>
+	if (!token) {
+		window.location.href = '/'
+		return null
+	}
+
+	if (!savedRoles.includes('ROLE_ADMIN')) {
+		window.location.href = '/'
+		return null
+	}
+
+	return (
+		<div className='add-page'>
+			<div className='add-page-header'>
+				<div className='add-page-header__menu-container'>
+					<Menu />
+				</div>
+			</div>
+			<div className='add-page__tabs'>
+				<div className='add-page__tabs__radio'>
+					<label>
+						<input
+							type='radio'
+							name='radio'
+							defaultChecked
+							onChange={() => handleTabChange('products')}
+						/>
+						<span>Продукты</span>
+					</label>
+
+					<label>
+						<input
+							type='radio'
+							name='radio'
+							onChange={() => handleTabChange('categories')}
+						/>
+						<span>Категории</span>
+					</label>
+					<label>
+						<input
+							type='radio'
+							name='radio'
+							onChange={() => handleTabChange('orders')}
+						/>
+						<span>Заказы</span>
+					</label>
+				</div>
+				<div className='tabs__block'>
+					{activeTab === 'products' && <ProductsSection />}
+					{activeTab === 'categories' && <CategoriesSection />}
 				</div>
 			</div>
 		</div>
