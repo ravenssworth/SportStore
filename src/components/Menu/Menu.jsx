@@ -180,7 +180,10 @@ function Menu({ onLoginClick }) {
 											</a>
 										)}
 										{username && (
-											<a href='/add' className='menu__list__modal__tab__orders'>
+											<a
+												href='/orders'
+												className='menu__list__modal__tab__orders'
+											>
 												<svg
 													fill='#494646'
 													xmlns='http://www.w3.org/2000/svg'
