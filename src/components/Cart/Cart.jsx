@@ -58,14 +58,20 @@ function Cart({ show, closeCart, cart, onLoginClick }) {
 	}
 
 	const handleOrder = async event => {
+		const response = await axios.get(
+			`http://localhost:8080/api/cart/${cart.id}`
+		)
+		const currentCartItems = response.data.cartItems
+
 		const userId = localStorage.getItem('userId')
-		const orderItemIds = localCartItems.map(item => ({
+
+		const orderItemIds = currentCartItems.map(item => ({
 			id: item.id,
 			productId: item.product.id,
 			quantity: item.quantity,
 		}))
 
-		const value = localCartItems.reduce(
+		const value = currentCartItems.reduce(
 			(total, item) => total + item.quantity * item.product.price,
 			0
 		)

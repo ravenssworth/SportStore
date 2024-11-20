@@ -1,8 +1,8 @@
 .orders-page {
 	display: flex;
-	justify-content: center;
 	align-items: center;
 	flex-direction: column;
+	min-height: 100vh;
 }
 
 .orders-page-header {
@@ -21,7 +21,7 @@
 	display: flex;
 	flex-direction: column;
 	padding-bottom: 35px;
-	border-bottom: 2px solid #ccc;
+	/* border-bottom: 2px solid #ccc; */
 }
 
 .orders-page__order__header span {
@@ -59,14 +59,18 @@
 	border-radius: 8px;
 }
 
-.orders-page__order__products__container__productQuantity span {
-	color: #494646;
+.orders-page__order__products__container__productName {
+	font-size: 20px;
+	margin-bottom: 5px;
+	color: #8d948e;
 }
 
-.orders-page__order__products__container__productName {
-	margin-bottom: 5px;
+.orders-page__order__products__container__productQuantity {
+	font-size: 18px;
+	color: #8d948e;
 }
 
 .orders-page__pagination {
 	width: 100%;
+	margin-top: auto;
 }

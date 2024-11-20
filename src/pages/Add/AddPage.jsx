@@ -1,15 +1,17 @@
 import React, { useState } from 'react'
+import axios from 'axios'
 import Menu from '../../components/Menu/Menu.jsx'
 import './AddPage.css'
 import CreateProduct from '../../components/CreateProduct/CreateProduct.jsx'
 import CreateCategory from '../../components/CreateCategory/CreateCategory.jsx'
 import CategoriesList from '../../components/CategoriesList/CategoriesList.jsx'
 import ProductsList from '../../components/ProductsList/ProductsList.jsx'
+import OrdersList from '../../components/OrdersList/OrdersList.jsx'
 import EditCategory from '../../components/EditCategory/EditCategory.jsx'
 import EditProduct from '../../components/EditProduct/EditProduct.jsx'
 import useProducts from '../../hooks/useProducts'
 import useCategories from '../../hooks/useCategories'
-import axios from 'axios'
+import useUsers from '../../hooks/useUsers'
 import Pagination from '../../components/Pagination/Pagination.jsx'
 
 function AddPage() {
@@ -70,6 +72,7 @@ function AddPage() {
 				<div className='tabs__block'>
 					{activeTab === 'products' && <ProductsSection />}
 					{activeTab === 'categories' && <CategoriesSection />}
+					{activeTab === 'orders' && <OrdersSection />}
 				</div>
 			</div>
 		</div>
@@ -132,7 +135,7 @@ function ProductsSection() {
 
 	const handlePageSizeChange = event => {
 		setSize(parseInt(event.target.value))
-		setPage(0) // Сброс на первую страницу при изменении размера страницы
+		setPage(0)
 	}
 
 	return (
@@ -225,7 +228,7 @@ function CategoriesSection() {
 
 	const handleCategoriesPageSizeChange = event => {
 		setCategoriesSize(parseInt(event.target.value))
-		setCategoriesPage(0) // Сброс на первую страницу при изменении размера страницы
+		setCategoriesPage(0)
 	}
 
 	return (
@@ -255,5 +258,49 @@ function CategoriesSection() {
 				</>
 			)}
 		</>
+	)
+}
+
+function OrdersSection() {
+	const {
+		users,
+		loading: loadingUsers,
+		error: errorUsers,
+		page: usersPage,
+		size: usersSize,
+		setPage: setUsersPage,
+		setSize: setUsersSize,
+		totalPages: usersTotalPages,
+	} = useUsers()
+
+	const handleNextUsersPage = () => {
+		if (usersPage < usersTotalPages - 1) {
+			setUsersPage(usersPage + 1)
+		}
+	}
+
+	const handlePreviousUsersPage = () => {
+		if (usersPage > 0) {
+			setUsersPage(usersPage - 1)
+		}
+	}
+
+	const handleUsersPageSizeChange = event => {
+		setUsersSize(parseInt(event.target.value))
+		setUsersPage(0)
+	}
+
+	return (
+		<div className='tabs__orders-actions'>
+			<OrdersList users={users} />
+			<Pagination
+				page={usersPage}
+				totalPages={usersTotalPages}
+				onPreviousPage={handlePreviousUsersPage}
+				onNextPage={handleNextUsersPage}
+				pageSize={usersSize}
+				onPageSizeChange={handleUsersPageSizeChange}
+			/>
+		</div>
 	)
 }

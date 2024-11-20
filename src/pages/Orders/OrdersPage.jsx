@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react'
-import axios from 'axios'
+import React from 'react'
 import './OrdersPage.css'
 import useProducts from '../../hooks/useProducts'
 import useOrders from '../../hooks/useOrders'
@@ -36,6 +35,19 @@ function OrdersPage(props) {
 		setPage(0)
 	}
 
+	if (orders.length === 0) {
+		return (
+			<div className='orders-page'>
+				<div className='orders-page-header'>
+					<div className='orders-page-header__menu-container'>
+						<Menu />
+					</div>
+				</div>
+				<h3 className='orders-page__no-orders'>Заказы отсутствуют</h3>
+			</div>
+		)
+	}
+
 	if (loading || loadingImages) {
 		return <div>Загрузка...</div>
 	}
@@ -45,11 +57,6 @@ function OrdersPage(props) {
 	}
 
 	if (!token) {
-		window.location.href = '/'
-		return null
-	}
-
-	if (!savedRoles.includes('ROLE_ADMIN')) {
 		window.location.href = '/'
 		return null
 	}
@@ -64,7 +71,7 @@ function OrdersPage(props) {
 			{orders.map((order, orderIndex) => (
 				<div className='orders-page__order' key={order.id}>
 					<h3 className='orders-page__order__header'>
-						Заказ от {order.createdDate.slice(0, 10)} к оплате &nbsp;
+						Заказ от {order.createdDate.slice(0, 10)} к оплате{' '}
 						<span>{order.totalPrice}Р</span>
 					</h3>
 					<div className='orders-page__order__info'>
@@ -86,7 +93,7 @@ function OrdersPage(props) {
 										{product.productReadDTO.productName}
 									</div>
 									<div className='orders-page__order__products__container__productQuantity'>
-										<span>{product.quantity}</span> шт.
+										{product.quantity} шт.
 									</div>
 								</div>
 							</div>
