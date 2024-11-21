@@ -5,7 +5,7 @@ import Pagination from '../../components/Pagination/Pagination.jsx'
 import useProducts from '../../hooks/useProducts'
 import axios from 'axios'
 
-function OrdersList({ users }) {
+function OrdersList({ users, searchedId }) {
 	const {
 		orders,
 		size,
@@ -21,6 +21,10 @@ function OrdersList({ users }) {
 
 	const [isModalOpen, setIsModalOpen] = useState(false)
 	const [selectedUser, setSelectedUser] = useState(null)
+
+	const filteredUsers = searchedId
+		? users.filter(user => user.id.toString() === searchedId)
+		: users
 
 	const handleOpenModal = userId => {
 		setSelectedUser(userId)
@@ -99,7 +103,7 @@ function OrdersList({ users }) {
 					</tr>
 				</thead>
 				<tbody>
-					{users.map(user => (
+					{filteredUsers.map(user => (
 						<tr data-name='user-row' key={user.id}>
 							<td>{user.id}</td>
 							<td>{user.username}</td>

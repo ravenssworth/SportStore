@@ -1,0 +1,34 @@
+.search-button__input {
+	width: 30%;
+}
+
+.search-button__button {
+	height: 35px;
+	width: 35px;
+	cursor: pointer;
+	border-radius: 5px;
+	border: none;
+	background-color: #494646;
+	padding: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.search-button__cancel-button {
+	background-color: #faf9f8;
+	color: black;
+	border-radius: 5px;
+	font-size: 17px;
+	padding: 1em 2em;
+	cursor: pointer;
+	border: 1px solid black;
+	transition: 0.3s all;
+	margin: 0 0 0 0;
+}
+
+.search-button__cancel-button:hover {
+	background-color: #494646;
+	color: #faf9f8;
+	transition: 0.3s all;
+}

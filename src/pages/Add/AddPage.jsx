@@ -13,6 +13,7 @@ import useProducts from '../../hooks/useProducts'
 import useCategories from '../../hooks/useCategories'
 import useUsers from '../../hooks/useUsers'
 import Pagination from '../../components/Pagination/Pagination.jsx'
+import SearchButton from '../../components/SearchButton/SearchButton.jsx'
 
 function AddPage() {
 	const [activeTab, setActiveTab] = useState('products')
@@ -150,11 +151,10 @@ function ProductsSection() {
 					onProductUpdated={handleProductUpdated}
 				/>
 			</div>
-			{loadingProducts ? (
-				<p>Loading...</p>
-			) : errorProducts ? (
-				<p>{errorProducts}</p>
-			) : (
+
+			{loadingProducts && <p>Загрузка...</p>}
+			{errorProducts && <p>{errorProducts}</p>}
+			{!loadingProducts && !errorProducts && (
 				<>
 					<ProductsList
 						products={products}
@@ -231,21 +231,28 @@ function CategoriesSection() {
 		setCategoriesPage(0)
 	}
 
+	const [searchTerm, setSearchTerm] = useState('')
+
+	const handleSearchTermChange = term => {
+		setSearchTerm(term)
+	}
+
 	return (
 		<>
 			<div className='tabs__category-actions'>
 				<CreateCategory onCategoryAdded={handleCategoryAdded} />
 				<EditCategory onCategoryUpdated={handleCategoryUpdated} />
+				<SearchButton onSearchTermChange={handleSearchTermChange} />
 			</div>
-			{loadingCategories ? (
-				<p>Loading...</p>
-			) : errorCategories ? (
-				<p>{errorCategories}</p>
-			) : (
+			{loadingCategories && <p>Загрузка...</p>}
+			{errorCategories && <p>{errorCategories}</p>}
+
+			{!loadingCategories && !errorCategories && (
 				<>
 					<CategoriesList
 						categories={categories}
 						onDeleteCategory={handleDeleteCategory}
+						searchedId={searchTerm}
 					/>
 					<Pagination
 						page={categoriesPage}
@@ -290,9 +297,18 @@ function OrdersSection() {
 		setUsersPage(0)
 	}
 
+	const [searchTerm, setSearchTerm] = useState('')
+
+	const handleSearchTermChange = term => {
+		setSearchTerm(term)
+	}
+
 	return (
-		<div className='tabs__orders-actions'>
-			<OrdersList users={users} />
+		<>
+			<div className='tabs__orders-actions'>
+				<SearchButton onSearchTermChange={handleSearchTermChange} />
+			</div>
+			<OrdersList users={users} searchedId={searchTerm} />
 			<Pagination
 				page={usersPage}
 				totalPages={usersTotalPages}
@@ -301,6 +317,6 @@ function OrdersSection() {
 				pageSize={usersSize}
 				onPageSizeChange={handleUsersPageSizeChange}
 			/>
-		</div>
+		</>
 	)
 }

@@ -1,6 +1,6 @@
 .edit-category.active {
-	width: 50%;
-	margin-left: auto;
+	width: 30%;
+	margin: 0 10px 0 0;
 }
 .edit-category__button {
 	display: flex;
@@ -13,7 +13,49 @@
 	border: none;
 	font-weight: 600;
 	cursor: pointer;
+	margin-right: 10px;
 }
+
+.edit-category-container__form__button-container {
+	display: flex;
+	justify-content: space-between;
+}
+
+.edit-category__loading-button {
+	background-color: #faf9f8;
+	color: black;
+	border-radius: 5px;
+	font-size: 17px;
+	padding: 1em 2em;
+	cursor: pointer;
+	border: 1px solid black;
+	transition: 0.3s all;
+}
+
+.edit-category__loading-button:hover {
+	background-color: #494646;
+	color: #faf9f8;
+	transition: 0.3s all;
+}
+
+.edit-category__cancel-button {
+	background-color: #faf9f8;
+	color: black;
+	border-radius: 5px;
+	font-size: 17px;
+	padding: 1em 2em;
+	cursor: pointer;
+	border: 1px solid black;
+	transition: 0.3s all;
+	margin: 0 0 0 5px;
+}
+
+.edit-category__cancel-button:hover {
+	background-color: #494646;
+	color: #faf9f8;
+	transition: 0.3s all;
+}
+
 .edit-category-svgIcon {
 	width: 17px;
 	height: 17px;
@@ -22,21 +64,6 @@
 
 .edit-category-svgIcon path {
 	fill: #faf9f8;
-}
-
-.form-container {
-	margin-left: 15px;
-}
-.form-container button {
-	padding: 10px 20px;
-	border: none;
-	margin-top: 10px;
-	border-radius: 5px;
-	cursor: pointer;
-}
-
-.edit-category-container {
-	width: 50%;
 }
 
 .edit-category__button-container {
@@ -51,26 +78,10 @@
 	font-size: 17px;
 	padding: 1em 2em;
 	transition: 0.3s all;
+	cursor: pointer;
 }
 
 .edit-category__button-container button:hover {
-	background-color: #494646;
-	color: #faf9f8;
-	transition: 0.3s all;
-}
-
-.edit-category__loading-button {
-	background-color: #faf9f8;
-	color: black;
-	border-radius: 5px;
-	font-size: 17px;
-	padding: 1em 2em !important;
-	cursor: pointer;
-	border: 1px solid black !important;
-	transition: 0.3s all;
-}
-
-.edit-category__loading-button:hover {
 	background-color: #494646;
 	color: #faf9f8;
 	transition: 0.3s all;

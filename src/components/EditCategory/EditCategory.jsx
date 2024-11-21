@@ -71,28 +71,39 @@ function EditCategory({ onCategoryUpdated }) {
 	return (
 		<div className={showForm ? 'edit-category active' : 'edit-category'}>
 			{showForm ? (
-				<div className='form-container'>
+				<div className='edit-category-container'>
 					<form onSubmit={handleSubmit}>
-						<div className='form-group'>
+						<div className='edit-category-container__form'>
 							<Input
 								id='categoryId'
 								value={categoryId}
 								placeholder='ID категории'
 								onChange={e => setCategoryId(e.target.value)}
 							/>
-							<button
-								className='edit-category__loading-button'
-								type='button'
-								onClick={loadCategoryData}
-								disabled={loading || !categoryId}
-							>
-								{loading ? 'Загрузка...' : 'Загрузить данные категории'}
-							</button>
+							<div className='edit-category-container__form__button-container'>
+								<button
+									className='edit-category__loading-button'
+									type='button'
+									onClick={loadCategoryData}
+									disabled={loading || !categoryId}
+								>
+									{loading ? 'Загрузка...' : 'Загрузить данные категории'}
+								</button>
+								<button
+									className='edit-category__cancel-button'
+									onClick={() => {
+										setShowForm(false)
+										setCategoryId('')
+									}}
+								>
+									Отмена
+								</button>
+							</div>
 						</div>
 						{error && <p className='error'>{error}</p>}
 						{isLoaded && (
 							<>
-								<div className='form-group'>
+								<div className='edit-category-container__form__form-group'>
 									<Input
 										id='categoryName'
 										value={categoryData.categoryName}
@@ -102,7 +113,7 @@ function EditCategory({ onCategoryUpdated }) {
 										disabled={loading}
 									/>
 								</div>
-								<div className='form-group'>
+								<div className='edit-category-container__form__form-group'>
 									<Input
 										id='categoryDescription'
 										value={categoryData.categoryDescription}
@@ -118,7 +129,11 @@ function EditCategory({ onCategoryUpdated }) {
 									</button>
 									<button
 										type='button'
-										onClick={() => setShowForm(false)}
+										onClick={() => {
+											setShowForm(false)
+											setIsLoaded(false)
+											setCategoryId('')
+										}}
 										disabled={loading}
 									>
 										Отмена
