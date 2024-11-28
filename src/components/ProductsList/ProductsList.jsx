@@ -4,10 +4,14 @@ import DeleteButton from '../DeleteButton/DeleteButton.jsx'
 import axios from 'axios'
 import ImageModal from '../ImageModal/ImageModal.jsx'
 
-function ProductsList({ products, onDeleteProduct }) {
+function ProductsList({ products, onDeleteProduct, searchedId }) {
 	const [productImages, setProductImages] = useState({})
 	const [selectedProductImages, setSelectedProductImages] = useState([])
 	const [isModalOpen, setIsModalOpen] = useState(false)
+
+	const filteredProducts = searchedId
+		? products.filter(product => product.id.toString() === searchedId)
+		: products
 
 	// Функция для получения всех изображений для продукта
 	const fetchAllImages = async productId => {
@@ -111,7 +115,7 @@ function ProductsList({ products, onDeleteProduct }) {
 					</tr>
 				</thead>
 				<tbody>
-					{products.map(product => (
+					{filteredProducts.map(product => (
 						<tr key={product.id}>
 							<td>{product.id}</td>
 							<td>{product.productName}</td>

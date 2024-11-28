@@ -2,10 +2,14 @@ import React from 'react'
 import './CategoriesList.css'
 import DeleteButton from '../DeleteButton/DeleteButton.jsx'
 
-function CategoriesList({ categories, onDeleteCategory }) {
+function CategoriesList({ categories, onDeleteCategory, searchedId }) {
 	if (categories.length === 0) {
 		return <p>Категории не найдены</p>
 	}
+
+	const filteredCategories = searchedId
+		? categories.filter(category => category.id.toString() === searchedId)
+		: categories
 
 	return (
 		<div className='categories-list-container'>
@@ -19,7 +23,7 @@ function CategoriesList({ categories, onDeleteCategory }) {
 					</tr>
 				</thead>
 				<tbody>
-					{categories.map(category => (
+					{filteredCategories.map(category => (
 						<tr key={category.id}>
 							<td>{category.id}</td>
 							<td>{category.categoryName}</td>

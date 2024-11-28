@@ -139,6 +139,12 @@ function ProductsSection() {
 		setPage(0)
 	}
 
+	const [searchTerm, setSearchTerm] = useState('')
+
+	const handleSearchTermChange = term => {
+		setSearchTerm(term)
+	}
+
 	return (
 		<>
 			<div className='tabs__product-actions'>
@@ -150,6 +156,7 @@ function ProductsSection() {
 					categories={categories}
 					onProductUpdated={handleProductUpdated}
 				/>
+				<SearchButton onSearchTermChange={handleSearchTermChange} />
 			</div>
 
 			{loadingProducts && <p>Загрузка...</p>}
@@ -160,6 +167,7 @@ function ProductsSection() {
 						products={products}
 						productImages={productImages}
 						onDeleteProduct={handleDeleteProduct}
+						searchedId={searchTerm}
 					/>
 					{products.length > 0 && (
 						<Pagination
@@ -278,7 +286,26 @@ function OrdersSection() {
 		setPage: setUsersPage,
 		setSize: setUsersSize,
 		totalPages: usersTotalPages,
+		searchUserById,
+		fetchUsers,
 	} = useUsers()
+
+	const [searchTerm, setSearchTerm] = useState('')
+	const [selectedUserId, setSelectedUserId] = useState(null)
+
+	const isUserFound = users.some(user => user.id.toString() === searchTerm)
+
+	const handleSearchTermChange = term => {
+		setSearchTerm(term)
+	}
+
+	const handleSearch = async () => {
+		if (searchTerm) {
+			await searchUserById(searchTerm)
+		} else {
+			await fetchUsers(0, usersSize)
+		}
+	}
 
 	const handleNextUsersPage = () => {
 		if (usersPage < usersTotalPages - 1) {
@@ -297,16 +324,14 @@ function OrdersSection() {
 		setUsersPage(0)
 	}
 
-	const [searchTerm, setSearchTerm] = useState('')
-
-	const handleSearchTermChange = term => {
-		setSearchTerm(term)
-	}
-
 	return (
 		<>
 			<div className='tabs__orders-actions'>
-				<SearchButton onSearchTermChange={handleSearchTermChange} />
+				<SearchButton
+					onSearchTermChange={handleSearchTermChange}
+					onSearch={handleSearch}
+					isUserFound={isUserFound}
+				/>
 			</div>
 			<OrdersList users={users} searchedId={searchTerm} />
 			<Pagination

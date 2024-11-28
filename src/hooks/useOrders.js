@@ -29,6 +29,18 @@ const useOrders = (initialPage = 0, initialSize = 5, initialUserId = null) => {
 			setLoading(false)
 		}
 	}
+	const searchOrdersById = async id => {
+		setLoading(true)
+		try {
+			const response = await axios.get(`http://localhost:8080/api/orders/${id}`)
+			setOrders(response.data.content)
+			setTotalPages(response.data.totalPages)
+		} catch (error) {
+			setError('Не удалось получить заказы')
+		} finally {
+			setLoading(false)
+		}
+	}
 
 	useEffect(() => {
 		// При изменении userId, page или size обновляем данные
@@ -47,6 +59,7 @@ const useOrders = (initialPage = 0, initialSize = 5, initialUserId = null) => {
 		setUserId, // Позволяет изменить userId для модального окна
 		fetchOrders, // Можно вручную вызывать для кастомных запросов
 		setOrders,
+		searchOrdersById,
 	}
 }
 

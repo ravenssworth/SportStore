@@ -101,26 +101,39 @@ function EditProduct({ categories, onProductUpdated }) {
 		>
 			{showForm ? (
 				<form onSubmit={handleSubmit}>
-					<div className='form-group'>
+					<div className='edit-product-container'>
 						<Input
 							id='text'
 							value={productId}
 							placeholder='ID продукта'
 							onChange={e => setProductId(e.target.value)}
 						/>
-						<button
-							className='edit-product-container__loading-button'
-							type='button'
-							onClick={loadProductData}
-							disabled={loading || !productId}
-						>
-							Загрузить данные продукта
-						</button>
+						<div className='edit-product-container__button-container'>
+							<button
+								className='edit-product-container__loading-button'
+								type='button'
+								onClick={loadProductData}
+								disabled={loading || !productId}
+							>
+								Загрузить данные продукта
+							</button>
+							<button
+								className='edit-product-container__cancel-button'
+								onClick={() => {
+									setShowForm(false)
+									setIsLoaded(false)
+									setProductId('')
+								}}
+							>
+								Отмена
+							</button>
+						</div>
 					</div>
 					{error && <p className='error'>{error}</p>}
 					{isLoaded && (
 						<>
-							<div className='form-group'>
+							<div className='edit-product-container__form-group__input'>
+								<label htmlFor='productName'>Название: </label>
 								<Input
 									id='productName'
 									name='productName'
@@ -130,7 +143,8 @@ function EditProduct({ categories, onProductUpdated }) {
 									placeholder='Название продукта'
 								/>
 							</div>
-							<div className='form-group'>
+							<div className='edit-product-container__form-group__input'>
+								<label htmlFor='productDescription'>Описание: </label>
 								<Input
 									id='productDescription'
 									name='productDescription'
@@ -140,7 +154,8 @@ function EditProduct({ categories, onProductUpdated }) {
 									placeholder='Описание продукта'
 								/>
 							</div>
-							<div className='form-group'>
+							<div className='edit-product-container__form-group'>
+								<label htmlFor='price'>Цена:</label>
 								<input
 									type='number'
 									id='price'
@@ -151,7 +166,8 @@ function EditProduct({ categories, onProductUpdated }) {
 									placeholder='Цена'
 								/>
 							</div>
-							<div className='form-group'>
+							<div className='edit-product-container__form-group'>
+								<label htmlFor='stock'>Количество:</label>
 								<input
 									type='number'
 									id='stock'
@@ -162,7 +178,7 @@ function EditProduct({ categories, onProductUpdated }) {
 									placeholder='Количество'
 								/>
 							</div>
-							<div className='form-group'>
+							<div className='edit-product-container__form-group'>
 								<label htmlFor='category'>Категория:</label>
 								<select
 									id='category'
@@ -181,12 +197,23 @@ function EditProduct({ categories, onProductUpdated }) {
 							</div>
 
 							<div className='edit-product__button-container'>
-								<button type='submit' disabled={loading}>
+								<button
+									type='submit'
+									disabled={loading}
+									onClick={() => {
+										setProductId('')
+										setIsLoaded(false)
+									}}
+								>
 									{loading ? 'Сохранение...' : 'Сохранить изменения'}
 								</button>
 								<button
 									type='button'
-									onClick={() => setShowForm(false)}
+									onClick={() => {
+										setShowForm(false)
+										setProductId('')
+										setIsLoaded(false)
+									}}
 									disabled={loading}
 								>
 									Отмена

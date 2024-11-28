@@ -17,7 +17,23 @@ const useUsers = (initialPage = 0, initialSize = 10) => {
 				{}
 			)
 			setUsers(response.data.content)
-			setTotalPages(response.data.totalPages)
+		} catch (error) {
+			setError('Не удалось получить заказы')
+		} finally {
+			setLoading(false)
+		}
+	}
+
+	const searchUserById = async id => {
+		setLoading(true)
+		try {
+			const response = await axios.get(`http://localhost:8080/api/users/${id}`)
+			console.log('Response from server:', response.data)
+			if (response.data) {
+				setUsers([response.data])
+			} else {
+				setUsers([])
+			}
 		} catch (error) {
 			setError('Не удалось получить заказы')
 		} finally {
@@ -38,6 +54,8 @@ const useUsers = (initialPage = 0, initialSize = 10) => {
 		size,
 		setSize,
 		totalPages,
+		searchUserById,
+		fetchUsers,
 	}
 }
 

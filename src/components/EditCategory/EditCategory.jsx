@@ -93,6 +93,7 @@ function EditCategory({ onCategoryUpdated }) {
 									className='edit-category__cancel-button'
 									onClick={() => {
 										setShowForm(false)
+										setIsLoaded(false)
 										setCategoryId('')
 									}}
 								>

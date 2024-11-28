@@ -1,8 +1,5 @@
 .orders-list-container {
 	min-width: 1000px;
-	border: 2px solid #ccc;
-	border-radius: 8px;
-	border-bottom: none;
 }
 
 .orders-list-container table {
@@ -20,8 +17,8 @@
 	color: #faf9f8;
 }
 .orders-list-container table tr {
-	border-bottom: 2px solid #ccc;
 	position: relative;
+	background-color: #f0f0f0;
 }
 
 .orders-list-container table tr:hover {
@@ -36,8 +33,16 @@
 .orders-list-container table th:first-child {
 	border-top-left-radius: 8px;
 }
+
 .orders-list-container table th:last-child {
 	border-top-right-radius: 8px;
+}
+
+.orders-list-container table tr:last-child td:first-child {
+	border-bottom-left-radius: 8px;
+}
+.orders-list-container table tr:last-child td:last-child {
+	border-bottom-right-radius: 8px;
 }
 
 th[data-name='id'] {
@@ -69,6 +74,7 @@ th[data-name='id'] {
 .orders-list-container .orders-list-container__button:hover g path {
 	fill: #fff;
 }
+
 .delete-button:active {
 	transform: scale(0.98);
 }
@@ -107,7 +113,7 @@ th[data-name='id'] {
 	background: #faf9f8;
 	border-radius: 8px;
 	width: 100%;
-	max-width: 1000px;
+	max-width: 1200px;
 	height: 100%;
 	max-height: 1000px;
 	position: relative;
@@ -118,14 +124,20 @@ th[data-name='id'] {
 	padding: 5px;
 }
 
+.orders-list-container__modal__content__top {
+	display: flex;
+	align-items: center;
+	padding: 8px;
+	margin: 0 0 0 8px;
+}
+
 .orders-list-container__modal__content__close-button {
 	cursor: pointer;
 	border: none;
 	background: none;
 	height: 25px;
 	width: 40px;
-	margin-left: auto;
-	margin-top: 12px;
+	margin: 0 0 auto auto;
 }
 .orders-list-container__modal__content__order {
 	margin: 0 0 8px 8px;

@@ -15,7 +15,13 @@
 	align-items: center;
 }
 
-.search-button__cancel-button {
+.search-button__button-container {
+	display: flex;
+	justify-content: space-between;
+}
+
+.search-button__button-container__cancel-button,
+.search-button__button-container__global-button {
 	background-color: #faf9f8;
 	color: black;
 	border-radius: 5px;
@@ -27,8 +33,14 @@
 	margin: 0 0 0 0;
 }
 
-.search-button__cancel-button:hover {
+.search-button__button-container__cancel-button:hover,
+.search-button__button-container__global-button:hover {
 	background-color: #494646;
 	color: #faf9f8;
 	transition: 0.3s all;
+}
+
+.search-button__button:hover .search-button__button__find-svgIcon {
+	transition-duration: 0.6s;
+	transform: rotate(360deg);
 }

@@ -86,6 +86,9 @@ body {
 .tabs__product-actions {
 	display: flex;
 	margin: 5px 0 5px 0;
+	flex-wrap: wrap;
+	align-items: flex-end;
+	justify-content: start;
 }
 
 .tabs__category-actions {
@@ -99,8 +102,5 @@ body {
 .tabs__orders-actions {
 	display: flex;
 	flex-direction: column;
-}
-
-.tabs__orders-actions {
 	margin: 0 0 5px 0;
 }

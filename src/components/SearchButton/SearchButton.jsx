@@ -2,7 +2,7 @@ import { React, useState } from 'react'
 import './SearchButton.css'
 import Input from '../Input/Input'
 
-function SearchButton({ onSearchTermChange }) {
+function SearchButton({ onSearchTermChange, onSearch, isUserFound }) {
 	const [showForm, setShowForm] = useState(false)
 	const [searchTerm, setSearchTerm] = useState('')
 
@@ -15,6 +15,11 @@ function SearchButton({ onSearchTermChange }) {
 		setSearchTerm(value)
 		onSearchTermChange(value)
 	}
+
+	const handleSearchClick = () => {
+		onSearch()
+	}
+
 	return (
 		<>
 			{showForm ? (
@@ -24,16 +29,26 @@ function SearchButton({ onSearchTermChange }) {
 						value={searchTerm}
 						onChange={handleInputChange}
 					/>
-					<button
-						className='search-button__cancel-button'
-						onClick={() => {
-							setShowForm(false)
-							setSearchTerm('')
-							onSearchTermChange('')
-						}}
-					>
-						Отмена
-					</button>
+					<div className='search-button__button-container'>
+						{!isUserFound && (
+							<button
+								className='search-button__button-container__global-button'
+								onClick={handleSearchClick}
+							>
+								Глобальный поиск
+							</button>
+						)}
+						<button
+							className='search-button__button-container__cancel-button'
+							onClick={() => {
+								setShowForm(false)
+								setSearchTerm('')
+								onSearchTermChange('')
+							}}
+						>
+							Отмена
+						</button>
+					</div>
 				</div>
 			) : (
 				<button className='search-button__button' onClick={handleFindUsers}>
