@@ -2,7 +2,7 @@ import { React, useState } from 'react'
 import './SearchButton.css'
 import Input from '../Input/Input'
 
-function SearchButton({ onSearchTermChange, onSearch, isUserFound }) {
+function SearchButton({ onSearchTermChange, onSearch, isFound, onCancel }) {
 	const [showForm, setShowForm] = useState(false)
 	const [searchTerm, setSearchTerm] = useState('')
 
@@ -14,6 +14,13 @@ function SearchButton({ onSearchTermChange, onSearch, isUserFound }) {
 		const value = e.target.value
 		setSearchTerm(value)
 		onSearchTermChange(value)
+	}
+
+	const handleCancel = () => {
+		setShowForm(false)
+		setSearchTerm('')
+		onSearchTermChange('')
+		onCancel()
 	}
 
 	const handleSearchClick = () => {
@@ -30,7 +37,7 @@ function SearchButton({ onSearchTermChange, onSearch, isUserFound }) {
 						onChange={handleInputChange}
 					/>
 					<div className='search-button__button-container'>
-						{!isUserFound && (
+						{!isFound && (
 							<button
 								className='search-button__button-container__global-button'
 								onClick={handleSearchClick}
@@ -40,11 +47,7 @@ function SearchButton({ onSearchTermChange, onSearch, isUserFound }) {
 						)}
 						<button
 							className='search-button__button-container__cancel-button'
-							onClick={() => {
-								setShowForm(false)
-								setSearchTerm('')
-								onSearchTermChange('')
-							}}
+							onClick={handleCancel}
 						>
 							Отмена
 						</button>

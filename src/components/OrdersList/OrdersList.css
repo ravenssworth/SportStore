@@ -142,6 +142,11 @@ th[data-name='id'] {
 .orders-list-container__modal__content__order {
 	margin: 0 0 8px 8px;
 	padding: 8px;
+	border-radius: 8px;
+}
+
+.orders-list-container__modal__content__order:hover {
+	background-color: #f0f0f0;
 }
 
 .orders-list-container__modal__content__pagination {
@@ -170,11 +175,13 @@ th[data-name='id'] {
 	padding: 4px 8px;
 	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.06);
 	border-radius: 5px;
+	background-color: #494646;
+	color: #faf9f8;
 }
 
 .orders-list-container__modal__content__order
 	.orders-list-container__modal__content__order__price {
-	margin: 4px 0 0 15px;
+	margin: 0 0 0 15px;
 }
 .orders-list-container__modal__content__order__price {
 	background-color: #ccc;

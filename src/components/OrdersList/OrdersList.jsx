@@ -249,17 +249,18 @@ function OrdersList({ users, searchedId }) {
 								</div>
 							))}
 						</div>
-
-						<div className='orders-list-container__modal__content__pagination'>
-							<Pagination
-								page={page}
-								totalPages={totalPages}
-								onPreviousPage={handlePreviousPage}
-								onNextPage={handleNextPage}
-								pageSize={size}
-								onPageSizeChange={handlePageSizeChange}
-							/>
-						</div>
+						{!searchTerm && (
+							<div className='orders-list-container__modal__content__pagination'>
+								<Pagination
+									page={page}
+									totalPages={totalPages}
+									onPreviousPage={handlePreviousPage}
+									onNextPage={handleNextPage}
+									pageSize={size}
+									onPageSizeChange={handlePageSizeChange}
+								/>
+							</div>
+						)}
 					</div>
 				</div>
 			)}

@@ -9,7 +9,7 @@ const useCategories = (initialPage = 0, initialSize = 10) => {
 	const [categoriesSize, setCategoriesSize] = useState(initialSize)
 	const [categoriesTotalPages, setCategoriesTotalPages] = useState(1)
 
-	const fetchCategories = async () => {
+	const fetchCategories = async (categoriesPage, categoriesSize) => {
 		try {
 			const response = await axios.post(
 				`http://localhost:8080/api/categories/all?page=${categoriesPage}&size=${categoriesSize}&sort=categoryName`,
@@ -19,6 +19,22 @@ const useCategories = (initialPage = 0, initialSize = 10) => {
 			setCategoriesTotalPages(response.data.totalPages) // Обновляем общее количество страниц
 		} catch (error) {
 			setError('Failed to fetch categories')
+		} finally {
+			setLoading(false)
+		}
+	}
+
+	const searchCategoryById = async id => {
+		setLoading(true)
+		try {
+			const response = await axios.get(
+				`http://localhost:8080/api/categories/${id}`
+			)
+			if (response.data) {
+				setCategories([response.data])
+			}
+		} catch (error) {
+			setError('Не удалось получить категорию')
 		} finally {
 			setLoading(false)
 		}
@@ -38,6 +54,8 @@ const useCategories = (initialPage = 0, initialSize = 10) => {
 		setCategoriesSize,
 		categoriesTotalPages,
 		setCategories,
+		searchCategoryById,
+		fetchCategories,
 	}
 }
 

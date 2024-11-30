@@ -1,8 +1,5 @@
 .categories-list-container {
 	min-width: 1000px;
-	border: 2px solid #ccc;
-	border-radius: 8px;
-	border-bottom: none;
 }
 
 .categories-list-container table {
@@ -20,7 +17,8 @@
 	color: #faf9f8;
 }
 .categories-list-container table tr {
-	border-bottom: 2px solid #ccc;
+	position: relative;
+	background-color: #f0f0f0;
 }
 
 .categories-list-container table tr:hover {
@@ -37,6 +35,13 @@
 }
 .categories-list-container table th:last-child {
 	border-top-right-radius: 8px;
+}
+
+.categories-list-container table tr:last-child td:first-child {
+	border-bottom-left-radius: 8px;
+}
+.categories-list-container table tr:last-child td:last-child {
+	border-bottom-right-radius: 8px;
 }
 
 .categories-list-container .delete-button {

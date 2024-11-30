@@ -56,6 +56,24 @@ const useProducts = (
 		}
 	}
 
+	const searchProductById = async id => {
+		setLoading(true)
+		try {
+			const response = await axios.get(
+				`http://localhost:8080/api/products/${id}`
+			)
+			if (response.data) {
+				setProducts([response.data])
+			} else {
+				setProducts([])
+			}
+		} catch (error) {
+			setError('Failed to fetch products')
+		} finally {
+			setLoading(false)
+		}
+	}
+
 	useEffect(() => {
 		fetchProducts(page, size, category)
 	}, [page, size, category]) // Запрос обновляется при изменении категории, страницы или размера
@@ -72,6 +90,8 @@ const useProducts = (
 		totalPages,
 		setCategory, // Возвращаем setter для категории
 		setProducts,
+		searchProductById,
+		fetchProducts,
 	}
 }
 

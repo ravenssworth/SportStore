@@ -13,28 +13,35 @@ function CategoriesList({ categories, onDeleteCategory, searchedId }) {
 
 	return (
 		<div className='categories-list-container'>
-			<table>
-				<thead>
-					<tr>
-						<th>ID</th>
-						<th>Название Категории</th>
-						<th>Описание категории</th>
-						<th>Действия</th>
-					</tr>
-				</thead>
-				<tbody>
-					{filteredCategories.map(category => (
-						<tr key={category.id}>
-							<td>{category.id}</td>
-							<td>{category.categoryName}</td>
-							<td>{category.categoryDescription}</td>
-							<td>
-								<DeleteButton onClick={() => onDeleteCategory(category.id)} />
-							</td>
+			{filteredCategories.length > 0 ? (
+				<table>
+					<thead>
+						<tr>
+							<th>ID</th>
+							<th>Название Категории</th>
+							<th>Описание категории</th>
+							<th>Действия</th>
 						</tr>
-					))}
-				</tbody>
-			</table>
+					</thead>
+					<tbody>
+						{filteredCategories.map(category => (
+							<tr key={category.id}>
+								<td>{category.id}</td>
+								<td>{category.categoryName}</td>
+								<td>{category.categoryDescription}</td>
+								<td>
+									<DeleteButton onClick={() => onDeleteCategory(category.id)} />
+								</td>
+							</tr>
+						))}
+					</tbody>
+				</table>
+			) : (
+				<p>
+					На этой странице категория не найдена, попробуйте выполнить глобальный
+					поиск.
+				</p>
+			)}
 		</div>
 	)
 }

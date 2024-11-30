@@ -21,18 +21,26 @@
 	display: flex;
 	flex-direction: column;
 	padding-bottom: 35px;
-	/* border-bottom: 2px solid #ccc; */
 }
 
-.orders-page__order__header span {
+.orders-page__order__header {
+	display: flex;
+	margin: 0 0 15px 0;
+}
+
+.orders-page__order__header__date {
+	background-color: #494646;
+	border-radius: 8px;
+	color: #faf9f8;
+	padding: 5px;
+}
+
+.orders-page__order__header__price {
 	background-color: #ccc;
 	padding: 5px;
 	border-radius: 5px;
 	color: #faf9f8;
-}
-
-.orders-page__order__header {
-	margin-right: auto;
+	margin: 0 0 0 15px;
 }
 
 .orders-page__order__info {

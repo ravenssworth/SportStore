@@ -94,9 +94,31 @@ function ProductsSection() {
 		setSize,
 		totalPages,
 		setProducts,
+		fetchProducts,
+		searchProductById,
 	} = useProducts()
 
 	const { categories } = useCategories()
+
+	const [searchTerm, setSearchTerm] = useState('')
+
+	const handleSearchTermChange = term => {
+		setSearchTerm(term)
+	}
+
+	const isProductFound = products.some(
+		product => product.id.toString() === searchTerm
+	)
+
+	const handleSearch = async () => {
+		if (searchTerm) {
+			await searchProductById(searchTerm)
+		}
+	}
+
+	const handleCancel = async () => {
+		await fetchProducts(0, 5)
+	}
 
 	const handleProductAdded = newProduct => {
 		setProducts(prevProducts => [...prevProducts, newProduct])
@@ -139,12 +161,6 @@ function ProductsSection() {
 		setPage(0)
 	}
 
-	const [searchTerm, setSearchTerm] = useState('')
-
-	const handleSearchTermChange = term => {
-		setSearchTerm(term)
-	}
-
 	return (
 		<>
 			<div className='tabs__product-actions'>
@@ -156,7 +172,12 @@ function ProductsSection() {
 					categories={categories}
 					onProductUpdated={handleProductUpdated}
 				/>
-				<SearchButton onSearchTermChange={handleSearchTermChange} />
+				<SearchButton
+					onSearchTermChange={handleSearchTermChange}
+					onSearch={handleSearch}
+					isFound={isProductFound}
+					onCancel={handleCancel}
+				/>
 			</div>
 
 			{loadingProducts && <p>Загрузка...</p>}
@@ -169,7 +190,7 @@ function ProductsSection() {
 						onDeleteProduct={handleDeleteProduct}
 						searchedId={searchTerm}
 					/>
-					{products.length > 0 && (
+					{products.length > 0 && !searchTerm && (
 						<Pagination
 							page={page}
 							totalPages={totalPages}
@@ -196,10 +217,32 @@ function CategoriesSection() {
 		setCategoriesSize,
 		categoriesTotalPages,
 		setCategories,
+		searchCategoryById,
+		fetchCategories,
 	} = useCategories()
 
 	const handleCategoryAdded = newCategory => {
 		setCategories(prevCategories => [...prevCategories, newCategory])
+	}
+
+	const [searchTerm, setSearchTerm] = useState('')
+
+	const handleSearchTermChange = term => {
+		setSearchTerm(term)
+	}
+
+	const isCategoryFound = categories.some(
+		category => category.id.toString() === searchTerm
+	)
+
+	const handleSearch = async () => {
+		if (searchTerm) {
+			await searchCategoryById(searchTerm)
+		}
+	}
+
+	const handleCancel = async () => {
+		await fetchCategories(0, 5)
 	}
 
 	const handleCategoryUpdated = updatedCategory => {
@@ -239,18 +282,17 @@ function CategoriesSection() {
 		setCategoriesPage(0)
 	}
 
-	const [searchTerm, setSearchTerm] = useState('')
-
-	const handleSearchTermChange = term => {
-		setSearchTerm(term)
-	}
-
 	return (
 		<>
 			<div className='tabs__category-actions'>
 				<CreateCategory onCategoryAdded={handleCategoryAdded} />
 				<EditCategory onCategoryUpdated={handleCategoryUpdated} />
-				<SearchButton onSearchTermChange={handleSearchTermChange} />
+				<SearchButton
+					onSearchTermChange={handleSearchTermChange}
+					onSearch={handleSearch}
+					isFound={isCategoryFound}
+					onCancel={handleCancel}
+				/>
 			</div>
 			{loadingCategories && <p>Загрузка...</p>}
 			{errorCategories && <p>{errorCategories}</p>}
@@ -262,14 +304,16 @@ function CategoriesSection() {
 						onDeleteCategory={handleDeleteCategory}
 						searchedId={searchTerm}
 					/>
-					<Pagination
-						page={categoriesPage}
-						totalPages={categoriesTotalPages}
-						onPreviousPage={handlePreviousCategoriesPage}
-						onNextPage={handleNextCategoriesPage}
-						pageSize={categoriesSize}
-						onPageSizeChange={handleCategoriesPageSizeChange}
-					/>
+					{!searchTerm && (
+						<Pagination
+							page={categoriesPage}
+							totalPages={categoriesTotalPages}
+							onPreviousPage={handlePreviousCategoriesPage}
+							onNextPage={handleNextCategoriesPage}
+							pageSize={categoriesSize}
+							onPageSizeChange={handleCategoriesPageSizeChange}
+						/>
+					)}
 				</>
 			)}
 		</>
@@ -302,9 +346,11 @@ function OrdersSection() {
 	const handleSearch = async () => {
 		if (searchTerm) {
 			await searchUserById(searchTerm)
-		} else {
-			await fetchUsers(0, usersSize)
 		}
+	}
+
+	const handleCancel = async () => {
+		await fetchUsers(0, 5)
 	}
 
 	const handleNextUsersPage = () => {
@@ -330,18 +376,21 @@ function OrdersSection() {
 				<SearchButton
 					onSearchTermChange={handleSearchTermChange}
 					onSearch={handleSearch}
-					isUserFound={isUserFound}
+					isFound={isUserFound}
+					onCancel={handleCancel}
 				/>
 			</div>
 			<OrdersList users={users} searchedId={searchTerm} />
-			<Pagination
-				page={usersPage}
-				totalPages={usersTotalPages}
-				onPreviousPage={handlePreviousUsersPage}
-				onNextPage={handleNextUsersPage}
-				pageSize={usersSize}
-				onPageSizeChange={handleUsersPageSizeChange}
-			/>
+			{!searchTerm && (
+				<Pagination
+					page={usersPage}
+					totalPages={usersTotalPages}
+					onPreviousPage={handlePreviousUsersPage}
+					onNextPage={handleNextUsersPage}
+					pageSize={usersSize}
+					onPageSizeChange={handleUsersPageSizeChange}
+				/>
+			)}
 		</>
 	)
 }

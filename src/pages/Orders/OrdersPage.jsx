@@ -70,10 +70,14 @@ function OrdersPage(props) {
 			</div>
 			{orders.map((order, orderIndex) => (
 				<div className='orders-page__order' key={order.id}>
-					<h3 className='orders-page__order__header'>
-						Заказ от {order.createdDate.slice(0, 10)} к оплате{' '}
-						<span>{order.totalPrice}Р</span>
-					</h3>
+					<div className='orders-page__order__header'>
+						<div className='orders-page__order__header__date'>
+							Заказ от {order.createdDate.slice(0, 10)} к оплате{' '}
+						</div>
+						<span className='orders-page__order__header__price'>
+							{order.totalPrice}Р
+						</span>
+					</div>
 					<div className='orders-page__order__info'>
 						{order.orderItems?.map((product, productIndex) => (
 							<div
