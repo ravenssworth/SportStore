@@ -69,6 +69,7 @@ function MainPage() {
 				onSearchChange={setSearchTerm}
 				onLoginClick={handleOpenLoginModal}
 			/>
+			<img className='main__image' src='./src/assets/main.jpg' alt='' />
 			{loading ? (
 				<p>Загрузка...</p>
 			) : error ? (

@@ -13,3 +13,7 @@ body {
 	display: flex;
 	flex-direction: row;
 }
+
+.main__image {
+	border-radius: 8px;
+}

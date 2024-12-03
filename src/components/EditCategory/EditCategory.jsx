@@ -87,7 +87,7 @@ function EditCategory({ onCategoryUpdated }) {
 									onClick={loadCategoryData}
 									disabled={loading || !categoryId}
 								>
-									{loading ? 'Загрузка...' : 'Загрузить данные категории'}
+									{loading ? 'Загрузка...' : 'загрузить данные'}
 								</button>
 								<button
 									className='edit-category__cancel-button'

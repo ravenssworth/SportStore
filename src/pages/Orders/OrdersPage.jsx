@@ -1,9 +1,10 @@
-import React from 'react'
+import { React, useState } from 'react'
 import './OrdersPage.css'
 import useProducts from '../../hooks/useProducts'
 import useOrders from '../../hooks/useOrders'
 import Menu from '../../components/Menu/Menu.jsx'
 import Pagination from '../../components/Pagination/Pagination.jsx'
+import axios from 'axios'
 
 function OrdersPage(props) {
 	const { orders, loading, error, page, setPage, totalPages, size, setSize } =
@@ -17,6 +18,49 @@ function OrdersPage(props) {
 
 	const token = localStorage.getItem('token')
 	const savedRoles = JSON.parse(localStorage.getItem('roles')) || []
+
+	const [review, setReview] = useState(null)
+	const [comment, setComment] = useState('')
+	const [rating, setRating] = useState('')
+
+	const handleSubmitReview = async productId => {
+		const userId = parseInt(localStorage.getItem('userId'))
+
+		try {
+			const response = await axios.post('http://localhost:8080/api/reviews', {
+				userId: userId,
+				productId: productId,
+				comment: comment,
+				rating: parseInt(rating),
+			})
+
+			console.log('Отзыв успешно отправлен:', response.data)
+			handleReviewCancel()
+		} catch (error) {
+			console.error(
+				'Ошибка:',
+				error.response ? error.response.data : error.message
+			)
+		}
+	}
+
+	const handleReviewClick = event => {
+		setReview(true)
+	}
+
+	const handleRatingChange = event => {
+		setRating(event.target.value)
+	}
+
+	const handleReviewCancel = event => {
+		setReview(null)
+		setComment('')
+		setRating('')
+	}
+
+	const handleCommentChange = event => {
+		setComment(event.target.value)
+	}
 
 	const handleNextPage = () => {
 		if (page < totalPages - 1) {
@@ -100,6 +144,54 @@ function OrdersPage(props) {
 										{product.quantity} шт.
 									</div>
 								</div>
+								{review ? (
+									<div className='orders-page__order__info__review-input'>
+										<textarea
+											rows='4'
+											placeholder='Ваш отзыв...'
+											onChange={handleCommentChange}
+											value={comment}
+										/>
+										<div className='orders-page__order__info__review-input__select'>
+											<span>Рейтинг</span>
+											<select
+												name='1'
+												id='1'
+												value={rating}
+												onChange={handleRatingChange}
+											>
+												<option value='1'>1</option>
+												<option value='2'>2</option>
+												<option value='3'>3</option>
+												<option value='4'>4</option>
+												<option value='5'>5</option>
+											</select>
+										</div>
+										<div className='orders-page__order__info__review-input__button-container'>
+											<button
+												className='orders-page__order__info__review-input__button-container__button'
+												onClick={() =>
+													handleSubmitReview(product.productReadDTO.id)
+												}
+											>
+												Отправить
+											</button>
+											<button
+												className='orders-page__order__info__review-input__button-container__button'
+												onClick={handleReviewCancel}
+											>
+												Отменить
+											</button>
+										</div>
+									</div>
+								) : (
+									<button
+										className='orders-page__order__info__review-button'
+										onClick={handleReviewClick}
+									>
+										Оставить отзыв
+									</button>
+								)}
 							</div>
 						))}
 					</div>

@@ -7,6 +7,11 @@ import useProducts from '../../hooks/useProducts'
 import LoginModal from '../../components/LoginModal/LoginModal.jsx'
 
 function ProductInfoPage() {
+	const [reviews, setReviews] = useState([])
+	const [loadingReviews, setLoadingReviews] = useState(true)
+	const [page, setPage] = useState(0)
+	const [size, setSize] = useState(10)
+
 	const { id } = useParams()
 	const { products, productImages } = useProducts()
 	const [largeImage, setLargeImage] = useState(null)
@@ -66,6 +71,47 @@ function ProductInfoPage() {
 			`http://localhost:8080/api/cart/addProduct?cartId=${cartId}&productId=${product?.id}`
 		)
 		setIsProductInCart(true)
+	}
+
+	useEffect(() => {
+		const fetchReviews = async () => {
+			try {
+				const response = await axios.post(
+					`http://localhost:8080/api/reviews/all?page=${page}&size=${size}&sort=id`,
+					{
+						productId: product?.id,
+					}
+				)
+				setReviews(response.data.content)
+				console.log(response.data.content)
+			} catch (error) {
+				console.error('Ошибка при загрузке отзывов:', error)
+			} finally {
+				setLoadingReviews(false)
+			}
+		}
+
+		fetchReviews()
+	}, [page, size])
+
+	const renderReviews = () => {
+		if (loadingReviews) {
+			return <p>Загрузка отзывов...</p>
+		}
+
+		if (reviews.length === 0) {
+			return <p>Нет отзывов для этого продукта.</p>
+		}
+
+		return reviews.map(review => (
+			<div key={review.id} className='product-info__info__reviews__review'>
+				<div className='product-info__info__reviews__review__user-rating'>
+					<span id='username'>{review.userReadDTO.username}</span>
+					<span id='rating'>{review.rating}</span>
+				</div>
+				<span id='comment'>{review.comment}</span>
+			</div>
+		))
 	}
 
 	return (
@@ -135,8 +181,13 @@ function ProductInfoPage() {
 							В корзину
 						</button>
 					)}
+					<div className='product-info__info__reviews'>
+						<span className='product-info__info__reviews__title'>Отзывы</span>
+						{renderReviews()}
+					</div>
 				</div>
 			</div>
+
 			<LoginModal isOpen={isLoginModalOpen} onClose={handleCloseLoginModal} />
 		</div>
 	)

@@ -115,7 +115,7 @@ function EditProduct({ categories, onProductUpdated }) {
 								onClick={loadProductData}
 								disabled={loading || !productId}
 							>
-								Загрузить данные продукта
+								Загрузить данные
 							</button>
 							<button
 								className='edit-product-container__cancel-button'

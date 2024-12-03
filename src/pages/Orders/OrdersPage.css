@@ -52,6 +52,7 @@
 	flex-direction: row;
 	align-items: center;
 	margin-right: 15px;
+	width: 100%;
 }
 
 .orders-page__order__products__container {
@@ -81,4 +82,75 @@
 .orders-page__pagination {
 	width: 100%;
 	margin-top: auto;
+}
+
+.orders-page__order__info__review-input {
+	margin-left: auto;
+}
+
+.orders-page__order__info__review-input textarea {
+	display: block;
+	margin-left: auto;
+	width: 400px;
+	height: 60px;
+	border-radius: 8px;
+	background-color: #faf9f8;
+	color: #494646;
+	border: 1px solid #494646;
+	padding: 5px;
+	font-size: 18px;
+}
+
+.orders-page__order__info__review-input__button-container {
+	display: flex;
+	justify-content: space-between;
+	margin: 10px 0 0 0;
+}
+.orders-page__order__info__review-input__button-container__button {
+	height: 60px;
+	width: 150px;
+	border-radius: 8px;
+	background-color: #faf9f8;
+	color: #494646;
+	border: 1px solid #494646;
+	padding: 5px;
+	font-size: 18px;
+	cursor: pointer;
+}
+
+.orders-page__order__info__review-button {
+	margin: auto 0 auto auto;
+	height: 60px;
+	width: 150px;
+	border-radius: 8px;
+	background-color: #faf9f8;
+	color: #494646;
+	border: 1px solid #494646;
+	padding: 5px;
+	font-size: 18px;
+	cursor: pointer;
+}
+
+.orders-page__order__info__review-button:hover {
+	background-color: #494646;
+	color: #faf9f8;
+	transition: 0.3s all;
+}
+
+.orders-page__order__info__review-input__button-container__button:hover {
+	background-color: #494646;
+	color: #faf9f8;
+	transition: 0.3s all;
+}
+
+.orders-page__order__info__review-input__select {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	margin-top: 10px;
+}
+
+.orders-page__order__info__review-input__select select {
+	border-radius: 8px;
+	margin: 0 0 0 5px;
 }
