@@ -7,8 +7,8 @@ function Header({ searchTerm, onSearchChange, onLoginClick }) {
 	return (
 		<header>
 			<div className='header-logo'>
-				<img src='./src/assets/Default_Create_a_serious_and_min.png' alt='' />
-				<span>CATCHok</span>
+				<img src='./src/assets/logo.png' alt='' />
+				{/* <span>АСБЕСТ</span> */}
 			</div>
 			<div className='header-container__input'>
 				<Input

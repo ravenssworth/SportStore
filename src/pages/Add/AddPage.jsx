@@ -14,6 +14,7 @@ import useCategories from '../../hooks/useCategories'
 import useUsers from '../../hooks/useUsers'
 import Pagination from '../../components/Pagination/Pagination.jsx'
 import SearchButton from '../../components/SearchButton/SearchButton.jsx'
+import DefaultImage from '../../assets/logo.png'
 
 function AddPage() {
 	const [activeTab, setActiveTab] = useState('products')
@@ -37,6 +38,9 @@ function AddPage() {
 	return (
 		<div className='add-page'>
 			<div className='add-page-header'>
+				<div className='header-logo'>
+					<img src={DefaultImage} alt='' />
+				</div>
 				<div className='add-page-header__menu-container'>
 					<Menu />
 				</div>

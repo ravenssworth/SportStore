@@ -15,9 +15,19 @@
 	transition: 0.3s all;
 }
 
+.disabled {
+	pointer-events: none;
+}
+
 .goods-item:hover {
 	transition: 0.3s all;
 	transform: scale(1.05);
+}
+
+.gray-image {
+	filter: grayscale(100%);
+	opacity: 0.5;
+	pointer-events: none;
 }
 
 .goods-item__image {
@@ -31,10 +41,14 @@
 	border-radius: 8px;
 }
 
-.goods-item__name {
+.goods-container__goods-item__name {
 	margin: 15px 0 0 0;
 	color: black;
 }
-.goods-item__price {
+.goods-container__goods-item__price {
 	color: black;
+}
+
+.goods-container__goods-item__no-stock {
+	color: rgb(153, 43, 43);
 }
