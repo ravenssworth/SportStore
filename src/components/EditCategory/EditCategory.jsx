@@ -1,21 +1,20 @@
 import React, { useState } from 'react'
 import axios from 'axios'
 import './EditCategory.css'
-import Input from '../Input/Input' // Импортируем компонент Input
+import Input from '../Input/Input'
 
 function EditCategory({ onCategoryUpdated }) {
-	const [categoryId, setCategoryId] = useState('') // ID категории для редактирования
+	const [categoryId, setCategoryId] = useState('')
 	const [categoryData, setCategoryData] = useState({
 		id: '',
 		categoryName: '',
 		categoryDescription: '',
-	}) // Данные категории
-	const [isLoaded, setIsLoaded] = useState(false) // Флаг загрузки данных
-	const [loading, setLoading] = useState(false) // Флаг загрузки при отправке
-	const [error, setError] = useState(null) // Ошибка
-	const [showForm, setShowForm] = useState(false) // Управление отображением формы
+	})
+	const [isLoaded, setIsLoaded] = useState(false)
+	const [loading, setLoading] = useState(false)
+	const [error, setError] = useState(null)
+	const [showForm, setShowForm] = useState(false)
 
-	// Функция для загрузки данных категории
 	const loadCategoryData = async () => {
 		try {
 			setLoading(true)
@@ -24,7 +23,7 @@ function EditCategory({ onCategoryUpdated }) {
 			)
 			setCategoryData(response.data)
 			setIsLoaded(true)
-			setError(null) // Сброс ошибки
+			setError(null)
 		} catch (error) {
 			console.error('Error loading category data:', error)
 			setError('Не удалось загрузить данные категории.')
@@ -34,7 +33,6 @@ function EditCategory({ onCategoryUpdated }) {
 		}
 	}
 
-	// Функция для обработки изменения формы
 	const handleChange = event => {
 		const { name, value } = event.target
 		setCategoryData(prevData => ({
@@ -43,7 +41,6 @@ function EditCategory({ onCategoryUpdated }) {
 		}))
 	}
 
-	// Функция для отправки измененных данных
 	const handleSubmit = async event => {
 		event.preventDefault()
 		try {
@@ -53,9 +50,10 @@ function EditCategory({ onCategoryUpdated }) {
 				categoryData
 			)
 			onCategoryUpdated(response.data)
-			alert('Category updated successfully')
-			setError(null) // Сброс ошибки
-			setShowForm(false) // Закрыть форму после успешного обновления
+			setError(null)
+			setShowForm(false)
+			setIsLoaded(false)
+			setCategoryId('')
 		} catch (error) {
 			console.error('Error updating category:', error)
 			setError('Не удалось обновить категорию.')

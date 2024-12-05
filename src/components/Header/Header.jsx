@@ -2,12 +2,13 @@ import React from 'react'
 import Input from '../Input/Input'
 import Menu from '../Menu/Menu'
 import './Header.css'
+import LogoImage from '../../assets/logo.png'
 
 function Header({ searchTerm, onSearchChange, onLoginClick }) {
 	return (
 		<header>
 			<div className='header-logo'>
-				<img src='./src/assets/logo.png' alt='' />
+				<img src={LogoImage} alt='' />
 				{/* <span>АСБЕСТ</span> */}
 			</div>
 			<div className='header-container__input'>

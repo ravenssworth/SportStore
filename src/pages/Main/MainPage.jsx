@@ -6,6 +6,7 @@ import useProducts from '../../hooks/useProducts'
 import LoginModal from '../../components/LoginModal/LoginModal.jsx'
 import Pagination from '../../components/Pagination/Pagination.jsx'
 import Directory from '../../components/Directory/Directory.jsx'
+import MainImage from '../../assets/main.jpg'
 
 function MainPage() {
 	const {
@@ -69,13 +70,11 @@ function MainPage() {
 				onSearchChange={setSearchTerm}
 				onLoginClick={handleOpenLoginModal}
 			/>
-			<img className='main__image' src='./src/assets/main.jpg' alt='' />
-			{loading ? (
-				<p>Загрузка...</p>
-			) : error ? (
-				<p>{error}</p>
-			) : (
+			{loading && <p>Загрузка...</p>}
+			{error && <p>{error}</p>}
+			{!loading && !error && (
 				<div className='main__container'>
+					<img src={MainImage} alt='Main' className='main__container__image' />
 					<Directory
 						onCategorySelect={handleCategorySelect}
 						selectedCategory={selectedCategory}
