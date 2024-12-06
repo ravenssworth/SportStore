@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './MainPage.css'
 import Goods from '../../components/Goods/Goods.jsx'
 import Header from '../../components/Header/Header.jsx'
@@ -83,6 +83,10 @@ function MainPage() {
 			prevIndex => (prevIndex - 1 + images.length) % images.length
 		)
 	}
+
+	useEffect(() => {
+		scrollToGoods()
+	}, [searchTerm, selectedCategory])
 
 	return (
 		<div className='main'>

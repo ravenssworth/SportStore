@@ -11,14 +11,14 @@ header {
 }
 .header-container__input {
 	position: absolute;
-	width: 400px;
-	left: 45%;
+	width: 500px;
+	left: 50%;
+	transform: translateX(-50%);
 }
 
 .header-container__menu {
 	margin: auto 40px auto auto;
 	width: 300px;
-	height: 30%;
 }
 
 .header-logo {
@@ -38,4 +38,107 @@ header {
 	padding: 5px;
 	width: 80px;
 	height: 80px;
+}
+
+.search-results {
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
+	top: 100px;
+	width: 100%;
+	max-width: 500px;
+	background-color: #faf9f8;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+	overflow-y: auto;
+	max-height: 200px;
+	padding: 5px 0;
+	border-bottom-left-radius: 8px;
+	border-bottom-right-radius: 8px;
+}
+
+.search-results ul {
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+}
+
+.search-results__item {
+	display: flex;
+	align-items: center;
+	border-bottom: 1px solid #eee;
+	padding: 10px;
+	gap: 10px;
+	transition: background-color 0.3s ease;
+}
+
+.search-results__item:hover {
+	background-color: #f4f4f4;
+}
+
+.search-results__item__link {
+	display: flex;
+	align-items: center;
+	text-decoration: none;
+	color: #333;
+	width: 100%;
+	gap: 10px;
+}
+
+.search-results__item__image {
+	width: 70px;
+	height: 70px;
+	object-fit: cover;
+	border-radius: 5px;
+}
+
+.search-results__item__info {
+	display: flex;
+	flex-direction: column;
+	gap: 5px;
+}
+
+.search-results__item__info__name {
+	font-size: 20px;
+	font-weight: 500;
+	color: #333;
+}
+
+.search-results__item__info__price {
+	font-size: 18px;
+	font-weight: bold;
+	color: #007bff;
+}
+
+.search-results__item-out-of-stock {
+	display: flex;
+	align-items: center;
+	border-bottom: 1px solid #eee;
+	padding: 10px;
+	gap: 10px;
+	opacity: 0.5;
+}
+
+.search-results__item__link-out-of-stock {
+	display: flex;
+	align-items: center;
+	text-decoration: none;
+	color: #333;
+	width: 100%;
+	gap: 10px;
+	pointer-events: none;
+	cursor: not-allowed;
+}
+
+.search-results__item__image-out-of-stock {
+	width: 70px;
+	height: 70px;
+	object-fit: cover;
+	border-radius: 5px;
+	filter: grayscale(100%);
+}
+
+.search-results__item__info__price-out-of-stock {
+	font-size: 18px;
+	font-weight: bold;
+	color: #a9a9a9;
 }

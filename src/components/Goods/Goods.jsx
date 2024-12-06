@@ -12,7 +12,7 @@ function Goods({ products, productImages }) {
 					'http://localhost:8080/api/discounts/all',
 					{}
 				)
-				setDiscounts(response.data.content) // Сохраняем скидки в состояние
+				setDiscounts(response.data.content)
 			} catch (error) {
 				console.error('Не удалось получить скидки:', error)
 			}
@@ -54,20 +54,20 @@ function Goods({ products, productImages }) {
 									<span>Изображение отсутствует</span>
 								)}
 							</div>
-							{product.stock > 0 ? (
-								<div className='goods-container__goods-item__container'>
-									<div className='goods-container__goods-item__name'>
-										<span>{product.productName}</span>
-									</div>
-									<div className='goods-container__goods-item__price'>
-										<span>{product.price}Р</span>
-									</div>
+							<div className='goods-container__goods-item__container'>
+								<div className='goods-container__goods-item__name'>
+									<span>{product.productName}</span>
 								</div>
-							) : (
-								<span className='goods-container__goods-item__no-stock'>
-									Нет в наличии
-								</span>
-							)}
+								<div
+									className={
+										product.stock > 0
+											? 'goods-container__goods-item__price'
+											: 'goods-container__goods-item__price-out-of-stock'
+									}
+								>
+									{product.stock > 0 ? `${product.price}Р` : 'Нет в наличии'}
+								</div>
+							</div>
 						</a>
 					)
 				})}
