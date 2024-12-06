@@ -9,7 +9,7 @@ function Header({ searchTerm, onSearchChange, onLoginClick }) {
 		<header>
 			<div className='header-logo'>
 				<img src={LogoImage} alt='' />
-				{/* <span>АСБЕСТ</span> */}
+				<span>ВЕРШИНА СПОРТА</span>
 			</div>
 			<div className='header-container__input'>
 				<Input

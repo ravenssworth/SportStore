@@ -9,20 +9,119 @@ body {
 	min-height: 100vh;
 }
 .main__container {
-	width: 85%;
+	width: 1900px;
 	margin: auto;
 	margin-top: 100px;
 	display: flex;
 	flex-direction: column;
 }
 
-.main__image-container {
+.main__container__image-container {
 	display: flex;
-	justify-content: center;
-	align-items: center;
+	flex-direction: row;
+	position: relative;
 }
 
-.main__container__image {
+.arrow {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	cursor: pointer;
+}
+
+.arrow.left {
+	left: 10px;
+}
+
+.arrow.right {
+	right: 10px;
+}
+
+.main__container__image-container__image {
 	border-radius: 8px;
 	width: 100%;
+}
+
+.main__container__image-container__indicators {
+	display: flex;
+	justify-content: center;
+	gap: 8px;
+	position: absolute;
+	bottom: 20px;
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+.main__container__image-container__indicators__indicator {
+	width: 12px;
+	height: 12px;
+	border-radius: 50%;
+	background-color: #ccc;
+	transition: background-color 0.3s;
+}
+
+.main__container__image-container__indicators__indicator.active {
+	background-color: #86cfff;
+}
+
+.main__container__image-container__overlay {
+	position: absolute;
+	display: flex;
+	top: 135px;
+	left: 200px;
+	flex-direction: column;
+	color: #faf9f8;
+}
+
+.main__container__image-container__overlay__content.first {
+	margin-left: 80px;
+}
+
+.main__container__image-container__overlay__content.second {
+	position: relative;
+	bottom: 100px;
+	right: 50px;
+}
+
+.main__container__image-container__overlay__content {
+	text-align: left;
+}
+
+.main__container__image-container__overlay__content h1 {
+	font-size: 75px;
+	margin: 25px 0 20px 0;
+	line-height: 0.8;
+}
+
+.main__container__image-container__overlay__content span {
+	background-color: #df6060;
+	border-radius: 5px;
+	padding: 0.5em 1em;
+	text-align: left;
+	color: #faf9f8;
+	font-size: 18px;
+	vertical-align: middle;
+}
+
+.main__container__image-container__overlay__content.second span {
+	font-size: 35px;
+	padding: 0.2em;
+}
+
+.main__container__image-container__overlay__content button {
+	padding: 1em 2em;
+	font-size: 20px;
+	border-radius: 5px;
+	cursor: pointer;
+	border: none;
+	background-color: #86cfff;
+	color: #494646;
+	transition: 0.3s all;
+}
+
+.main__container__image-container__overlay__content button:hover {
+	background-color: #494646;
+	color: #f8f9fa;
+	border: none;
+	transition: 0.3s all;
 }
