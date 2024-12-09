@@ -182,6 +182,8 @@
 	visibility: visible;
 	opacity: 1;
 	transition: 0.3s all;
+	background-color: #494646;
+	color: #faf9f8;
 }
 
 .menu__list__login-modal {
@@ -222,6 +224,8 @@
 
 .menu__list__login-modal__login-button svg {
 	transition: all 0.3s ease-in;
+	width: 20px;
+	margin-right: 10px;
 }
 
 .menu__list__login-modal__login-button:hover svg {
@@ -241,9 +245,4 @@
 
 .menu__list__login-modal__login-button__text {
 	font-size: 20px;
-}
-
-.menu__list__login-modal__login-button svg {
-	width: 20px;
-	margin-right: 10px;
 }

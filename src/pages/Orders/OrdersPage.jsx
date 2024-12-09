@@ -5,6 +5,7 @@ import useOrders from '../../hooks/useOrders'
 import Menu from '../../components/Menu/Menu.jsx'
 import Pagination from '../../components/Pagination/Pagination.jsx'
 import axios from 'axios'
+import DefaultImage from '../../assets/logo.png'
 
 function OrdersPage(props) {
 	const { orders, loading, error, page, setPage, totalPages, size, setSize } =
@@ -21,7 +22,7 @@ function OrdersPage(props) {
 
 	const [review, setReview] = useState(null)
 	const [comment, setComment] = useState('')
-	const [rating, setRating] = useState('')
+	const [rating, setRating] = useState('1')
 
 	const handleSubmitReview = async productId => {
 		const userId = parseInt(localStorage.getItem('userId'))
@@ -44,8 +45,8 @@ function OrdersPage(props) {
 		}
 	}
 
-	const handleReviewClick = event => {
-		setReview(true)
+	const handleReviewClick = orderId => {
+		setReview(orderId)
 	}
 
 	const handleRatingChange = event => {
@@ -108,6 +109,9 @@ function OrdersPage(props) {
 	return (
 		<div className='orders-page'>
 			<div className='orders-page-header'>
+				<div className='header-logo'>
+					<img src={DefaultImage} alt='' />
+				</div>
 				<div className='orders-page-header__menu-container'>
 					<Menu />
 				</div>
@@ -144,7 +148,7 @@ function OrdersPage(props) {
 										{product.quantity} шт.
 									</div>
 								</div>
-								{review ? (
+								{review === order.id ? (
 									<div className='orders-page__order__info__review-input'>
 										<textarea
 											rows='4'
@@ -187,7 +191,7 @@ function OrdersPage(props) {
 								) : (
 									<button
 										className='orders-page__order__info__review-button'
-										onClick={handleReviewClick}
+										onClick={() => handleReviewClick(order.id)}
 									>
 										Оставить отзыв
 									</button>

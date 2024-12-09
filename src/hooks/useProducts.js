@@ -7,13 +7,39 @@ const useProducts = (
 	initialCategory = null
 ) => {
 	const [products, setProducts] = useState([])
+	const [allProducts, setAllProducts] = useState([])
 	const [loading, setLoading] = useState(true)
 	const [error, setError] = useState(null)
 	const [productImages, setProductImages] = useState({})
 	const [page, setPage] = useState(initialPage)
 	const [size, setSize] = useState(initialSize)
-	const [totalPages, setTotalPages] = useState(1) // Количество страниц
-	const [category, setCategory] = useState(initialCategory) // Текущая категория
+	const [totalPages, setTotalPages] = useState(1)
+	const [category, setCategory] = useState(initialCategory)
+
+	const fetchAllProducts = async () => {
+		try {
+			const response = await axios.post(
+				'http://localhost:8080/api/products/all',
+				{}
+			)
+			const products = response.data.content
+
+			const imageResponses = await Promise.all(
+				products.map(product =>
+					axios.get(`http://localhost:8080/api/images/all?id=${product.id}`)
+				)
+			)
+
+			const productsWithImages = products.map((product, index) => ({
+				...product,
+				image: imageResponses[index]?.data?.content?.[0]?.image || null,
+			}))
+
+			setAllProducts(productsWithImages)
+		} catch (error) {
+			console.error('Error fetching products:', error)
+		}
+	}
 
 	const fetchProducts = async (page, size, category) => {
 		setLoading(true)
@@ -31,9 +57,8 @@ const useProducts = (
 				}
 			)
 			setProducts(response.data.content)
-			setTotalPages(response.data.totalPages) // Обновляем общее количество страниц
+			setTotalPages(response.data.totalPages)
 
-			// Получение изображений для всех продуктов
 			const imageResponses = await Promise.all(
 				response.data.content.map(product =>
 					axios.get(`http://localhost:8080/api/images/all?id=${product.id}`)
@@ -76,10 +101,11 @@ const useProducts = (
 
 	useEffect(() => {
 		fetchProducts(page, size, category)
-	}, [page, size, category]) // Запрос обновляется при изменении категории, страницы или размера
+	}, [page, size, category])
 
 	return {
 		products,
+		allProducts,
 		productImages,
 		loading,
 		error,
@@ -88,10 +114,11 @@ const useProducts = (
 		size,
 		setSize,
 		totalPages,
-		setCategory, // Возвращаем setter для категории
+		setCategory,
 		setProducts,
 		searchProductById,
 		fetchProducts,
+		fetchAllProducts,
 	}
 }
 

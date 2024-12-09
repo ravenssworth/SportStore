@@ -5,12 +5,16 @@ import './ProductInfoPage.css'
 import Menu from '../../components/Menu/Menu.jsx'
 import useProducts from '../../hooks/useProducts'
 import LoginModal from '../../components/LoginModal/LoginModal.jsx'
+import Pagination from '../../components/Pagination/Pagination.jsx'
+import DefaultImage from '../../assets/logo.png'
+import DeleteButton from '../../components/DeleteButton/DeleteButton.jsx'
 
 function ProductInfoPage() {
 	const [reviews, setReviews] = useState([])
 	const [loadingReviews, setLoadingReviews] = useState(true)
 	const [page, setPage] = useState(0)
-	const [size, setSize] = useState(10)
+	const [size, setSize] = useState(5)
+	const [totalPages, setTotalPages] = useState(1)
 
 	const { id } = useParams()
 	const { products, productImages } = useProducts()
@@ -21,6 +25,10 @@ function ProductInfoPage() {
 
 	const [isLoginModalOpen, setIsLoginModalOpen] = useState(false)
 
+	const rolesString = localStorage.getItem('roles')
+
+	const isAdmin = rolesString?.includes('ROLE_ADMIN')
+
 	const handleOpenLoginModal = () => {
 		setIsLoginModalOpen(true)
 	}
@@ -29,7 +37,6 @@ function ProductInfoPage() {
 
 	const images = productImages[product?.id] || []
 
-	// Установить большое изображение на первое, если оно ещё не установлено
 	if (!largeImage && images.length > 0) {
 		setLargeImage(images[0]?.src)
 	}
@@ -65,8 +72,6 @@ function ProductInfoPage() {
 
 		const cartId = cartData.data.id
 
-		console.log(cartData.data.cartItems)
-
 		await axios.post(
 			`http://localhost:8080/api/cart/addProduct?cartId=${cartId}&productId=${product?.id}`
 		)
@@ -83,7 +88,7 @@ function ProductInfoPage() {
 					}
 				)
 				setReviews(response.data.content)
-				console.log(response.data.content)
+				setTotalPages(response.data.totalPages)
 			} catch (error) {
 				console.error('Ошибка при загрузке отзывов:', error)
 			} finally {
@@ -93,6 +98,38 @@ function ProductInfoPage() {
 
 		fetchReviews()
 	}, [page, size])
+
+	const handleNextPage = () => {
+		if (page < totalPages - 1) {
+			setPage(page + 1)
+		}
+	}
+
+	const handlePreviousPage = () => {
+		if (page > 0) {
+			setPage(page - 1)
+		}
+	}
+
+	const handlePageSizeChange = event => {
+		setSize(parseInt(event.target.value))
+		setPage(0)
+	}
+
+	const handleSearchTermChange = term => {
+		setSearchTerm(term)
+	}
+
+	const handleDeleteReview = async reviewId => {
+		try {
+			await axios.delete(`http://localhost:8080/api/reviews/${reviewId}`)
+			setReviews(prevReviews =>
+				prevReviews.filter(review => review.id !== reviewId)
+			)
+		} catch (error) {
+			console.error('Ошибка при удалении отзыва:', error)
+		}
+	}
 
 	const renderReviews = () => {
 		if (loadingReviews) {
@@ -107,9 +144,16 @@ function ProductInfoPage() {
 			<div key={review.id} className='product-info__info__reviews__review'>
 				<div className='product-info__info__reviews__review__user-rating'>
 					<span id='username'>{review.userReadDTO.username}</span>
-					<span id='rating'>{review.rating}</span>
+					<span id='rating' className={`rating-${review.rating}`}>
+						{review.rating}
+					</span>
 				</div>
-				<span id='comment'>{review.comment}</span>
+				<div className='product-info__info__reviews__review__comment'>
+					<span id='comment'>{review.comment}</span>
+					{isAdmin && (
+						<DeleteButton onClick={() => handleDeleteReview(review.id)} />
+					)}
+				</div>
 			</div>
 		))
 	}
@@ -117,6 +161,9 @@ function ProductInfoPage() {
 	return (
 		<div className='product-info'>
 			<div className='product-info__header'>
+				<div className='header-logo'>
+					<img src={DefaultImage} alt='' />
+				</div>
 				<div className='product-info__menu'>
 					<Menu onLoginClick={handleOpenLoginModal} />
 				</div>
@@ -164,26 +211,38 @@ function ProductInfoPage() {
 						<p className='product-info__info__container__quantity'>
 							{product?.quantity}
 						</p>
+						{isProductInCart ? (
+							<button
+								className='product-info__info__button-cart-added'
+								disabled={isProductInCart}
+							>
+								В корзине
+							</button>
+						) : (
+							<button
+								className='product-info__info__button-cart'
+								onClick={handleAddProductToCart}
+								disabled={isProductInCart}
+							>
+								В корзину
+							</button>
+						)}
 					</div>
-					{isProductInCart ? (
-						<button
-							className='product-info__info__button-cart-added'
-							disabled={isProductInCart}
-						>
-							В корзине
-						</button>
-					) : (
-						<button
-							className='product-info__info__button-cart'
-							onClick={handleAddProductToCart}
-							disabled={isProductInCart}
-						>
-							В корзину
-						</button>
-					)}
 					<div className='product-info__info__reviews'>
 						<span className='product-info__info__reviews__title'>Отзывы</span>
 						{renderReviews()}
+						{reviews.length > 0 && (
+							<div className='orders-list-container__modal__content__pagination'>
+								<Pagination
+									page={page}
+									totalPages={totalPages}
+									onPreviousPage={handlePreviousPage}
+									onNextPage={handleNextPage}
+									pageSize={size}
+									onPageSizeChange={handlePageSizeChange}
+								/>
+							</div>
+						)}
 					</div>
 				</div>
 			</div>

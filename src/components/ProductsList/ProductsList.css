@@ -64,7 +64,13 @@
 	display: none;
 }
 
-.products-list-container label {
+.products-list-container input[type='submit'] {
+	display: none;
+}
+
+.products-list-container__actions-container button,
+.products-list-container__actions-container label,
+.products-list-container__modal-overlay__content__close-button {
 	width: 50px;
 	height: 50px;
 	display: flex;
@@ -80,12 +86,13 @@
 	overflow: hidden;
 }
 
-.products-list-container .actions-container__file-input:hover {
+.products-list-container .actions-container__file-input:hover,
+.products-list-container .actions-container__add-discount-button:hover {
 	background-color: rgb(136, 197, 100);
 	overflow: visible;
 }
 
-.products-list-container .actions-container__delete-label:hover {
+.products-list-container .actions-container__delete-button:hover {
 	background-color: rgb(197, 100, 100);
 	overflow: visible;
 }
@@ -93,13 +100,107 @@
 .bin path {
 	transition: all 0.2s;
 }
-.products-list-container label:hover .bin path {
+
+.products-list-container button:hover svg path {
 	stroke: #fff;
 }
-.products-list-container label:active {
+
+.products-list-container .actions-container__file-input:hover svg path {
+	stroke: #fff;
+}
+.products-list-container button:active {
 	transform: scale(0.98);
 }
 
 input#images-delete {
 	display: none;
+}
+
+.products-list-container__modal-overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.5);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	z-index: 1000;
+}
+
+.products-list-container__modal-overlay__content {
+	background: #faf9f8;
+	padding: 20px;
+	border-radius: 8px;
+	max-width: 630px;
+	width: 100%;
+}
+
+.products-list-container__modal-overlay__content__header h2 {
+	color: #ccc;
+}
+
+.products-list-container__modal-overlay__content__close-button {
+	display: block;
+	margin-left: auto;
+}
+
+.products-list-container__modal-overlay__content__input-button {
+	display: flex;
+}
+
+.products-list-container__modal-overlay__content__input-button__input {
+	display: flex;
+	flex-direction: column;
+	width: 50%;
+}
+.products-list-container__modal-overlay__content__input span {
+	margin-bottom: 5px;
+}
+
+.products-list-container__modal-overlay__content__input-button__add-button {
+	border-radius: 5px;
+	background-color: #faf9f8;
+	color: #494646;
+	padding: 1em 2em;
+	font-size: 17px;
+	border: 1px solid #494646;
+	cursor: pointer;
+	transition: all 0.2s;
+	width: 250px;
+	height: 50px;
+	margin-top: auto;
+	margin-left: auto;
+}
+
+.products-list-container__modal-overlay__content__input-button__date {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.products-list-container__modal-overlay__content__input-button__date span {
+	font-size: 20px;
+}
+
+.products-list-container__modal-overlay__content__input-button__date input {
+	width: 50%;
+	border-radius: 5px;
+	background-color: #faf9f8;
+	color: #494646;
+	border: 1px solid #494646;
+	padding: 5px;
+	font-size: 18px;
+}
+
+.products-list-container__modal-overlay__content__add-button:hover {
+	background-color: #494646;
+	color: #faf9f8;
+	transition: all 0.2s;
+}
+
+.products-list-container__modal-overlay__content__header {
+	display: flex;
 }

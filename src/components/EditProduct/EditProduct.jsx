@@ -57,9 +57,7 @@ function EditProduct({ categories, onProductUpdated }) {
 		}))
 	}
 
-	const handleSubmit = async event => {
-		event.preventDefault()
-
+	const handleSubmit = async () => {
 		try {
 			const editProduct = {
 				productName: productData.productName, // Использование productData.productName
@@ -100,7 +98,7 @@ function EditProduct({ categories, onProductUpdated }) {
 			}
 		>
 			{showForm ? (
-				<form onSubmit={handleSubmit}>
+				<div>
 					<div className='edit-product-container'>
 						<Input
 							id='text'
@@ -200,9 +198,11 @@ function EditProduct({ categories, onProductUpdated }) {
 								<button
 									type='submit'
 									disabled={loading}
-									onClick={() => {
-										setProductId('')
+									onClick={async () => {
+										await handleSubmit()
 										setIsLoaded(false)
+										setShowForm(false)
+										setProductId('')
 									}}
 								>
 									{loading ? 'Сохранение...' : 'Сохранить изменения'}
@@ -221,7 +221,7 @@ function EditProduct({ categories, onProductUpdated }) {
 							</div>
 						</>
 					)}
-				</form>
+				</div>
 			) : (
 				<button onClick={handleEditProduct} className='edit-product__button'>
 					<svg className='edit-product-svgIcon' viewBox='0 0 512 512'>
