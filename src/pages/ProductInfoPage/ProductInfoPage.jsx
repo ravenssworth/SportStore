@@ -10,17 +10,16 @@ import DefaultImage from '../../assets/logo.png'
 import DeleteButton from '../../components/DeleteButton/DeleteButton.jsx'
 
 function ProductInfoPage() {
+	const { id } = useParams()
+	const { products, productImages } = useProducts()
 	const [reviews, setReviews] = useState([])
 	const [loadingReviews, setLoadingReviews] = useState(true)
 	const [page, setPage] = useState(0)
 	const [size, setSize] = useState(5)
 	const [totalPages, setTotalPages] = useState(1)
-
-	const { id } = useParams()
-	console.log(id)
-	const { products, productImages } = useProducts()
 	const [largeImage, setLargeImage] = useState(null)
 	const [isProductInCart, setIsProductInCart] = useState(false)
+	const [averageRating, setAverageRating] = useState(0)
 
 	const product = products.find(prod => prod.id === parseInt(id))
 
@@ -55,9 +54,6 @@ function ProductInfoPage() {
 				item => item.product.id === product?.id
 			)
 
-			console.log(cartItems)
-			console.log(productInCart)
-
 			setIsProductInCart(productInCart)
 		}
 
@@ -82,14 +78,33 @@ function ProductInfoPage() {
 	useEffect(() => {
 		const fetchReviews = async () => {
 			try {
+				const response1 = await axios.post(
+					`http://localhost:8080/api/reviews/all`,
+					{
+						productId: id,
+					}
+				)
 				const response = await axios.post(
 					`http://localhost:8080/api/reviews/all?page=${page}&size=${size}&sort=id`,
 					{
 						productId: id,
 					}
 				)
+				console.log(averageRating)
+
 				setReviews(response.data.content)
 				setTotalPages(response.data.totalPages)
+
+				if (response1.data.content.length > 0) {
+					const totalRating = response1.data.content.reduce(
+						(sum, review) => sum + review.rating,
+						0
+					)
+					const avgRating = totalRating / response1.data.content.length
+					setAverageRating(avgRating)
+				} else {
+					setAverageRating(0)
+				}
 			} catch (error) {
 				console.error('Ошибка при загрузке отзывов:', error)
 			} finally {
@@ -99,7 +114,6 @@ function ProductInfoPage() {
 
 		fetchReviews()
 	}, [page, size])
-	console.log(reviews)
 
 	const handleNextPage = () => {
 		if (page < totalPages - 1) {
@@ -116,10 +130,6 @@ function ProductInfoPage() {
 	const handlePageSizeChange = event => {
 		setSize(parseInt(event.target.value))
 		setPage(0)
-	}
-
-	const handleSearchTermChange = term => {
-		setSearchTerm(term)
 	}
 
 	const handleDeleteReview = async reviewId => {
@@ -203,7 +213,33 @@ function ProductInfoPage() {
 					</div>
 				</div>
 				<div className='product-info__info'>
-					<p className='product-info__info__name'>{product?.productName}</p>
+					{averageRating > 0 ? (
+						<div className='product-info__info-header'>
+							<span id='name' className='product-info__info__header__name'>
+								{product?.productName}
+							</span>
+							<div className='product-info__info__header__rating'>
+								<svg
+									width='25px'
+									height='25px'
+									viewBox='0 -0.5 32 32'
+									fill='none'
+									xmlns='http://www.w3.org/2000/svg'
+								>
+									<path
+										d='M16.0005 0L21.4392 9.27275L32.0005 11.5439L24.8005 19.5459L25.889 30.2222L16.0005 25.895L6.11194 30.2222L7.20049 19.5459L0.000488281 11.5439L10.5618 9.27275L16.0005 0Z'
+										fill='#FFCB45'
+									/>
+								</svg>
+								<span> {averageRating}</span>
+							</div>
+						</div>
+					) : (
+						<span id='name' className='product-info__info__header__name'>
+							{product?.productName}
+						</span>
+					)}
+
 					<div className='product-info__info__container'>
 						<p className='product-info__info__container__description'>
 							{product?.productDescription}
