@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import Input from '../Input/Input'
 import Menu from '../Menu/Menu'
 import './Header.css'
-import LogoImage from '../../assets/logo.png'
+import LogoImage from '../../assets/logo.jpg'
 import useProducts from '../../hooks/useProducts'
 
 function Header({ onLoginClick }) {
@@ -33,7 +33,7 @@ function Header({ onLoginClick }) {
 	return (
 		<header>
 			<div className='header-logo'>
-				<img src={LogoImage} alt='' />
+				<img className='header-logo__image' src={LogoImage} alt='' />
 				<span>ВЕРШИНА СПОРТА</span>
 			</div>
 			<div className='header-container__input'>

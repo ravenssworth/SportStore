@@ -17,6 +17,7 @@ function ProductInfoPage() {
 	const [totalPages, setTotalPages] = useState(1)
 
 	const { id } = useParams()
+	console.log(id)
 	const { products, productImages } = useProducts()
 	const [largeImage, setLargeImage] = useState(null)
 	const [isProductInCart, setIsProductInCart] = useState(false)
@@ -84,7 +85,7 @@ function ProductInfoPage() {
 				const response = await axios.post(
 					`http://localhost:8080/api/reviews/all?page=${page}&size=${size}&sort=id`,
 					{
-						productId: product?.id,
+						productId: id,
 					}
 				)
 				setReviews(response.data.content)
@@ -98,6 +99,7 @@ function ProductInfoPage() {
 
 		fetchReviews()
 	}, [page, size])
+	console.log(reviews)
 
 	const handleNextPage = () => {
 		if (page < totalPages - 1) {
@@ -147,6 +149,7 @@ function ProductInfoPage() {
 					<span id='rating' className={`rating-${review.rating}`}>
 						{review.rating}
 					</span>
+					<span id='date'>{review.createdDate.slice(0, 10)}</span>
 				</div>
 				<div className='product-info__info__reviews__review__comment'>
 					<span id='comment'>{review.comment}</span>

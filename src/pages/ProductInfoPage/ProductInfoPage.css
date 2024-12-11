@@ -128,10 +128,14 @@
 	display: flex;
 }
 
+.product-info__info__reviews__review span#username {
+	font-size: 28px;
+}
+
 .product-info__info__reviews__review span#comment {
 	text-align: left;
-	font-size: 18px;
-	color: #ccc;
+	font-size: 20px;
+	color: #494646;
 	margin: auto 0;
 	margin-right: 5px;
 	max-width: 650px;
@@ -139,8 +143,7 @@
 
 .product-info__info__reviews__review__user-rating span#rating {
 	border-radius: 5px;
-
-	padding: 2px 5px;
+	padding: 2px 8px;
 	margin: 0 5px 0 5px;
 }
 .rating-1 {
@@ -166,4 +169,11 @@
 .rating-5 {
 	background-color: #66df6a;
 	color: #faf9f8;
+}
+
+.product-info__info__reviews__review span#date {
+	color: #ccc;
+	font-size: 18px;
+	margin: auto 0;
+	margin-left: 5px;
 }

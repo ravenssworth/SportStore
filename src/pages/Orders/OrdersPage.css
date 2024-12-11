@@ -1,6 +1,5 @@
 .orders-page {
 	display: flex;
-	align-items: center;
 	flex-direction: column;
 	min-height: 100vh;
 }
@@ -16,9 +15,15 @@
 	margin-left: auto;
 }
 
+.orders-page__orders-container {
+	margin: 0 auto;
+	width: 1500px;
+}
+
 .orders-page__order {
-	width: 50%;
+	width: 100%;
 	display: flex;
+	flex-wrap: wrap;
 	flex-direction: column;
 	padding-bottom: 35px;
 }
@@ -35,7 +40,7 @@
 	padding: 5px;
 }
 
-.orders-page__order__header__price {
+.orders-page__order__header__status {
 	background-color: #ccc;
 	padding: 5px;
 	border-radius: 5px;
@@ -45,14 +50,15 @@
 
 .orders-page__order__info {
 	display: flex;
+	flex-wrap: wrap;
 }
 
 .orders-page__order__products {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
-	margin-right: 15px;
-	width: 100%;
+	margin: 0 15px 15px 0;
+	width: 30%;
 }
 
 .orders-page__order__products__container {
@@ -72,6 +78,8 @@
 	font-size: 20px;
 	margin-bottom: 5px;
 	color: #8d948e;
+	min-width: 100px;
+	max-width: 100px;
 }
 
 .orders-page__order__products__container__productQuantity {
@@ -85,14 +93,16 @@
 }
 
 .orders-page__order__info__review-input {
-	margin-left: auto;
+	background-color: #faf9f8;
+	z-index: 1;
+	height: 265px;
 }
 
 .orders-page__order__info__review-input textarea {
 	display: block;
 	margin-left: auto;
-	width: 400px;
-	height: 60px;
+	width: 440px;
+	height: 80px;
 	border-radius: 8px;
 	background-color: #faf9f8;
 	color: #494646;
@@ -119,7 +129,6 @@
 }
 
 .orders-page__order__info__review-button {
-	margin: auto 0 auto auto;
 	height: 60px;
 	width: 150px;
 	border-radius: 8px;

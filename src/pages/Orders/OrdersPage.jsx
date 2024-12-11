@@ -22,7 +22,16 @@ function OrdersPage(props) {
 
 	const [review, setReview] = useState(null)
 	const [comment, setComment] = useState('')
-	const [rating, setRating] = useState('1')
+	const [rating, setRating] = useState(1)
+
+	const statusTranslations = {
+		PENDING: 'В ожидании',
+		PROCESSING: 'В обработке',
+		SHIPPED: 'Отправлен',
+		DELIVERED: 'Доставлен',
+		CANCELED: 'Отменен',
+		REFUNDED: 'Возвращен',
+	}
 
 	const handleSubmitReview = async productId => {
 		const userId = parseInt(localStorage.getItem('userId'))
@@ -45,8 +54,8 @@ function OrdersPage(props) {
 		}
 	}
 
-	const handleReviewClick = orderId => {
-		setReview(orderId)
+	const handleReviewClick = (orderId, productId) => {
+		setReview({ orderId, productId })
 	}
 
 	const handleRatingChange = event => {
@@ -116,91 +125,99 @@ function OrdersPage(props) {
 					<Menu />
 				</div>
 			</div>
-			{orders.map((order, orderIndex) => (
-				<div className='orders-page__order' key={order.id}>
-					<div className='orders-page__order__header'>
-						<div className='orders-page__order__header__date'>
-							Заказ от {order.createdDate.slice(0, 10)} к оплате{' '}
-						</div>
-						<span className='orders-page__order__header__price'>
-							{order.totalPrice}Р
-						</span>
-					</div>
-					<div className='orders-page__order__info'>
-						{order.orderItems?.map((product, productIndex) => (
-							<div
-								className='orders-page__order__products'
-								key={`${product.id}-${orderIndex}-${productIndex}`}
-							>
-								{productImages[product.productReadDTO.id] &&
-									productImages[product.productReadDTO.id].length > 0 && (
-										<img
-											src={productImages[product.productReadDTO.id][0]?.src}
-											alt={product.productReadDTO.productName}
-											className='orders-page__order__products__productImage'
-										/>
-									)}
-								<div className='orders-page__order__products__container'>
-									<div className='orders-page__order__products__container__productName'>
-										{product.productReadDTO.productName}
-									</div>
-									<div className='orders-page__order__products__container__productQuantity'>
-										{product.quantity} шт.
-									</div>
-								</div>
-								{review === order.id ? (
-									<div className='orders-page__order__info__review-input'>
-										<textarea
-											rows='4'
-											placeholder='Ваш отзыв...'
-											onChange={handleCommentChange}
-											value={comment}
-										/>
-										<div className='orders-page__order__info__review-input__select'>
-											<span>Рейтинг</span>
-											<select
-												name='1'
-												id='1'
-												value={rating}
-												onChange={handleRatingChange}
-											>
-												<option value='1'>1</option>
-												<option value='2'>2</option>
-												<option value='3'>3</option>
-												<option value='4'>4</option>
-												<option value='5'>5</option>
-											</select>
-										</div>
-										<div className='orders-page__order__info__review-input__button-container'>
-											<button
-												className='orders-page__order__info__review-input__button-container__button'
-												onClick={() =>
-													handleSubmitReview(product.productReadDTO.id)
-												}
-											>
-												Отправить
-											</button>
-											<button
-												className='orders-page__order__info__review-input__button-container__button'
-												onClick={handleReviewCancel}
-											>
-												Отменить
-											</button>
-										</div>
-									</div>
-								) : (
-									<button
-										className='orders-page__order__info__review-button'
-										onClick={() => handleReviewClick(order.id)}
-									>
-										Оставить отзыв
-									</button>
-								)}
+			<div className='orders-page__orders-container'>
+				{orders.map((order, orderIndex) => (
+					<div className='orders-page__order' key={order.id}>
+						<div className='orders-page__order__header'>
+							<div className='orders-page__order__header__date'>
+								Заказ от {order.createdDate.slice(0, 10)} к оплате{' '}
+								{order.totalPrice}Р
 							</div>
-						))}
+							<span className='orders-page__order__header__status'>
+								{' '}
+								{statusTranslations[order.status]}
+							</span>
+						</div>
+						<div className='orders-page__order__info'>
+							{order.orderItems?.map((product, productIndex) => (
+								<div
+									className='orders-page__order__products'
+									key={`${product.id}-${orderIndex}-${productIndex}`}
+								>
+									{productImages[product.productReadDTO.id] &&
+										productImages[product.productReadDTO.id].length > 0 && (
+											<img
+												src={productImages[product.productReadDTO.id][0]?.src}
+												alt={product.productReadDTO.productName}
+												className='orders-page__order__products__productImage'
+											/>
+										)}
+									<div className='orders-page__order__products__container'>
+										<div className='orders-page__order__products__container__productName'>
+											{product.productReadDTO.productName}
+										</div>
+										<div className='orders-page__order__products__container__productQuantity'>
+											{product.quantity} шт.
+										</div>
+									</div>
+									{review?.orderId === order.id &&
+									review?.productId === product.productReadDTO.id ? (
+										<div className='orders-page__order__info__review-input'>
+											<textarea
+												rows='4'
+												placeholder='Ваш отзыв...'
+												onChange={handleCommentChange}
+												value={comment}
+											/>
+											<div className='orders-page__order__info__review-input__select'>
+												<span>Рейтинг</span>
+												<select
+													name='1'
+													id='1'
+													value={rating}
+													onChange={handleRatingChange}
+												>
+													<option value='1'>1</option>
+													<option value='2'>2</option>
+													<option value='3'>3</option>
+													<option value='4'>4</option>
+													<option value='5'>5</option>
+												</select>
+											</div>
+											<div className='orders-page__order__info__review-input__button-container'>
+												<button
+													className='orders-page__order__info__review-input__button-container__button'
+													onClick={() =>
+														handleSubmitReview(product.productReadDTO.id)
+													}
+												>
+													Отправить
+												</button>
+												<button
+													className='orders-page__order__info__review-input__button-container__button'
+													onClick={handleReviewCancel}
+												>
+													Отменить
+												</button>
+											</div>
+										</div>
+									) : (
+										<button
+											className='orders-page__order__info__review-button'
+											onClick={() =>
+												handleReviewClick(order.id, product.productReadDTO.id)
+											}
+										>
+											Оставить отзыв
+										</button>
+									)}
+								</div>
+							))}
+						</div>
 					</div>
-				</div>
-			))}
+				))}
+			</div>
+
 			<div className='orders-page__pagination'>
 				<Pagination
 					page={page}
