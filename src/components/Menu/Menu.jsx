@@ -23,7 +23,7 @@ function Menu({ onLoginClick }) {
 						method: 'GET',
 						headers: {
 							'Content-Type': 'application/json',
-							Authorization: `Bearer ${token}`, // Используем токен в заголовке Authorization
+							Authorization: `Bearer ${token}`,
 						},
 					})
 
@@ -45,7 +45,7 @@ function Menu({ onLoginClick }) {
 
 		checkUserRole()
 	}, [])
-	const storedId = localStorage.getItem('userId') // Получаем имя пользователя из localStorage
+	const storedId = localStorage.getItem('userId')
 
 	const handleGetCart = async event => {
 		const response = await axios.get(

@@ -10,9 +10,24 @@ header {
 	border-bottom-right-radius: 8px;
 }
 
-.header-logo__image {
-	border-radius: 8px;
+.header-logo {
+	display: flex;
 }
+
+.header-logo__image {
+	margin: auto;
+	margin-left: 15px;
+	width: 100px;
+	height: 100px;
+}
+
+.header-logo span {
+	margin: auto;
+	margin-left: 15px;
+	font-size: 26px;
+	color: #494646;
+}
+
 .header-container__input {
 	position: absolute;
 	width: 500px;
@@ -23,25 +38,6 @@ header {
 .header-container__menu {
 	margin: auto 40px auto auto;
 	width: 300px;
-}
-
-.header-logo {
-	display: flex;
-}
-
-.header-logo span {
-	margin: auto;
-	margin-left: 15px;
-	font-size: 30px;
-	color: #494646;
-}
-
-.header-logo img {
-	margin: auto;
-	margin-left: 15px;
-	padding: 5px;
-	width: 80px;
-	height: 80px;
 }
 
 .search-results {

@@ -92,8 +92,13 @@ function OrdersPage(props) {
 	if (orders.length === 0) {
 		return (
 			<div className='orders-page'>
-				<div className='orders-page-header'>
-					<div className='orders-page-header__menu-container'>
+				<div className='orders-page__header'>
+					<div className='orders-page__header__logo'>
+						<img src={DefaultImage} alt='' />
+						<span>ВЕРШИНА СПОРТА</span>
+					</div>
+
+					<div className='orders-page__header__menu-container'>
 						<Menu />
 					</div>
 				</div>
@@ -117,11 +122,14 @@ function OrdersPage(props) {
 
 	return (
 		<div className='orders-page'>
-			<div className='orders-page-header'>
-				<div className='header-logo'>
-					<img src={DefaultImage} alt='' />
+			<div className='orders-page__header'>
+				<div className='orders-page__header'>
+					<div className='orders-page__header__logo'>
+						<img src={DefaultImage} alt='' />
+						<span>ВЕРШИНА СПОРТА</span>
+					</div>
 				</div>
-				<div className='orders-page-header__menu-container'>
+				<div className='orders-page__header__menu-container'>
 					<Menu />
 				</div>
 			</div>

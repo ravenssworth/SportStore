@@ -8,6 +8,7 @@ import Pagination from '../../components/Pagination/Pagination.jsx'
 import Directory from '../../components/Directory/Directory.jsx'
 import MainImage1 from '../../assets/main.jpg'
 import MainImage2 from '../../assets/main2.jpg'
+import AI from '../../components/AI/AI.jsx'
 
 function MainPage() {
 	const {
@@ -188,6 +189,8 @@ function MainPage() {
 					onPageSizeChange={handlePageSizeChange}
 				/>
 			</div>
+
+			<AI />
 
 			<LoginModal isOpen={isLoginModalOpen} onClose={handleCloseLoginModal} />
 		</div>

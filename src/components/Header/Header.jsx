@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import Input from '../Input/Input'
 import Menu from '../Menu/Menu'
 import './Header.css'
-import LogoImage from '../../assets/logo.jpg'
+import LogoImage from '../../assets/logo.png'
 import useProducts from '../../hooks/useProducts'
 
 function Header({ onLoginClick }) {

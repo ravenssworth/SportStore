@@ -9,6 +9,24 @@
 	max-width: 1500px;
 }
 
+.product-info__header__logo {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.product-info__header__logo img {
+	margin-left: 15px;
+	width: 100px;
+	height: 100px;
+}
+
+.product-info__header__logo span {
+	margin-left: 15px;
+	font-size: 26px;
+	color: #494646;
+}
+
 .product-info__menu {
 	margin-right: 40px;
 	margin-left: auto;

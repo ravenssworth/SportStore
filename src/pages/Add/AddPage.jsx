@@ -37,11 +37,13 @@ function AddPage() {
 
 	return (
 		<div className='add-page'>
-			<div className='add-page-header'>
-				<div className='header-logo'>
+			<div className='add-page__header'>
+				<div className='add-page__header__logo'>
 					<img src={DefaultImage} alt='' />
+					<span>ВЕРШИНА СПОРТА</span>
 				</div>
-				<div className='add-page-header__menu-container'>
+
+				<div className='add-page__header__menu-container'>
 					<Menu />
 				</div>
 			</div>

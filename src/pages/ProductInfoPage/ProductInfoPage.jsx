@@ -174,8 +174,9 @@ function ProductInfoPage() {
 	return (
 		<div className='product-info'>
 			<div className='product-info__header'>
-				<div className='header-logo'>
+				<div className='product-info__header__logo'>
 					<img src={DefaultImage} alt='' />
+					<span>ВЕРШИНА СПОРТА</span>
 				</div>
 				<div className='product-info__menu'>
 					<Menu onLoginClick={handleOpenLoginModal} />
