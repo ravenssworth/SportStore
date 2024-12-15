@@ -81,9 +81,9 @@
 	align-items: center;
 	width: 85%;
 	margin: auto auto 8px auto;
-	background-color: #494646;
-	border: none;
-	color: #faf9f8;
+	background-color: #faf9f8;
+	color: #494646;
+	border: 1px solid #494646;
 	border-radius: 5px;
 	padding: 1em;
 	cursor: pointer;
@@ -98,16 +98,14 @@
 }
 
 .sidebar-cart__content__checkout-button:hover {
-	background-color: white;
-	color: #494646;
+	background-color: #494646;
+	color: #faf9f8;
 	transition: 0.3s all ease-out;
-	box-shadow: rgba(45, 35, 66, 0.2) 0 2px 4px,
-		rgba(45, 35, 66, 0.15) 0 7px 13px -3px, #d6d6e7 0 -3px 0 inset;
 }
 
 .sidebar-cart__content__checkout-button:hover
 	.sidebar-cart__content__checkout-button__svgIcon {
-	fill: #494646;
+	fill: #faf9f8;
 	transition: 0.3s all ease-out;
 }
 

@@ -17,6 +17,8 @@ function Menu({ onLoginClick }) {
 	useEffect(() => {
 		const checkUserRole = async () => {
 			const token = localStorage.getItem('token')
+			console.log(token)
+
 			if (token) {
 				try {
 					const response = await fetch('http://localhost:8080/api/users/role', {
@@ -30,7 +32,7 @@ function Menu({ onLoginClick }) {
 					if (response.ok) {
 						const roles = await response.json()
 						localStorage.setItem('roles', JSON.stringify(roles))
-						// Проверяем, есть ли роль ADMIN
+
 						if (roles.includes('ROLE_ADMIN')) {
 							setIsAdmin(true)
 						}

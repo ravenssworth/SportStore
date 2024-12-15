@@ -106,12 +106,27 @@
 	list-style-type: disc;
 }
 
-.ai__chat-container__chat-messages__message--ai h1,
-.ai__chat-container__chat-messages__message--ai h2,
+.ai__chat-container__chat-messages__message--ai h1 {
+	font-size: 35px;
+	color: #3e3e3e;
+}
+
+.ai__chat-container__chat-messages__message--ai h2 {
+	font-size: 30px;
+	color: #4e4e4e;
+}
+
 .ai__chat-container__chat-messages__message--ai h3 {
-	font-weight: bold;
-	color: #ccc;
+	font-size: 25px;
+	color: #5e5e5e;
 	margin: 0;
+}
+
+.ai__chat-container__chat-messages__message--ai h4 {
+	font-weight: bold;
+	color: #7e7e7e;
+	margin: 0;
+	font-size: 20px;
 }
 
 .ai__chat-container__chat-messages__message--ai a {

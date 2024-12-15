@@ -246,7 +246,7 @@ function ProductInfoPage() {
 							{product?.productDescription}
 						</p>
 						<p className='product-info__info__container__price'>
-							{product?.price}Р
+							{product?.price} Р
 						</p>
 						<p className='product-info__info__container__quantity'>
 							{product?.quantity}

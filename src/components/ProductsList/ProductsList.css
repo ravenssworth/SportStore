@@ -13,9 +13,9 @@
 }
 .products-list-container table th {
 	background-color: #494646;
-	padding: 15px 0;
+	padding: 15px;
 	color: #faf9f8;
-	min-width: 35px;
+	min-width: 45px;
 }
 .products-list-container table tr {
 	position: relative;
@@ -28,7 +28,16 @@
 }
 
 .products-list-container table td {
-	padding: 15px 0;
+	padding: 15px 5px;
+	max-width: 300px;
+	word-break: break-all;
+}
+
+.products-list-container table td#description {
+	word-break: none;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 
 .products-list-container table th:first-child {

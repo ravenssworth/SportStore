@@ -40,8 +40,7 @@
 }
 
 .product-info__info {
-	/* margin: 0 0 0 15px; */
-	text-align: center;
+	text-align: left;
 	display: flex;
 	flex-direction: column;
 }
@@ -122,10 +121,13 @@
 
 .product-info__info__container__description {
 	margin: 5px 0 5px 0;
+	font-size: 20px;
+	color: #ccc;
 }
 
 .product-info__info__container__price {
 	margin: 5px 0 5px 0;
+	font-size: 35px;
 }
 
 .product-info__info__button-cart-added {

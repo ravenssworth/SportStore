@@ -171,7 +171,7 @@ function ProductsList({ products, onDeleteProduct, searchedId }) {
 								<tr key={product.id}>
 									<td>{product.id}</td>
 									<td>{product.productName}</td>
-									<td>{product.productDescription}</td>
+									<td id='description'>{product.productDescription}</td>
 									<td>
 										{productDiscount ? (
 											<span>
