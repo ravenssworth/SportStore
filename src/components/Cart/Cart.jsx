@@ -5,15 +5,12 @@ import './Cart.css'
 
 function Cart({ show, closeCart, cart, onLoginClick }) {
 	const { productImages } = useProducts()
-
 	const [quantities, setQuantities] = useState({})
-
-	// Локальная копия корзины для рендеринга
 	const [localCartItems, setLocalCartItems] = useState([])
+	const [productStocks, setProductStocks] = useState({})
 
 	const token = localStorage.getItem('token')
 
-	// Инициализируем локальные количества при первом рендере
 	useEffect(() => {
 		const token = localStorage.getItem('token')
 		if (token === null) {
@@ -25,6 +22,18 @@ function Cart({ show, closeCart, cart, onLoginClick }) {
 			})
 			setQuantities(initialQuantities)
 			setLocalCartItems(cart.cartItems)
+
+			const fetchProductStocks = async () => {
+				const stocks = {}
+				for (const item of cart.cartItems) {
+					const response = await axios.get(
+						`http://localhost:8080/api/products/${item.product.id}`
+					)
+					stocks[item.product.id] = response.data.stock
+				}
+				setProductStocks(stocks)
+			}
+			fetchProductStocks()
 		}
 	}, [cart.cartItems])
 
@@ -48,13 +57,15 @@ function Cart({ show, closeCart, cart, onLoginClick }) {
 	}
 
 	const handleIncrease = async (event, productId) => {
-		await axios.post(
-			`http://localhost:8080/api/cart/addProduct?cartId=${cart.id}&productId=${productId}`
-		)
-		setQuantities({
-			...quantities,
-			[productId]: quantities[productId] + 1,
-		})
+		if (quantities[productId] < productStocks[productId]) {
+			await axios.post(
+				`http://localhost:8080/api/cart/addProduct?cartId=${cart.id}&productId=${productId}`
+			)
+			setQuantities({
+				...quantities,
+				[productId]: quantities[productId] + 1,
+			})
+		}
 	}
 
 	const handleOrder = async event => {
@@ -77,7 +88,6 @@ function Cart({ show, closeCart, cart, onLoginClick }) {
 		)
 
 		try {
-			// Создаем заказ
 			const orderResponse = await axios.post(
 				`http://localhost:8080/api/orders`,
 				{
